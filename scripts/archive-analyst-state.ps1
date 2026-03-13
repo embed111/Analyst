@@ -1,6 +1,6 @@
 ﻿param(
-    [int]$KeepSnapshotBlocks = 30,
-    [int]$KeepChangeLogBlocks = 20,
+    [int]$KeepSnapshotBlocks = 12,
+    [int]$KeepChangeLogBlocks = 12,
     [switch]$DryRun
 )
 
@@ -46,6 +46,67 @@ function Extract-DateFromHeading {
         return $Matches[1]
     }
     return ""
+}
+
+function Extract-TitleFromSessionHeading {
+    param([string]$Heading)
+    $normalized = ($Heading -replace "\s*<!--.+-->\s*$", "").Trim()
+    $marker = "）- "
+    $idx = $normalized.IndexOf($marker)
+    if ($idx -ge 0) {
+        return $normalized.Substring($idx + $marker.Length).Trim()
+    }
+    return $normalized
+}
+
+function Get-ArchiveDigestLines {
+    param(
+        [object[]]$MovedSections,
+        [string]$SourceLabel
+    )
+
+    $digest = New-Object System.Collections.Generic.List[string]
+
+    if ($SourceLabel -eq "workspace_state/core/session-snapshot.md") {
+        $groups = [ordered]@{}
+        foreach ($sec in $MovedSections) {
+            $heading = [string]$sec[0]
+            $date = Extract-DateFromHeading -Heading $heading
+            $title = Extract-TitleFromSessionHeading -Heading $heading
+            if (-not $groups.Contains($date)) {
+                $groups[$date] = New-Object System.Collections.Generic.List[string]
+            }
+            if (-not $groups[$date].Contains($title)) {
+                $groups[$date].Add($title)
+            }
+        }
+
+        foreach ($key in @($groups.Keys | Select-Object -Last 4)) {
+            $titles = @($groups[$key] | Select-Object -First 3)
+            $suffix = if ($groups[$key].Count -gt 3) { " 等 $($groups[$key].Count) 项" } else { "" }
+            $digest.Add(("{0}: {1}{2}" -f $key, ($titles -join "；"), $suffix))
+        }
+        return $digest
+    }
+
+    if ($SourceLabel -eq "user_profile/logs/thinking-patterns-change-log.md") {
+        $dateCounts = [ordered]@{}
+        foreach ($sec in $MovedSections) {
+            $heading = [string]$sec[0]
+            $date = Extract-DateFromHeading -Heading $heading
+            if (-not $dateCounts.Contains($date)) {
+                $dateCounts[$date] = 0
+            }
+            $dateCounts[$date] += 1
+        }
+
+        foreach ($key in @($dateCounts.Keys | Select-Object -Last 4)) {
+            $digest.Add(("{0}: 已归档 {1} 个日期块" -f $key, $dateCounts[$key]))
+        }
+        return $digest
+    }
+
+    return $digest
 }
 
 function Remove-ArchiveRefBlock {
@@ -165,6 +226,13 @@ function Archive-FileByBlocks {
     $newTop.Add("## 历史归档引用")
     $newTop.Add(("1. 已归档 {0} 个历史块到 `{1}`。" -f $movedSections.Count, $archiveRel))
     $newTop.Add(("2. 历史索引见 `{0}`。" -f $indexRel))
+    $digestLines = @(Get-ArchiveDigestLines -MovedSections $movedSections -SourceLabel $SourceLabel)
+    if ($digestLines.Count -gt 0) {
+        $newTop.Add("3. 最近归档摘要：")
+        foreach ($digestLine in $digestLines) {
+            $newTop.Add(("   - {0}" -f $digestLine))
+        }
+    }
     $newTop.Add("")
     foreach ($sec in $keptSections) {
         foreach ($line in $sec) {

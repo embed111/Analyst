@@ -10,3 +10,5 @@
 1. 2026-03-10 16:53:17 | workspace_state/core/session-snapshot.md | 2026-03-06 ~ 2026-03-06 | moved=21 | file=workspace_state\logs\session-history\session-history-2026-03-06-to-2026-03-06.md
 1. 2026-03-11 12:00:43 | workspace_state/core/session-snapshot.md | 2026-03-06 ~ 2026-03-06 | moved=21 | file=workspace_state\logs\session-history\session-history-2026-03-06-to-2026-03-06.md
 1. 2026-03-13 09:36:17 | workspace_state/core/session-snapshot.md | 2026-03-06 ~ 2026-03-09 | moved=23 | file=workspace_state\logs\session-history\session-history-2026-03-06-to-2026-03-09.md
+1. 2026-03-13 14:44:08 | workspace_state/core/session-snapshot.md | 2026-03-09 ~ 2026-03-11 | moved=21 | file=workspace_state\logs\session-history\session-history-2026-03-09-to-2026-03-11.md
+1. 2026-03-13 14:57:48 | workspace_state/core/session-snapshot.md | 2026-03-11 ~ 2026-03-13 | moved=19 | file=workspace_state\logs\session-history\session-history-2026-03-11-to-2026-03-13.md

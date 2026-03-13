@@ -146,6 +146,7 @@
 3. `user_profile/目录导读.md`
 4. `workspace_state/core/startup-checklist.md`
 5. `workspace_state/core/session-snapshot.md`
+   - 若顶部已包含“历史归档引用 / 最近归档摘要”，默认先依赖该摘要恢复归档背景；仅在摘要不足时再打开历史归档正文。
 6. `workspace_state/policies/preference-attribution-policy.md`
 7. `workspace_state/observations/external-input-observations.md`
 8. `user_profile/core/thinking-patterns-overview.md`

@@ -33,8 +33,8 @@ If user provides thresholds, use user values instead of defaults.
    - Directory: `workspace_state/logs/session-history/`
    - File pattern: `session-history-<yyyy-mm-dd>-to-<yyyy-mm-dd>.md`
 3. Keep top-level snapshot focused:
-   - Retain only recent key updates (default 10 items).
-   - Replace moved blocks with one-line summary + link.
+   - Retain only recent key updates (default 12 items).
+   - Replace moved blocks with archive link plus a compact latest-archive digest, so restart does not require opening history by default.
 4. Maintain index file:
    - `workspace_state/logs/session-history-index.md`
    - One line per archive: period, short summary, link.

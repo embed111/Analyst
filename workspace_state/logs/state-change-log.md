@@ -167,3 +167,30 @@
 6. 变更原因：
    - 用户明确要求不仅维护通用子角色，还要让其参与过程可见化、可复用，并更倾向用技能而不是每次临时说明。
 
+## 2026-03-13
+1. 新增 `session-snapshot` 尾部安全维护脚本：
+   - `scripts/append-session-snapshot-turn.ps1`
+   - 能力：将新的会话块以唯一尾部追加方式写入 `workspace_state/core/session-snapshot.md`，并自动更新 `最后更新` 与末尾检查语句。
+2. 新增 `session-snapshot` 尾部顺序修复脚本：
+   - `scripts/repair-session-snapshot-tail.ps1`
+   - 能力：识别带 `session-turn-id` 标记的新会话块，并在误插中段时自动重排到文件尾部。
+3. 动态维护脚本联动更新：
+   - `scripts/maintain-state-health.ps1` 在巡检前增加对 `session-snapshot` 尾部顺序修复的调用。
+4. 技能说明同步更新：
+   - `./.codex/skills/session-state-maintainer/SKILL.md` 明确会话快照新增块优先通过追加脚本写入，而不是依赖重复文本锚点补丁。
+5. 变更原因：
+   - `session-snapshot.md` 存在大量重复 `快照检查` 与重复日期标题；若继续依赖上下文匹配插入，新块容易被写入文件中段而不是文件尾部。
+6. 动态归档触发规则补强：
+   - `scripts/maintain-state-health.ps1` 新增按更新块数量触发归档的规则：
+     1. `workspace_state/core/session-snapshot.md` 更新块数 >= 35；
+     2. `user_profile/logs/thinking-patterns-change-log.md` 日期块数 >= 25。
+7. 变更原因补充：
+   - 仅依赖行数/体积阈值会导致“块数很多但单块较短”的状态文件持续膨胀，无法及时回收。
+8. 归档热恢复优化：
+   - `scripts/archive-analyst-state.ps1` 默认保留块数下调为：
+     1. `session-snapshot` 保留 12 块；
+     2. `thinking-patterns-change-log` 保留 12 个日期块。
+   - 顶层归档引用新增“最近归档摘要”，用于减少重启时对历史归档正文的依赖。
+9. 变更原因补充：
+   - 仅做历史搬运但顶层仍保留过多块，会导致“归档已发生，但恢复仍然慢”；需要同时压缩保留量并补摘要。
+

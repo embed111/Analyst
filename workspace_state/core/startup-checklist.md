@@ -10,6 +10,7 @@
 4. 读取 `user_profile/目录导读.md`，恢复 `user_profile/` 的目录入口与维护策略。
 5. 读取 `workspace_state/core/workspace-state-overview.md`，确认当前机制版本。
 6. 读取 `workspace_state/core/session-snapshot.md`，恢复上次会话状态。
+   - 若文件顶部存在“历史归档引用 / 最近归档摘要”，优先用该摘要恢复归档背景；仅在摘要不足以支撑当前任务时再打开对应历史归档正文。
 7. 读取 `workspace_state/policies/preference-attribution-policy.md`，确认偏好防污染规则。
 8. 读取 `workspace_state/observations/external-input-observations.md`，确认外部角色偏好与待归属事项。
 9. 读取 `user_profile/core/thinking-patterns-overview.md`，恢复用户思维模式上下文。

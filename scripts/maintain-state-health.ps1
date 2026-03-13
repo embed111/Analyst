@@ -3,6 +3,8 @@ param(
     [int]$ChangeLogLineThreshold = 500,
     [int]$SnapshotSizeKbThreshold = 120,
     [int]$ChangeLogSizeKbThreshold = 120,
+    [int]$SnapshotBlockThreshold = 35,
+    [int]$ChangeLogBlockThreshold = 25,
     [int]$ArchiveIdleDays = 14,
     [switch]$AutoArchive,
     [switch]$DryRun
@@ -30,7 +32,36 @@ function Get-LastArchiveDate {
     return $null
 }
 
+function Get-BlockCount {
+    param(
+        [string]$FilePath,
+        [string]$HeadingRegex
+    )
+
+    if ([string]::IsNullOrWhiteSpace($HeadingRegex)) {
+        return -1
+    }
+
+    $count = 0
+    foreach ($line in Get-Content -Path $FilePath) {
+        if ($line -match $HeadingRegex) {
+            $count++
+        }
+    }
+    return $count
+}
+
 $repoRoot = Get-RepoRoot
+$repairScript = Join-Path $repoRoot "scripts/repair-session-snapshot-tail.ps1"
+if (Test-Path $repairScript) {
+    if ($DryRun) {
+        & $repairScript -DryRun
+    }
+    else {
+        & $repairScript
+    }
+}
+
 $targets = @(
     @{
         Name = "session-snapshot"
@@ -38,6 +69,8 @@ $targets = @(
         IndexRel = "workspace_state/logs/session-history-index.md"
         LineThreshold = $SnapshotLineThreshold
         SizeThreshold = $SnapshotSizeKbThreshold
+        BlockThreshold = $SnapshotBlockThreshold
+        HeadingRegex = "^## 本轮更新"
     },
     @{
         Name = "thinking-patterns-change-log"
@@ -45,6 +78,8 @@ $targets = @(
         IndexRel = "user_profile/logs/change-log-history-index.md"
         LineThreshold = $ChangeLogLineThreshold
         SizeThreshold = $ChangeLogSizeKbThreshold
+        BlockThreshold = $ChangeLogBlockThreshold
+        HeadingRegex = "^## \d{4}-\d{2}-\d{2}"
     }
 )
 
@@ -60,11 +95,15 @@ foreach ($target in $targets) {
     }
 
     $lineCount = (Get-Content -Path $filePath | Measure-Object -Line).Lines
+    $blockCount = Get-BlockCount -FilePath $filePath -HeadingRegex $target.HeadingRegex
     $sizeKb = [math]::Round(((Get-Item -Path $filePath).Length / 1KB), 2)
     $lastArchive = Get-LastArchiveDate -IndexPath $indexPath
     $daysSinceLastArchive = if ($null -eq $lastArchive) { -1 } else { [math]::Floor(($now - $lastArchive).TotalDays) }
 
     $reasons = New-Object System.Collections.Generic.List[string]
+    if ($blockCount -ge 0 -and $blockCount -ge $target.BlockThreshold) {
+        $reasons.Add("block_count($blockCount) >= $($target.BlockThreshold)")
+    }
     if ($lineCount -ge $target.LineThreshold) {
         $reasons.Add("line_count($lineCount) >= $($target.LineThreshold)")
     }
@@ -82,6 +121,7 @@ foreach ($target in $targets) {
     $report.Add([PSCustomObject]@{
             target = $target.Name
             file = $target.FileRel
+            blocks = if ($blockCount -ge 0) { $blockCount } else { "-" }
             lines = $lineCount
             size_kb = $sizeKb
             last_archive = if ($null -eq $lastArchive) { "-" } else { $lastArchive.ToString("yyyy-MM-dd HH:mm:ss") }

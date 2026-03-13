@@ -24,6 +24,7 @@ Use this skill to enforce a repeatable restore-update cycle so the next session 
 - what changed
 - active defaults
 - next-start priorities
+ - prefer `scripts/append-session-snapshot-turn.ps1` for new per-turn blocks so updates always append at EOF
 2. When `MEMORY_UPDATE_SWITCH: ON`, append one check sentence right after the current turn block in `workspace_state/core/session-snapshot.md`, and never overwrite older checks:
 - `快照检查：用户偏好已更新=<是/否>；用户需求已完全理解=<是/否>`
 3. Keep the latest check sentence as the last line of the file for quick audit.
@@ -49,7 +50,7 @@ Use this skill to enforce a repeatable restore-update cycle so the next session 
 - Output: 3~6 行恢复摘要 + 本轮优先事项。
 2. Example B (end update):
 - Situation: 本轮新增了需求文档与提示词。
-- Action: 更新 `session-snapshot` 与 `change-log`，并写明同步/校验结果。
+- Action: 使用 `scripts/append-session-snapshot-turn.ps1` 追加 `session-snapshot` 新块，再更新 `change-log`，并写明同步/校验结果。
 - Output: 下一轮可直接续接的状态块。
 3. Example C (process changed):
 - Situation: 新增了归档脚本或门禁脚本。
