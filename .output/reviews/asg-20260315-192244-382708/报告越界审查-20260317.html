@@ -1,0 +1,364 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>报告越界审查与收口方案</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --panel: #fffaf3;
+      --ink: #1f2937;
+      --muted: #5b6470;
+      --line: #dccfbd;
+      --accent: #9a3412;
+      --accent-soft: #f9dcc4;
+      --ok: #166534;
+      --ok-soft: #dcfce7;
+      --warn: #b45309;
+      --warn-soft: #fef3c7;
+      --bad: #991b1b;
+      --bad-soft: #fee2e2;
+      --shadow: 0 18px 50px rgba(61, 41, 20, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(154, 52, 18, 0.08), transparent 32%),
+        linear-gradient(180deg, #f8f3ec 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .page {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .hero,
+    .card {
+      background: rgba(255, 250, 243, 0.94);
+      border: 1px solid rgba(220, 207, 189, 0.95);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px 28px 24px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 12px;
+      line-height: 1.25;
+    }
+
+    h1 {
+      margin-top: 14px;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .summary-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      padding: 24px 24px 20px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tag.bad {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .tag.warn {
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
+
+    .tag.ok {
+      background: var(--ok-soft);
+      color: var(--ok);
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border-top: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .quote {
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      background: rgba(249, 220, 196, 0.42);
+      color: #4b5563;
+      margin-top: 10px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">报告边界审查</span>
+      <h1>之前生成的报告主体对题，但夹带了明显的过程性元信息</h1>
+      <p>结论先行：上游《如何写一篇优质的技术博客》正文的主体内容是有效的，真正越界的不是“博客写作方法”本身，而是混入了多段只服务于当前工作区协作机制的说明。这会让交付物看起来像“分析正文 + 内部思考日志”的混合体。</p>
+      <div class="summary">
+        <div class="summary-item">
+          <strong>总体判断</strong>
+          中度越界，可收口，不需要推翻重写
+        </div>
+        <div class="summary-item">
+          <strong>明确越界</strong>
+          4 类：潜台词分析、问题类型、方法理由、能力扩展评估
+        </div>
+        <div class="summary-item">
+          <strong>弱越界</strong>
+          2 类：已知事实、推断/假设的外显方式
+        </div>
+        <div class="summary-item">
+          <strong>推荐动作</strong>
+          保留主体知识内容，剥离工作流元信息后再复用
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>潜台词与底层需求分析</h2>
+        <ol>
+          <li>显性目标：审查上游报告是否包含“分析如何写一篇优质的技术博客”这个目标之外的信息，并给出解决方案。</li>
+          <li>推断/假设（置信度：高）：这次任务不只是想知道“有没有问题”，而是希望沉淀一套以后也能复用的“交付边界收口规则”。</li>
+          <li>推断/假设（置信度：中）：你更在意“可直接交付的正文纯度”，而不是分析过程本身是否完整暴露。</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>判定依据</h2>
+        <p>本次判定只看一个核心标准：某段内容是否直接帮助读者回答“如何写一篇优质的技术博客”。如果不能直接回答这个问题，而只是解释分析过程、工作区机制、内部方法选择或能力治理，它就属于目标之外的信息。</p>
+        <div class="quote">
+          原始任务目标是“分析如何写一篇优质的技术博客”，并要求 `artifact_markdown` 提供可直接交付的完整正文。这里并没有要求交付方法说明、推断过程日志或能力扩展评估。
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>逐项审查</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>报告部分</th>
+              <th>判定</th>
+              <th>原因</th>
+              <th>处理建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>结论先行</code>、推荐结构、七个原则、失败模式、模板、自检清单</td>
+              <td><span class="tag ok">目标内</span></td>
+              <td>这些内容直接回答“怎么写好技术博客”，属于交付核心。</td>
+              <td>完整保留。</td>
+            </tr>
+            <tr>
+              <td><code>潜台词与底层需求分析</code></td>
+              <td><span class="tag bad">明确越界</span></td>
+              <td>它在分析“用户为什么问这个问题”，不是在分析“如何写优质技术博客”。而且其中包含对用户动机的推断，不属于正文必需信息。</td>
+              <td>从交付正文剥离，保留在内部工作记录或 commentary。</td>
+            </tr>
+            <tr>
+              <td><code>问题类型</code></td>
+              <td><span class="tag bad">明确越界</span></td>
+              <td>“这是 strategy 还是其他问题类型”属于分析框架标注，不是用户要拿走的博客写作方法。</td>
+              <td>删除。</td>
+            </tr>
+            <tr>
+              <td><code>选用方法与理由</code></td>
+              <td><span class="tag bad">明确越界</span></td>
+              <td>方法选择是工作过程说明，不是交付对象本身。用户并未要求知道为什么用了第一性原理和逻辑学分析。</td>
+              <td>删除；若必须保留，移入附录且默认折叠。</td>
+            </tr>
+            <tr>
+              <td><code>已知事实</code>、<code>推断/假设</code></td>
+              <td><span class="tag warn">弱越界</span></td>
+              <td>它们有助于支撑分析，但当前外显方式更像分析底稿。尤其“目标读者默认为中文技术读者”等表述，会把工作假设直接暴露给最终读者。</td>
+              <td>压缩进正文表述，不再单独成节。</td>
+            </tr>
+            <tr>
+              <td><code>第一性原理分析</code>、<code>逻辑学分析</code></td>
+              <td><span class="tag ok">目标内</span></td>
+              <td>虽然标题带方法名，但实际内容仍在解释博客写作判断框架，属于有效主体内容。</td>
+              <td>可保留，或改写为更面向读者的标题。</td>
+            </tr>
+            <tr>
+              <td><code>风险与验证下一步</code></td>
+              <td><span class="tag ok">目标内</span></td>
+              <td>这部分仍在帮助读者落地和校验，属于合理收尾，而不是纯元信息。</td>
+              <td>保留。</td>
+            </tr>
+            <tr>
+              <td><code>能力扩展评估</code></td>
+              <td><span class="tag bad">明确越界</span></td>
+              <td>“是否需要新增 skill / agent 角色”完全属于当前工作区内部治理要求，与技术博客写作主题无关。</td>
+              <td>删除，严禁进入最终交付正文。</td>
+            </tr>
+            <tr>
+              <td><code>result_summary</code> 中的状态回写与脚本执行信息</td>
+              <td><span class="tag warn">包装层越界</span></td>
+              <td>这不是正文越界，而是 workflow 运行信息。它对调度器有用，但不应被当作“报告内容”本身。</td>
+              <td>保留在运行结果摘要，不进入正文，不在外部转发时混发。</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card">
+        <h2>为什么会出现越界</h2>
+        <ol>
+          <li>当前工作区要求默认外显“潜台词与底层需求分析”，这条规则在本次被直接带进了交付正文，而没有区分“对话回复”和“最终交付物”。</li>
+          <li>方法选择、能力扩展评估、推断/假设等内部治理模板被整段复用了，但任务本身只要求一个可交付的分析正文。</li>
+          <li>缺少一层“交付前边界过滤”：没有在输出前逐节追问“这段内容是否直接服务 task_goal”。</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>解决方案</h2>
+        <h3>方案一：立刻修复这份报告</h3>
+        <ol>
+          <li>直接删除四段：<code>潜台词与底层需求分析</code>、<code>问题类型</code>、<code>选用方法与理由</code>、<code>能力扩展评估</code>。</li>
+          <li>把 <code>已知事实</code> 与 <code>推断/假设</code> 合并进正文开头，不再单独做“分析底稿式”暴露。</li>
+          <li>保留主体内容：结论、推荐结构、原则、失败模式、模板、自检清单、下一步。</li>
+        </ol>
+
+        <h3>方案二：以后统一采用“三层输出”</h3>
+        <ol>
+          <li>运行层：只放调度与回写信息，例如 `result_summary`。</li>
+          <li>分析层：放方法选择、假设、潜台词判断、能力扩展评估，仅用于内部记录或 commentary。</li>
+          <li>交付层：只保留用户可直接消费的正文，禁止混入分析过程说明。</li>
+        </ol>
+
+        <h3>方案三：增加交付前收口检查</h3>
+        <ol>
+          <li>每个标题都要过一遍：“删掉这一节，用户对 task_goal 的理解会不会受损？”如果不会，优先删除。</li>
+          <li>凡是出现 <code>方法</code>、<code>假设</code>、<code>能力扩展</code>、<code>工作区</code>、<code>脚本</code> 这些词，默认进入越界复核。</li>
+          <li>只有当用户明确要求“展示分析过程”时，才允许把过程性元信息带进交付正文。</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>建议的收口版目录</h2>
+        <ol>
+          <li>什么是优质技术博客</li>
+          <li>判断一篇技术博客是否优质的核心标准</li>
+          <li>推荐写作结构</li>
+          <li>最关键的写作原则</li>
+          <li>常见失败模式</li>
+          <li>可直接套用的写作模板</li>
+          <li>发布前自检清单</li>
+          <li>下一步如何验证与优化</li>
+        </ol>
+        <p class="footer-note">这份目录保留了原报告最有价值的部分，同时剥离了不直接服务目标的元信息。</p>
+      </article>
+
+      <article class="card">
+        <h2>最终判断</h2>
+        <p>之前生成的报告<strong>不是完全跑偏</strong>，而是“主体正确、边界不够干净”。如果按交付物标准审查，它确实包含目标之外的信息；但这些越界内容集中在开头和结尾的过程性说明，主体知识部分仍可直接复用。最稳妥的做法不是推翻重写，而是做一次“交付层瘦身”：删掉明确越界项，内化弱越界项，保留真正回答问题的正文。</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

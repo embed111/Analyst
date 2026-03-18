@@ -23,7 +23,7 @@
    1. `docs/workflow/prototypes/训练闭环监控系统-Phase0/训练闭环监控系统参考图.html`
    2. `docs/workflow/prototypes/统一入口与训练优化模块/统一入口与训练优化参考图.html`
    3. `docs/workflow/prototypes/角色画像发布格式与预发布判定/角色画像发布格式与预发布判定参考图.html`
-   4. `docs/workflow/prototypes/测试数据展示全局开关统一/测试数据展示全局开关统一参考图.html`
+   4. `docs/workflow/prototypes/测试数据展示全局开关统一/测试数据展示全局开关统一参考图.html`（历史参考）
    5. `docs/workflow/prototypes/agent发布管理与版本切换/发布评审分层展示参考图.html`
    6. `docs/workflow/prototypes/任务中心与依赖可视化编排/任务中心参考图.html`
 4. 原型/参考图治理：
