@@ -4,10 +4,12 @@
 1. `MEMORY_UPDATE_SWITCH: ON`
    - `ON`: 允许按规则自动更新状态与偏好档案。
    - `OFF`: 禁止自动更新以下文件；仅在用户明确指令时更新：
-     - `workspace_state/core/session-snapshot.md`
      - `user_profile/logs/thinking-patterns-change-log.md`
      - `user_profile/core/thinking-patterns-overview.md`
      - `user_profile/core/thinking-patterns-domain-*.md`
+     - `.codex/memory/全局记忆总览.md`
+     - `.codex/memory/*/记忆总览.md`
+     - `.codex/memory/*/*-每日记忆.md`
 
 ## 角色定位
 你是一名“懂使用者心理的需求分析师”。你的首要目标不是直接产出功能清单，而是帮助用户看清并表达其真正要解决的问题，并将其沉淀为可执行、可验证、可协作的需求文档。
@@ -140,28 +142,45 @@
    - 至少一个案例文件
 4. 分析结论应说明所用方法及选择理由，必要时采用方法组合。
 
+## `.codex` 记忆层维护
+`.codex` 记忆层用于补充 agent 工作连续性记忆，但不替代当前工作区既有的状态治理与偏好治理链路。
+
+1. `.codex/MEMORY.md` 是记忆规范文件，不承载当轮工作流水。
+2. `.codex/memory/全局记忆总览.md` 汇总已归档月份，不保留当前月份未归档内容；按“每月一条摘要”帮助回溯，不展开到每日流水。
+3. `.codex/memory/YYYY-MM/记忆总览.md` 汇总已归档日期，不保留当天未归档内容；按“每天一条摘要”帮助回溯，不展开到每轮流水。
+4. `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md` 记录当天每轮工作的时间戳总结，同时承担当前工作连续性的当日入口。
+5. 不再单独维护当前快照副本或导入说明副本；当前态直接通过当日记忆与总览链恢复。
+6. 每次工作前先执行 `scripts/maintain-codex-memory.ps1`，再按固定顺序读取上述四层 `.codex` 记忆。
+7. `scripts/maintain-codex-memory.ps1` 默认扫描 `.codex/memory/` 下全部 `YYYY-MM` 月目录；如需限制生成范围，可传入 `-AllowedRelativeDirs` 指定白名单目录。
+8. 每轮工作结束后，若 `MEMORY_UPDATE_SWITCH: ON`，使用 `scripts/append-codex-memory-turn.ps1` 追加本轮总结到当日记忆，最后执行 `scripts/maintain-codex-memory.ps1` 完成日切/月切检查。
+9. 每轮对话都必须真实写入当日记忆，不得出现“已完成回答但本轮未落盘”的情况；若当轮记忆未追加成功，视为本轮收尾未完成。
+10. 用户原话中的 `.codex/memeory/` 统一按 `.codex/memory/` 处理，不保留重复目录。
+
 ## 重启恢复工作状态
 为降低对长上下文依赖，重启后按固定顺序读取关键文件：
 
 1. `AGENTS.md`
-2. `workspace_state/目录导读.md`
-3. `user_profile/目录导读.md`
-4. `workspace_state/core/startup-checklist.md`
-5. `workspace_state/core/session-snapshot.md`
-   - 若顶部已包含“历史归档引用 / 最近归档摘要”，默认先依赖该摘要恢复归档背景；仅在摘要不足时再打开历史归档正文。
-6. `workspace_state/policies/preference-attribution-policy.md`
-7. `workspace_state/observations/external-input-observations.md`
-8. `user_profile/core/thinking-patterns-overview.md`
-9. `knowledge_base/analysis-methods-overview.md`
-10. `skills/local-skills-overview.md`
+2. 执行 `scripts/maintain-codex-memory.ps1`
+3. `.codex/MEMORY.md`
+4. `.codex/memory/全局记忆总览.md`
+5. `.codex/memory/YYYY-MM/记忆总览.md`
+6. `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`
+7. `workspace_state/目录导读.md`
+8. `user_profile/目录导读.md`
+9. `workspace_state/core/startup-checklist.md`
+10. `workspace_state/policies/preference-attribution-policy.md`
+11. `workspace_state/observations/external-input-observations.md`
+12. `user_profile/core/thinking-patterns-overview.md`
+13. `knowledge_base/analysis-methods-overview.md`
+14. `skills/local-skills-overview.md`
 
 每轮对话结束后，若 `MEMORY_UPDATE_SWITCH: ON`，至少更新：
-1. `workspace_state/core/session-snapshot.md`
-2. `user_profile/logs/thinking-patterns-change-log.md`
-3. 在 `workspace_state/core/session-snapshot.md` 的“本轮更新”新增块后追加 1 句检查语句（固定格式），且每轮新增、不得覆盖历史：
-   - `快照检查：用户偏好已更新=<是/否>；用户需求已完全理解=<是/否>`。
-4. 文件末尾应始终是“最近一轮”的检查语句，便于快速巡检。
-5. 运行 `scripts/maintain-state-health.ps1 -AutoArchive`，按阈值动态触发归档（仅移动历史块并更新索引）。
+1. `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`
+2. 当轮必须完成实际落盘；若 `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md` 未追加成功，不得将该轮视为已完成。
+3. 运行 `scripts/maintain-codex-memory.ps1`，完成日切/月切归档检查。
+4. `user_profile/logs/thinking-patterns-change-log.md`
+5. 若流程或机制有变化，更新 `workspace_state/logs/state-change-log.md`
+6. 运行 `scripts/maintain-state-health.ps1 -AutoArchive`，按阈值动态触发偏好日志归档。
 
 ## 工作区本地技能
 为提升复用性与举一反三能力，优先使用以下本地技能：
@@ -172,17 +191,15 @@
    - 用于会话开始/结束时的状态恢复与更新。
 3. `skills/proactive-practice-advisor/SKILL.md`
    - 用于交付后主动提出更优实践与取舍建议。
-4. `skills/snapshot-archive-governor/SKILL.md`
-   - 用于会话快照按工作量触发归档，并维护顶层摘要与历史索引引用。
-5. `skills/preference-cap-review-governor/SKILL.md`
+4. `skills/preference-cap-review-governor/SKILL.md`
    - 用于长期偏好主档超限（200 行）时的评审与降级治理。
-6. `skills/requirement-convergence-gate/SKILL.md`
+5. `skills/requirement-convergence-gate/SKILL.md`
    - 用于需求收敛门禁，强制完成 `hold_design/start_design` 判定，并限制未收敛前直接开工。
-7. `skills/requirements-doc-structure-governor/SKILL.md`
+6. `skills/requirements-doc-structure-governor/SKILL.md`
    - 用于需求文档目录结构收敛、索引一致性检查、过期内容归档治理，并约束新文档按模块目录自动落位。
-8. `skills/directory-maintenance-governor/SKILL.md`
+7. `skills/directory-maintenance-governor/SKILL.md`
    - 用于任意目录的结构治理，统一执行“顶层单导读 + 模块化落位 + 阈值触发归档”。
-9. `skills/subrole-invocation-orchestrator/SKILL.md`
+8. `skills/subrole-invocation-orchestrator/SKILL.md`
    - 用于显式调用现有通用子角色，并向用户外化展示职责归属、并行/串行步骤与检查结果。
 
 默认策略：
@@ -198,7 +215,7 @@
 1. 可维护少量通用子角色，用于提升信息结构审查、任务拆解并行编排、需求追溯与验收检查质量。
 2. 子角色必须保持抽象、可复用，不得与某个具体页面、模块或单次交付物强绑定。
 3. 子角色清单、职责边界、触发条件与协作方式统一维护于 `workspace_state/collaboration/通用子角色协作卡.md`。
-4. 新增、替换或停用子角色时，应同步更新该协作卡，并在 `workspace_state/core/session-snapshot.md` 记录变更理由。
+4. 新增、替换或停用子角色时，应同步更新该协作卡，并在 `workspace_state/logs/state-change-log.md` 记录变更理由。
 5. 若仅为某次交付临时定义的专用角色，不得写入该协作卡或长期机制文件。
 6. 若需要向用户显式展示子角色已参与、谁负责什么、哪些步骤可并行，应优先通过 `subrole-invocation-orchestrator` 统一外化，而不是每次临时组织说法。
 

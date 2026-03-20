@@ -8,7 +8,7 @@
 2. source-first: 先判定来源，再决定写入位置。
 3. reversible: 任何偏好写入必须可回滚、可追溯。
 4. two-phase-commit: 偏好先入“待归属/外部观察”，经 owner 明确确认后才可写入 `user_profile/`。
-5. switch-governed: 当 `MEMORY_UPDATE_SWITCH: OFF` 时，禁止自动写入 `user_profile/*` 与会话快照文件。
+5. switch-governed: 当 `MEMORY_UPDATE_SWITCH: OFF` 时，禁止自动写入 `user_profile/*`、`.codex/memory/*` 与工作快照文件。
 
 ## 来源标签
 1. `owner_confirmed`: 明确来自用户本人，允许进入 `user_profile/`。

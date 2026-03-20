@@ -207,3 +207,60 @@
 4. 变更原因：
    - 用户明确要求这项能力不能继续弱化，需要从“偏好档案”提升为“启动即生效的硬规则”。
 
+## 2026-03-19
+1. 新增 `.codex` 分层记忆结构：
+   - `.codex/MEMORY.md`
+   - `.codex/memory/全局记忆总览.md`
+   - `.codex/memory/YYYY-MM/记忆总览.md`
+   - `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`
+2. 新增 `.codex` 记忆维护脚本：
+   - `scripts/maintain-codex-memory.ps1`
+   - `scripts/append-codex-memory-turn.ps1`
+3. 启动/收尾流程同步更新：
+   - `AGENTS.md`
+   - `workspace_state/core/startup-checklist.md`
+   - `workspace_state/core/workspace-state-overview.md`
+   - `./.codex/skills/session-state-maintainer/SKILL.md`
+   - `./.codex/skills/session-state-maintainer/references/state-file-contracts.md`
+4. 变更原因：
+   - 用户明确要求 `.codex` 记忆改为“规范文件 + 全局总览 + 月总览 + 当日记忆”四层结构，并在每次工作前读取、每轮工作后追加总结，同时自动执行日切/月切归档检查。
+5. 工作快照主路径迁移：
+   - 活跃工作快照从 `workspace_state/core/session-snapshot.md` 迁移到 `.codex/memory/工作快照.md`。
+   - 后续主维护路径收口到 `.codex/memory/`，旧 `session-snapshot.md` 冻结为历史参考，不再继续写入。
+6. 补齐迁移后的脚本验证与误报修复：
+   - `scripts/maintain-codex-memory.ps1` 修复工作快照模板中的 PowerShell 解析错误，恢复启动记忆自检链路。
+   - `scripts/maintain-state-health.ps1` 移除“未建归档索引即触发归档”的误报逻辑，避免新工作快照在尚无历史归档时被反复判定为需要归档。
+   - `scripts/append-session-snapshot-turn.ps1` 已验证默认追加目标为 `.codex/memory/工作快照.md`。
+7. 变更原因补充：
+   - 用户明确要求工作快照迁移后只维护记忆目录，因此需要同步确保启动恢复、回合写入与巡检归档三条链路都以 `.codex/memory/` 为唯一主入口。
+8. 旧工作快照历史转化为记忆层：
+   - 新增 `scripts/import-legacy-session-snapshot-to-codex-memory.ps1`，将 `workspace_state/core/session-snapshot.md` 与 `workspace_state/logs/session-history/*.md` 转换为 `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`。
+   - 已导入 `2026-02-24` 至 `2026-03-18` 共 22 个历史每日记忆文件、337 条历史回合。
+   - 已通过 `scripts/maintain-codex-memory.ps1` 回填 `.codex/memory/2026-02/记忆总览.md`、`.codex/memory/2026-03/记忆总览.md` 与 `.codex/memory/全局记忆总览.md`。
+9. 维护脚本补强：
+   - `scripts/maintain-codex-memory.ps1` 修复了历史导入后月总览缺失时的 DryRun/归档空文件判空问题，确保历史回填与日切/月切预演都可执行。
+10. 进一步收口 `.codex` 记忆目录：
+   - 移除 `.codex/memory/工作快照.md` 与 `.codex/memory/旧工作快照导入记录.md`。
+   - 启动恢复、回合写回与巡检脚本收口为四层记忆：`MEMORY.md -> 全局总览 -> 月总览 -> 每日记忆`。
+   - `scripts/maintain-codex-memory.ps1` 与 `scripts/import-legacy-session-snapshot-to-codex-memory.ps1` 已改为不再生成上述两个文件。
+11. 退役遗留快照脚本入口：
+   - `scripts/append-session-snapshot-turn.ps1` 与 `scripts/repair-session-snapshot-tail.ps1` 改为显式退役提示，不再允许写入或修复专用工作快照文件。
+   - `scripts/archive-analyst-state.ps1` 改为仅归档 `thinking-patterns-change-log.md`，不再包含专用工作快照归档分支。
+12. 变更原因补充：
+   - 用户明确表示不需要额外的工作快照文件与导入记录文件，因此需要同时清除仍可能重新指向旧路径的遗留脚本入口，避免后续误生成。
+13. `.codex` 总览生成逻辑收口：
+   - `scripts/maintain-codex-memory.ps1` 新增 `-AllowedRelativeDirs` 白名单目录参数，默认扫描 `.codex/memory/` 下全部 `YYYY-MM` 月目录。
+   - 月总览改为“每天一条摘要”，全局总览改为“每月一条摘要”，不再展开到每轮流水。
+   - 当前总览文件已按新规则重建：`.codex/memory/2026-02/记忆总览.md`、`.codex/memory/2026-03/记忆总览.md`、`.codex/memory/全局记忆总览.md`。
+14. 变更原因补充：
+   - 用户进一步要求总览文件直接服务恢复记忆，重点是“按天/按月可回溯的摘要 + 可控扫描范围”，而不是把每日记忆中的每轮流水重新逐条抄写一遍。
+15. 全局总览继续收口：
+   - `scripts/maintain-codex-memory.ps1` 的全局总览输出移除 `### 跨月稳定决策/约束` 与 `### 跨月待跟进`。
+   - `.codex/memory/全局记忆总览.md` 现仅保留 `### 每月摘要` 作为全局恢复入口。
+16. 变更原因补充：
+   - 用户明确表示这两个跨月附加段落没有必要；全局总览继续压缩，只保留按月回溯所需的最小摘要。
+17. `.codex` 回合落盘约束升级：
+   - `AGENTS.md` 与 `.codex/MEMORY.md` 已补充硬约束：每轮对话都必须真实写入当日记忆；若当轮未成功追加到 `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`，则该轮不视为已完成收尾。
+18. 变更原因补充：
+   - 用户直接指出出现了“本轮回答已给出但记忆未落盘”的执行漏洞，因此需要把“每轮真实落盘”从默认流程提升为显式硬规则。
+

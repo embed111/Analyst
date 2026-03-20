@@ -14,22 +14,19 @@
 3. `proactive-practice-advisor`
    - 路径: `./.codex/skills/proactive-practice-advisor/SKILL.md`
    - 适用: 在完成主任务后给出高杠杆改进建议。
-4. `snapshot-archive-governor`
-   - 路径: `./.codex/skills/snapshot-archive-governor/SKILL.md`
-   - 适用: 会话快照过长时按工作量触发归档，并维护顶层摘要与历史索引引用。
-5. `requirement-convergence-gate`
+4. `requirement-convergence-gate`
    - 路径: `./.codex/skills/requirement-convergence-gate/SKILL.md`
    - 适用: 在需求尚未收敛时阻止提前进入设计，按需提问（0~3）并给出收敛门禁结论。
-6. `preference-cap-review-governor`
+5. `preference-cap-review-governor`
    - 路径: `./.codex/skills/preference-cap-review-governor/SKILL.md`
    - 适用: 当长期偏好主档超出 200 行时，执行“保留长期核心 + 降级短期偏好”的评审机制。
-7. `requirements-doc-structure-governor`
+6. `requirements-doc-structure-governor`
    - 路径: `./.codex/skills/requirements-doc-structure-governor/SKILL.md`
    - 适用: 当需求文档目录混乱、索引漂移或出现过期内容时，执行目录收敛、状态分级、归档治理，并对新文档自动落位到标准模块目录。
-8. `directory-maintenance-governor`
+7. `directory-maintenance-governor`
    - 路径: `./.codex/skills/directory-maintenance-governor/SKILL.md`
    - 适用: 当任意目录需要“顶层单导读 + 模块化落位 + 阈值归档”治理时，执行通用目录整理与动态维护。
-9. `subrole-invocation-orchestrator`
+8. `subrole-invocation-orchestrator`
    - 路径: `./.codex/skills/subrole-invocation-orchestrator/SKILL.md`
    - 适用: 当任务跨多个工作流、需要目录级一致性检查，或用户质疑子角色是否真正参与时，显式外化子角色激活、职责归属、并行结构与检查结果。
 

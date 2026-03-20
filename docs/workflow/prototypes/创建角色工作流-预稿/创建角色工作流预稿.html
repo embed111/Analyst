@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>创建角色工作流预稿</title>
+  <style>
+    :root {
+      --bg: #f2f3f5;
+      --bg-grad: #f7f8fa;
+      --panel: #ffffff;
+      --panel-soft: #fafbfc;
+      --line: #e5e6eb;
+      --line-soft: #eff0f2;
+      --text: #1f2329;
+      --muted: #646a73;
+      --accent: #3370ff;
+      --accent-soft: #edf3ff;
+      --ok: #00a871;
+      --ok-soft: #edfdf6;
+      --warn: #d97904;
+      --warn-soft: #fff7eb;
+      --danger: #d84b4b;
+      --danger-soft: #fff2f0;
+      --shadow: 0 1px 3px rgba(31, 35, 41, 0.08);
+      --rail-width: 248px;
+      --detail-width: 332px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--bg-grad), var(--bg));
+      color: var(--text);
+      font: 13px/1.5 "PingFang SC", "Helvetica Neue", "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    button { font: inherit; border: none; border-radius: 6px; padding: 6px 10px; background: var(--accent); color: #fff; cursor: default; }
+    button.alt { border: 1px solid var(--line); background: #fff; color: var(--text); }
+    .app { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); gap: 10px; height: 100vh; padding: 10px; }
+    .rail, .window, .panel { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); }
+    .rail { padding: 12px; display: grid; grid-template-rows: auto auto 1fr; gap: 10px; overflow: hidden; }
+    .brand { border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px; background: var(--panel-soft); }
+    .title { font-size: 15px; font-weight: 700; }
+    .meta, .helper, .window-note, .current-role, .panel-desc { font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .tabs { display: flex; flex-direction: column; gap: 8px; }
+    .tab { border: 1px solid var(--line-soft); border-radius: 8px; background: var(--panel-soft); color: #4e5969; padding: 8px 12px; font-weight: 500; }
+    .tab.active { border-color: #c8d9ff; background: var(--accent-soft); color: #245bdb; font-weight: 700; }
+    .workspace { min-width: 0; min-height: 0; display: flex; overflow: hidden; }
+    .window { padding: 8px; display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; overflow: hidden; }
+    .window-head, .window-top, .panel-head, .chip-row, .action-row, .flow-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .window-title { font-size: 20px; font-weight: 700; line-height: 1.1; }
+    .module-tabs { display: flex; align-items: flex-end; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+    .module-tab { position: relative; border-radius: 7px 7px 0 0; padding: 4px 8px 5px; color: var(--muted); font-weight: 700; background: transparent; }
+    .module-tab.active { color: #245bdb; background: #f5f8ff; }
+    .module-tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; border-radius: 999px; background: var(--accent); }
+    .workbench { display: grid; grid-template-columns: 240px minmax(0, 1fr) var(--detail-width); gap: 10px; min-height: 0; flex: 1 1 auto; overflow: hidden; }
+    .column, .panel { min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+    .panel-head { padding: 12px 14px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.92); }
+    .panel-title { font-size: 15px; font-weight: 700; }
+    .scroll { min-height: 0; flex: 1 1 auto; overflow: auto; scrollbar-width: thin; scrollbar-color: #c9cfda #f5f6f8; }
+    .scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+    .scroll::-webkit-scrollbar-track { background: #f5f6f8; border-radius: 999px; }
+    .scroll::-webkit-scrollbar-thumb { background: #c9cfda; border-radius: 999px; border: 2px solid #f5f6f8; }
+    .list-body, .main-body, .detail-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .card, .message, .spec-card, .detail-card, .gate-card, .flow-hint, .stage-card, .flow-card { border: 1px solid var(--line-soft); border-radius: 8px; background: var(--panel-soft); }
+    .card, .message, .spec-card, .detail-card, .gate-card, .stage-card, .flow-card { padding: 10px; }
+    .card.active { border-color: #c8d9ff; background: #f5f8ff; box-shadow: inset 0 0 0 1px rgba(36,91,219,.08); }
+    .draft-name, .stage-title, .detail-title, .spec-name { font-size: 14px; font-weight: 700; }
+    .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .chip.idle, .chip.done { background: var(--ok-soft); color: var(--ok); }
+    .chip.active, .chip.running { background: var(--accent-soft); color: #245bdb; }
+    .chip.warn, .chip.pending { background: var(--warn-soft); color: var(--warn); }
+    .chip.danger { background: var(--danger-soft); color: var(--danger); }
+    .mini-k { font-size: 11px; color: var(--muted); }
+    .mini-v { margin-top: 4px; font-size: 12px; font-weight: 700; line-height: 1.45; }
+    .message.user { background: #f7fbff; border-color: #dce9ff; }
+    .message-role { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+    .message-text { white-space: pre-line; }
+    .asset-row, .summary-grid, .detail-grid, .gate-list, .action-row, .composer-actions, .task-picks { display: flex; gap: 8px; flex-wrap: wrap; }
+    .asset-card, .summary-card, .detail-kv, .detail-block, .gate-item { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 8px 9px; }
+    .asset-card { width: 120px; min-height: 82px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(180deg,#f8fbff,#edf3ff); }
+    .summary-grid, .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .conversation-shell {
+      border: 1px solid #dbe6ff;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fbfdff, #f7faff);
+      overflow: hidden;
+      min-height: 344px;
+    }
+    .conversation-scroll {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+      max-height: 360px;
+    }
+    .composer-card {
+      border: 1px solid #dbe6ff;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.98));
+      box-shadow: 0 -6px 18px rgba(31,35,41,.05);
+      margin: 0 10px 10px;
+    }
+    .composer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .composer-title { font-size: 13px; font-weight: 700; }
+    .composer-box {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      min-height: 88px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+    }
+    .composer-input {
+      width: 100%;
+      min-height: 70px;
+      border: none;
+      padding: 0;
+      resize: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      line-height: 1.6;
+    }
+    .composer-input::placeholder { color: #8a919f; }
+    .composer-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .composer-ready { color: #245bdb; font-weight: 700; }
+    .composer-actions { margin-top: 8px; align-items: center; justify-content: space-between; }
+    .composer-left { display: flex; gap: 8px; flex-wrap: wrap; }
+    .attach-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px dashed #b9caf8;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #f5f8ff;
+      color: #245bdb;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .stage-meta { margin-top: 4px; font-size: 12px; color: var(--muted); }
+    .stage-steps { margin-top: 10px; display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 8px; }
+    .stage-step { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 8px; min-height: 84px; display: flex; flex-direction: column; gap: 6px; }
+    .stage-step.current { border-color: #c8d9ff; background: #f5f8ff; }
+    .step-index { width: 20px; height: 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #edf2ff; color: #245bdb; }
+    .step-title { font-size: 12px; font-weight: 700; }
+    .step-desc { font-size: 11px; color: var(--muted); line-height: 1.45; }
+    .evolution-card { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .evolution-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .evolution-title { font-size: 14px; font-weight: 700; }
+    .evolution-desc { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .evolution-legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+    .legend-dot { width: 9px; height: 9px; border-radius: 999px; display: inline-block; }
+    .legend-dot.done { background: var(--ok); }
+    .legend-dot.running { background: var(--accent); }
+    .legend-dot.pending { background: var(--warn); }
+    .legend-dot.blocked { background: var(--danger); }
+    .status-sync {
+      border: 1px solid #dbe6ff;
+      border-radius: 8px;
+      background: #f7faff;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #3b5ccc;
+    }
+    .flow-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .flow-node {
+      width: 100%;
+      min-height: 82px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+      box-shadow: none;
+    }
+    .flow-node.done { border-color: #d4f0e3; background: #f6fdf9; }
+    .flow-node.running { border-color: #c8d9ff; background: #f5f8ff; }
+    .flow-node.pending { border-style: dashed; background: #fffdf7; }
+    .flow-node.active { box-shadow: inset 0 0 0 1px rgba(36,91,219,.15); }
+    .flow-node-title { font-size: 13px; font-weight: 700; }
+    .flow-node-meta { font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .evolution-svg {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fbfcfe, #f7f9fc);
+    }
+    .graph-line { fill: none; stroke-width: 3; stroke-linecap: round; }
+    .graph-line.main { stroke: #78c8a7; }
+    .graph-line.branch { stroke: #9fb8f0; }
+    .graph-line.pending { stroke: #e6b778; stroke-dasharray: 6 6; }
+    .graph-line.blocked { stroke: #e39a9a; stroke-dasharray: 4 6; }
+    .graph-node { stroke-width: 3; }
+    .graph-node.done { fill: #edfdf6; stroke: var(--ok); }
+    .graph-node.running { fill: #edf3ff; stroke: var(--accent); }
+    .graph-node.pending { fill: #fff7eb; stroke: var(--warn); }
+    .graph-node.blocked { fill: #fff2f0; stroke: var(--danger); }
+    .graph-label { font-size: 12px; font-weight: 700; fill: #1f2329; }
+    .graph-muted { font-size: 11px; fill: #7b8492; }
+    .task-picks { margin-top: 2px; }
+    .task-pick {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .task-pick.active {
+      border-color: #8fb6ff;
+      background: #f5f8ff;
+      color: #245bdb;
+    }
+    .spec-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .mono { font-family: "Cascadia Mono","SFMono-Regular",Consolas,monospace; font-size: 12px; }
+    button[disabled] { opacity: 0.45; cursor: default; }
+    @media (max-width: 1360px) { .workbench { grid-template-columns: 220px minmax(0,1fr); } .detail-column { grid-column: 1 / -1; } .stage-steps { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 1080px) { html, body { overflow: auto; } .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; } .tabs { flex-direction: row; flex-wrap: wrap; } .window { overflow: visible; } .workbench, .summary-grid, .detail-grid, .stage-steps, .flow-grid { grid-template-columns: 1fr; } .conversation-scroll { max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <div class="title">workflow</div>
+        <div class="meta">[15:56:12] 预稿模式</div>
+        <div class="meta">本页为创建角色预稿，不影响现有正式原型。</div>
+      </div>
+      <div class="tabs">
+        <div class="tab">对话</div>
+        <div class="tab">工作记录与训练</div>
+        <div class="tab active">训练中心</div>
+        <div class="tab">任务中心</div>
+        <div class="tab">设置</div>
+      </div>
+      <div></div>
+    </aside>
+
+    <main class="workspace">
+      <section class="window">
+        <div class="window-head">
+          <div>
+            <div class="window-title">训练中心</div>
+            <div class="window-note">创建角色预稿：通过对话收集角色需求，并引用任务中心中仅属于当前角色的创建工作流任务。</div>
+          </div>
+          <div class="current-role">草稿结论：`lifecycle_status` 与 `runtime_status` 并行展示</div>
+        </div>
+        <div class="window-top">
+          <div class="module-tabs">
+            <div class="module-tab">角色资产与版本</div>
+            <div class="module-tab active">创建角色</div>
+            <div class="module-tab">训练闭环</div>
+          </div>
+        </div>
+
+        <div class="workbench">
+          <aside class="column">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">角色创建草稿</div>
+                  <div class="panel-desc">只列出创建相关草稿与进行中角色。</div>
+                </div>
+                <button class="alt">+ 新建</button>
+              </div>
+              <div class="scroll list-body">
+                <div class="card active">
+                  <div class="draft-name">增长分析师</div>
+                  <div class="chip-row"><span class="chip active">创建中</span><span class="chip warn">预发布态</span></div>
+                  <div class="mini-k">当前阶段</div><div class="mini-v">生成基础资产 · 4 / 6</div>
+                </div>
+                <div class="card">
+                  <div class="draft-name">品牌文案助手</div>
+                  <div class="chip-row"><span class="chip pending">收集中</span><span class="chip idle">空闲</span></div>
+                  <div class="mini-k">当前阶段</div><div class="mini-v">对话收集 · 未启动创建</div>
+                </div>
+                <div class="card">
+                  <div class="draft-name">开发排障助理</div>
+                  <div class="chip-row"><span class="chip done">已完成</span><span class="chip warn">预发布态</span></div>
+                  <div class="mini-k">最近动作</div><div class="mini-v">已自动回到空闲，可进入后续发布治理。</div>
+                </div>
+              </div>
+            </section>
+          </aside>
+
+          <section class="column">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">对话式角色收集</div>
+                  <div class="panel-desc">用户通过文本与图片逐步说清楚角色目标、能力、边界与风格。</div>
+                </div>
+                <div class="chip-row"><span class="chip active">当前草案：增长分析师</span><span class="chip pending">仅显示当前角色关联任务</span></div>
+              </div>
+              <div class="scroll main-body">
+                <div class="conversation-shell">
+                  <div class="scroll conversation-scroll">
+                    <div class="message user">
+                      <div class="message-role">用户</div>
+                      <div class="message-text">我想创建一个“增长分析师”角色。它要能把模糊增长问题拆成指标、实验路径、优先级和复盘建议。</div>
+                    </div>
+                    <div class="message user">
+                      <div class="message-role">用户</div>
+                      <div class="message-text">希望它写出来像“问题树 + 指标漏斗 + 实验方案”。我上传两张参考图给它理解信息密度和表达方式。</div>
+                      <div class="asset-row" style="margin-top:8px;">
+                        <div class="asset-card"><div class="mini-k">图片示例 A</div><div class="mini-v">增长问题拆解图</div><div class="helper">用于理解结构化输出密度</div></div>
+                        <div class="asset-card"><div class="mini-k">图片示例 B</div><div class="mini-v">实验优先级画布</div><div class="helper">用于理解展示风格与层级</div></div>
+                      </div>
+                    </div>
+                    <div class="message">
+                      <div class="message-role">系统收口</div>
+                      <div class="message-text">已识别角色目标、核心能力、风格示例与禁止项。当前仍在补全：
+1. 输出边界是否允许直接给开发实现建议；
+2. 默认交付物是否包含实验排期；
+3. 该角色是否需要维护长期方法库。</div>
+                    </div>
+                    <div class="message user">
+                      <div class="message-role">用户</div>
+                      <div class="message-text">边界上不要直接写代码实现；默认交付物要有实验排期；需要能沉淀方法模板，但先别自动发布。</div>
+                    </div>
+                    <div class="message">
+                      <div class="message-role">系统判断</div>
+                      <div class="message-text">当前信息已足够启动创建。已整理为结构化角色草案，并准备生成 6 个创建任务。</div>
+                    </div>
+                  </div>
+                  <div class="composer-card">
+                    <div class="composer-top">
+                      <div>
+                        <div class="composer-title">继续补充当前角色描述</div>
+                        <div class="helper">固定输入条保留在当前草案底部，允许继续补文字或图片，而不是只剩历史消息示意。</div>
+                      </div>
+                      <span class="chip active">15:54 已触发开始创建</span>
+                    </div>
+                    <div class="status-sync">当前最小创建门禁已满足，后续补充会先更新 `role_spec`，必要时再追加或重排当前角色的关联创建任务。</div>
+                    <div class="task-picks">
+                      <div class="task-pick active">问题树</div>
+                      <div class="task-pick active">指标漏斗</div>
+                      <div class="task-pick active">实验排期</div>
+                      <div class="task-pick active">方法模板</div>
+                    </div>
+                    <div class="composer-box">
+                      <textarea class="composer-input" placeholder="继续告诉系统：典型输入、典型输出、反例、参考图说明、禁止表达方式..."></textarea>
+                      <div class="composer-meta">
+                        <span>当前补充不会重置已启动的创建进度；如影响任务图，仅对当前角色做增量调整。</span>
+                        <span class="composer-ready">输入入口保持可用</span>
+                      </div>
+                    </div>
+                    <div class="composer-actions">
+                      <div class="composer-left">
+                        <button class="alt">+ 上传图片</button>
+                        <span class="attach-pill">已挂载 2 张参考图</span>
+                        <span class="attach-pill">当前草案：增长分析师</span>
+                      </div>
+                      <div class="action-row">
+                        <button class="alt">发送补充描述</button>
+                        <button disabled>开始创建（已执行）</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stage-card">
+                  <div class="stage-title">创建角色阶段流</div>
+                  <div class="stage-meta">当前阶段：生成基础资产。创建完成后角色将自动从 `创建中` 回到 `空闲`。</div>
+                  <div class="stage-steps">
+                    <div class="stage-step"><span class="step-index">1</span><div class="step-title">收集需求</div><div class="step-desc">通过对话与图片补齐角色目标、能力与边界。</div></div>
+                    <div class="stage-step"><span class="step-index">2</span><div class="step-title">整理画像</div><div class="step-desc">结构化输出 `role_spec`。</div></div>
+                    <div class="stage-step"><span class="step-index">3</span><div class="step-title">生成任务</div><div class="step-desc">在任务中心创建当前角色专属任务图。</div></div>
+                    <div class="stage-step current"><span class="step-index">4</span><div class="step-title">执行创建</div><div class="step-desc">初始化工作区并生成基础资产。</div></div>
+                    <div class="stage-step"><span class="step-index">5</span><div class="step-title">校验完成</div><div class="step-desc">检查创建链路、关键文件与可见状态。</div></div>
+                    <div class="stage-step"><span class="step-index">6</span><div class="step-title">回到空闲</div><div class="step-desc">全部任务成功后自动回空闲。</div></div>
+                  </div>
+                </div>
+
+                <div class="flow-card">
+                  <div class="flow-head">
+                    <div>
+                      <div class="panel-title">当前角色关联任务流图</div>
+                      <div class="panel-desc">只引用 `增长分析师` 的创建任务，不展示任务中心其他任务。</div>
+                    </div>
+                    <div class="chip-row"><span class="chip active">当前选中：初始化角色工作区</span></div>
+                  </div>
+                  <div class="flow-grid">
+                    <button class="flow-node done" data-task-id="collect"><div class="flow-node-title">收集角色信息</div><div class="flow-node-meta">已完成 · 结构化输入已锁定</div></button>
+                    <button class="flow-node done" data-task-id="spec"><div class="flow-node-title">整理角色画像</div><div class="flow-node-meta">已完成 · 生成 `role_spec`</div></button>
+                    <button class="flow-node done" data-task-id="boundary"><div class="flow-node-title">收口边界规则</div><div class="flow-node-meta">已完成 · 边界与禁止项已落盘</div></button>
+                    <button class="flow-node running active" data-task-id="workspace"><div class="flow-node-title">初始化角色工作区</div><div class="flow-node-meta">进行中 · 创建目录与基础文件</div></button>
+                    <button class="flow-node pending" data-task-id="asset"><div class="flow-node-title">生成基础资产</div><div class="flow-node-meta">待开始 · AGENTS / README / 初始画像</div></button>
+                    <button class="flow-node pending" data-task-id="verify"><div class="flow-node-title">校验创建完成</div><div class="flow-node-meta">待开始 · 通过后自动回空闲</div></button>
+                  </div>
+                  <div class="flow-hint">当前草案默认保留 `开始创建` 显式动作；若后续确认“信息足够即自动建图”，该区域再收口为自动触发模式。</div>
+                  <div class="action-row"><button class="alt">继续补充描述</button><button class="alt">在任务中心查看全局图（带过滤）</button><button>重试当前任务</button></div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <aside class="column detail-column">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">角色草案</div>
+                  <div class="panel-desc">同时展示版本生命周期状态与运行状态。</div>
+                </div>
+              </div>
+              <div class="scroll detail-body">
+                <div class="spec-card">
+                  <div class="spec-name">增长分析师</div>
+                  <div class="spec-desc">把模糊增长问题收口为指标、实验路径、优先级与复盘建议。</div>
+                  <div class="chip-row"><span class="chip active">runtime_status：创建中</span><span class="chip warn">lifecycle_status：预发布态</span></div>
+                  <div class="summary-grid">
+                    <div class="summary-card"><div class="mini-k">目标能力</div><div class="mini-v">问题树拆解、指标漏斗、实验排期、复盘建议</div></div>
+                    <div class="summary-card"><div class="mini-k">禁止边界</div><div class="mini-v">不直接交付工程实现代码，不跳过结构化论证</div></div>
+                    <div class="summary-card"><div class="mini-k">适用场景</div><div class="mini-v">增长诊断、实验规划、优先级排序、阶段复盘</div></div>
+                    <div class="summary-card"><div class="mini-k">工作区草案路径</div><div class="mini-v mono">../growth-analyst</div></div>
+                  </div>
+                </div>
+
+                <div class="detail-card">
+                  <div class="detail-title">选中任务详情</div>
+                  <div class="detail-block"><div class="mini-k">任务名称</div><div class="mini-v" id="detailTaskName">初始化角色工作区</div></div>
+                  <div class="detail-grid">
+                    <div class="detail-kv"><div class="mini-k">状态</div><div class="mini-v" id="detailTaskStatus">进行中</div></div>
+                    <div class="detail-kv"><div class="mini-k">执行主体</div><div class="mini-v" id="detailTaskAgent">workflow.create-role</div></div>
+                    <div class="detail-kv"><div class="mini-k">上游任务</div><div class="mini-v" id="detailTaskUpstream">收口边界规则</div></div>
+                    <div class="detail-kv"><div class="mini-k">下游任务</div><div class="mini-v" id="detailTaskDownstream">生成基础资产</div></div>
+                  </div>
+                  <div class="detail-block"><div class="mini-k">任务目标</div><div class="mini-v" id="detailTaskGoal">初始化角色目录、基础 README、运行留痕入口与角色主配置骨架。</div></div>
+                  <div class="detail-block"><div class="mini-k">最新回执</div><div class="mini-v" id="detailTaskReceipt">已创建角色根目录与 `.codex/` 基础结构，正在生成 `AGENTS.md` 与初始画像文件。</div></div>
+                </div>
+
+                <div class="gate-card">
+                  <div class="detail-title">运行门禁</div>
+                  <div class="gate-list">
+                    <div class="gate-item"><div class="mini-v">`创建中`</div><div class="helper">仅允许 `创建角色` 模块继续为当前角色追加创建相关任务；普通任务中心不得再为其派发无关任务。</div></div>
+                    <div class="gate-item"><div class="mini-v">`训练中`</div><div class="helper">当前角色不接普通执行任务，只允许训练闭环相关任务继续推进。</div></div>
+                    <div class="gate-item"><div class="mini-v">`执行中`</div><div class="helper">当前角色已有运行中的普通任务，不得被再次派单。</div></div>
+                    <div class="gate-item"><div class="mini-v">`空闲`</div><div class="helper">当前角色可恢复普通任务接单能力；若全部创建任务已完成，系统自动切回该状态。</div></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var taskData = {
+        collect: { name: "收集角色信息", status: "已完成", agent: "workflow.dialog-intake", upstream: "无", downstream: "整理角色画像", goal: "通过文本与图片收集角色目标、能力、边界、适用场景与风格示例。", receipt: "对话轮次已锁定，图片示例 A/B 已纳入当前草案。" },
+        spec: { name: "整理角色画像", status: "已完成", agent: "workflow.role-spec", upstream: "收集角色信息", downstream: "收口边界规则", goal: "把原始输入整理为结构化 role_spec，并生成首版角色画像摘要。", receipt: "已生成 role_name / role_goal / core_capabilities / boundaries / example_assets。" },
+        boundary: { name: "收口边界规则", status: "已完成", agent: "Analyst", upstream: "整理角色画像", downstream: "初始化角色工作区", goal: "确认角色禁止边界、可交付范围、默认协作方式与后续发布约束。", receipt: "已明确：不直接交付工程实现代码；默认交付物包含实验排期。" },
+        workspace: { name: "初始化角色工作区", status: "进行中", agent: "workflow.create-role", upstream: "收口边界规则", downstream: "生成基础资产", goal: "初始化角色目录、基础 README、运行留痕入口与角色主配置骨架。", receipt: "已创建角色根目录与 `.codex/` 基础结构，正在生成 `AGENTS.md` 与初始画像文件。" },
+        asset: { name: "生成基础资产", status: "待开始", agent: "workflow.create-role", upstream: "初始化角色工作区", downstream: "校验创建完成", goal: "生成 AGENTS、角色画像摘要、示例资产引用与默认状态文件。", receipt: "等待上游完成后启动。" },
+        verify: { name: "校验创建完成", status: "待开始", agent: "需求追溯与验收检查者", upstream: "生成基础资产", downstream: "自动回空闲", goal: "验证角色创建工作流已跑完、状态回写完整、任务引用链可恢复。", receipt: "全部任务成功后将自动把 runtime_status 切回 `空闲`。" }
+      };
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(".flow-node"));
+      var fields = {
+        name: document.getElementById("detailTaskName"),
+        status: document.getElementById("detailTaskStatus"),
+        agent: document.getElementById("detailTaskAgent"),
+        upstream: document.getElementById("detailTaskUpstream"),
+        downstream: document.getElementById("detailTaskDownstream"),
+        goal: document.getElementById("detailTaskGoal"),
+        receipt: document.getElementById("detailTaskReceipt")
+      };
+      function selectTask(taskId) {
+        nodes.forEach(function (node) { node.classList.toggle("active", node.getAttribute("data-task-id") === taskId); });
+        var task = taskData[taskId];
+        if (!task) { return; }
+        fields.name.textContent = task.name;
+        fields.status.textContent = task.status;
+        fields.agent.textContent = task.agent;
+        fields.upstream.textContent = task.upstream;
+        fields.downstream.textContent = task.downstream;
+        fields.goal.textContent = task.goal;
+        fields.receipt.textContent = task.receipt;
+      }
+      nodes.forEach(function (node) { node.addEventListener("click", function () { selectTask(node.getAttribute("data-task-id")); }); });
+    })();
+  </script>
+</body>
+</html>

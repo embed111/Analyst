@@ -1,6 +1,7 @@
 ﻿# 会话快照
 
-- 最后更新: 2026-03-18
+- 最后更新: 2026-03-19
+- 状态: 历史冻结；历史内容已转入 `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`，本文件后续不再维护。
 
 ## 当前长期机制
 1. 用户思维模式持续维护机制已启用（`user_profile/`）。
@@ -33,37 +34,8 @@
 1. 已归档 1 个历史块到 workspace_state\logs\session-history\session-history-2026-03-17-to-2026-03-17.md。
 2. 历史索引见 workspace_state\logs\session-history-index.md。
 3. 最近归档摘要：
-   - 2026-03-17: 交付给 workflow 的隐私边界整改提示词
+   - 2026-03-17: 收口为历史工作记录也仅允许存指定路径
 
-## 本轮更新（2026-03-17）- 复核 workflow 任务数据外移整改结果 <!-- session-turn-id: 20260317-173929640 -->
-1. 用户本轮要求（明示）：
-   - 在 `../workflow` 完成整改后，再次核验任务数据是否已迁出 `workflow` 本地持久化，以及外部目录结构是否便于后续查阅。
-2. 本轮核验（事实）：
-   - `../workflow/state/workflow.db` 与 `../workflow/.runtime/state/workflow.db` 中已不存在 `assignment_graphs / assignment_nodes / assignment_execution_runs / assignment_edges / assignment_audit_log` 表。
-   - 以 `asg-20260315-192244-382708` 为样本，未在 `../workflow` 本地状态目录与日志文件中检出当前任务票据号、任务名或旧 `workspace/assignments` 路径数据副本。
-   - 外部目录 `C:/work/J-Agents/.output/tasks/asg-20260315-192244-382708/` 下已具备 `task.json / nodes/*.json / runs/<run_id>/* / artifacts/... / TASK_STRUCTURE.md`，且 `node.json` 与 `run.json` 的 `result_ref` 已统一指向 `tasks/...` 新结构。
-3. 当前判断（事实 + 推断/假设，置信度: 高）：
-   - 若验收范围限定为“任务中心 assignment 数据外移”，本轮整改已基本通过。
-   - 若验收口径扩大为“所有用户工作记录都不应持久化在 workflow 本地库”，则 `task_runs / task_events / conversation_messages / chat_sessions / analysis_*` 等历史工作流表仍保留旧用户内容，尚未完全满足更强隐私边界。
-   - 外部结构目前已基本可查阅，但对后续工作记录分析仍建议补一个统一索引文件，减少逐层打开 `task.json + node.json + run.json` 的成本。
-4. 当前边界（事实）：
-   - 本轮仅完成复核，未改动 `../workflow` 实现或需求文档。
-5. 收敛门禁（内部判定）：
-   - `start_design`（问题已完成复核并可给出明确验收结论）。
-快照检查：用户偏好已更新=否；用户需求已完全理解=是
-## 本轮更新（2026-03-17）- 收口为历史工作记录也仅允许存指定路径 <!-- session-turn-id: 20260317-174250932 -->
-1. 用户本轮澄清（明示）：
-   - 隐私目标进一步收口为：不仅任务中心 assignment 数据不应持久化在 `workflow` 本地工作区，连历史工作记录也不应保留在本地工作区；所有相关记录只能持久化在指定路径。
-2. 当前判断（事实 + 推断/假设，置信度: 高）：
-   - 按该更强口径，`../workflow` 当前整改仍未完全通过。
-   - 虽然 assignment 任务表已从 `workflow` 本地库移除，但 `task_runs / task_events / conversation_messages / chat_sessions / analysis_*` 等历史工作记录仍持久化在 `workflow` 本地数据库中，仍不满足“只存指定路径”的边界。
-3. 当前结论（事实）：
-   - 之后对 `../workflow` 的隐私验收标准应统一改为：`workflow` 本地工作区不得持久化任何用户工作记录明文，包括任务中心记录、历史任务运行记录、对话记录、分析记录与相关审计明文；唯一持久化落点只能是指定路径。
-4. 当前边界（事实）：
-   - 本轮仅完成验收口径澄清，未新增需求文档，未改动 `../workflow` 实现。
-5. 收敛门禁（内部判定）：
-   - `start_design`（目标口径已明确，可据此继续生成整改提示词或需求补丁）。
-快照检查：用户偏好已更新=否；用户需求已完全理解=是
 ## 本轮更新（2026-03-17）- 交付全量工作记录外移整改提示词 <!-- session-turn-id: 20260317-175522254 -->
 1. 用户本轮确认（明示）：
    - 同意继续提供一份新的整改提示词，将 `workflow` 的历史工作记录也纳入“只允许存指定路径”的整改范围。
@@ -213,3 +185,37 @@
 5. 收敛门禁（内部判定）：
    - `start_design`（需求口径明确，文件已同步，可直接进入执行工作区开发）。
 快照检查：用户偏好已更新=是；用户需求已完全理解=是
+## 本轮更新（2026-03-19）- 读取 AGENTS 与工作快照恢复记忆 <!-- session-turn-id: 20260319-092611140 -->
+1. 用户本轮要求（明示）：
+   - 读取 `AGENTS.md` 以及工作快照，恢复当前工作记忆。
+2. 本轮恢复（事实）：
+   - 已按恢复链路读取 `AGENTS.md`、目录导读、启动清单、会话快照、偏好归属策略、外部输入观察、用户思维模式概述、方法库总览、本地技能总览，以及补充的工作区状态概述、通用子角色协作卡、最新偏好日志与归档索引。
+   - 当前有效上下文集中在 `workflow` 的三环境部署与用户可控升级、测试数据展示改为环境策略，以及“任务与历史工作记录仅允许持久化在指定路径”的隐私边界。
+3. 本轮治理（事实）：
+   - 已执行长期偏好主档行数门禁检查，当前长期主档均未超 200 行。
+   - 已执行状态健康巡检，检测到 `user_profile/logs/thinking-patterns-change-log.md` 达到归档阈值，将在本轮收尾时自动归档。
+4. 当前边界（事实 + 推断/假设，置信度: 高）：
+   - 本轮仅完成记忆恢复与状态维护，未新增需求文档，未向其他工作区分发。
+5. 收敛门禁（内部判定）：
+   - `start_design`（本轮为恢复与治理回合，无新增阻塞）。
+快照检查：用户偏好已更新=否；用户需求已完全理解=是
+## 本轮更新（2026-03-19）- 改造 .codex 分层记忆机制并接入启动收尾链路 <!-- session-turn-id: 20260319-102215699 -->
+1. 用户本轮要求（明示）：
+   - 将当前工作区的 `.codex` 记忆改造为四层结构：`.codex/MEMORY.md` 作为顶层规范文件，`.codex/memory/全局记忆总览.md`、`.codex/memory/YYYY-MM/记忆总览.md`、`.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md` 作为分层记忆；并要求每次工作前固定读取，且每轮工作结束后写入带时间戳的当日总结。
+2. 本轮实现（事实）：
+   - 已新增 `.codex/MEMORY.md`、`.codex/memory/全局记忆总览.md`、`.codex/memory/2026-03/记忆总览.md`、`.codex/memory/2026-03/2026-03-19-每日记忆.md`。
+   - 已新增 `scripts/maintain-codex-memory.ps1`，用于补齐 `.codex` 记忆目录、检查昨日是否已归入月总览，以及检查上月是否已归入全局总览。
+   - 已新增 `scripts/append-codex-memory-turn.ps1`，用于在每轮结束时向当日记忆追加带时间戳的回合总结。
+   - 已更新 `AGENTS.md`、`workspace_state/core/startup-checklist.md`、`workspace_state/core/workspace-state-overview.md`、`./.codex/skills/session-state-maintainer/SKILL.md` 与其状态契约引用，使启动恢复与回合收尾默认接入新的 `.codex` 记忆链。
+3. 本轮验证（事实）：
+   - 已实际向 `2026-03-19-每日记忆.md` 追加 2 条带时间戳的回合总结，验证“每轮工作结束后写入当日记忆”的链路可用。
+   - 已执行 `scripts/maintain-codex-memory.ps1` 正常巡检，当前 `.codex` 记忆结构健康。
+   - 已执行两次 DryRun 验证：
+     1. `2026-03-20 00:01:00` 日切场景会将 `2026-03-19-每日记忆.md` 归入 `2026-03/记忆总览.md`；
+     2. `2026-04-01 00:01:00` 月切场景会将 `2026-03/记忆总览.md` 归入 `全局记忆总览.md`。
+   - 已修复归档脚本在日切分支下的返回值问题，以及月摘要提取错误抓取 `来源` 行的问题。
+4. 当前边界（事实 + 推断/假设，置信度: 高）：
+   - 本轮只完成当前 Analyst 工作区 `.codex` 记忆机制改造与流程接入，未修改其他工作区。
+5. 收敛门禁（内部判定）：
+   - `start_design`（本轮为机制改造与验证回合，无新增阻塞）。
+快照检查：用户偏好已更新=否；用户需求已完全理解=是

@@ -11,7 +11,7 @@ Use this skill to keep requirement docs easy to navigate and current while prese
 1. Read `AGENTS.md` and honor role boundaries.
 2. Read `docs/workflow/overview/需求概述.md` as the master index.
 3. List files in `docs/workflow/` and `docs/workflow/prompts/`.
-4. Read `workspace_state/core/session-snapshot.md` for recent scope decisions.
+4. Read `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md` for recent scope decisions.
 
 ## Auto-Placement Rules
 1. Place new overview docs in `docs/workflow/overview/`.

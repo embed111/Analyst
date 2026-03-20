@@ -10,32 +10,30 @@ Use this skill to enforce a repeatable restore-update cycle so the next session 
 ## Start-of-Session Restore
 1. Read files in this order:
 - `AGENTS.md`
+- run `scripts/maintain-codex-memory.ps1`
+- `.codex/MEMORY.md`
+- `.codex/memory/全局记忆总览.md`
+- `.codex/memory/YYYY-MM/记忆总览.md`
+- `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`
 - `workspace_state/目录导读.md`
 - `user_profile/目录导读.md`
 - `workspace_state/core/startup-checklist.md`
-- `workspace_state/core/session-snapshot.md`
 - `user_profile/core/thinking-patterns-overview.md`
 - `knowledge_base/analysis-methods-overview.md`
 2. Identify missing or stale files and mark them for repair before task execution.
 3. Summarize restored state in 3 to 6 lines before doing substantive work.
 
 ## End-of-Turn Update
-1. Update `workspace_state/core/session-snapshot.md` with:
-- what changed
-- active defaults
-- next-start priorities
- - prefer `scripts/append-session-snapshot-turn.ps1` for new per-turn blocks so updates always append at EOF
-2. When `MEMORY_UPDATE_SWITCH: ON`, append one check sentence right after the current turn block in `workspace_state/core/session-snapshot.md`, and never overwrite older checks:
-- `快照检查：用户偏好已更新=<是/否>；用户需求已完全理解=<是/否>`
-3. Keep the latest check sentence as the last line of the file for quick audit.
-4. Update `user_profile/logs/thinking-patterns-change-log.md`.
-5. If stable preference changed, also update:
+1. When `MEMORY_UPDATE_SWITCH: ON`, append this turn's timestamped summary to `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md` with `scripts/append-codex-memory-turn.ps1`.
+2. Run `scripts/maintain-codex-memory.ps1` so day/month rollover checks are applied before the next turn.
+3. Update `user_profile/logs/thinking-patterns-change-log.md`.
+4. If stable preference changed, also update:
 - `user_profile/core/thinking-patterns-overview.md`
 - the relevant domain file under `user_profile/`
-6. If process changed, update:
+5. If process changed, update:
 - `workspace_state/core/startup-checklist.md`
 - `workspace_state/logs/state-change-log.md`
-7. Run `scripts/maintain-state-health.ps1 -AutoArchive` to apply threshold-based archive maintenance.
+6. Run `scripts/maintain-state-health.ps1 -AutoArchive` to apply threshold-based archive maintenance.
 
 ## Quality Gates
 1. Keep facts and assumptions separated.
@@ -46,12 +44,12 @@ Use this skill to enforce a repeatable restore-update cycle so the next session 
 ## Examples
 1. Example A (start restore):
 - Situation: 新会话刚启动。
-- Action: 按顺序读取 `AGENTS.md -> startup-checklist -> session-snapshot -> overview`。
+- Action: 先执行 `maintain-codex-memory`，再按顺序读取 `.codex` 分层记忆与 `startup-checklist -> overview`。
 - Output: 3~6 行恢复摘要 + 本轮优先事项。
 2. Example B (end update):
 - Situation: 本轮新增了需求文档与提示词。
-- Action: 使用 `scripts/append-session-snapshot-turn.ps1` 追加 `session-snapshot` 新块，再更新 `change-log`，并写明同步/校验结果。
-- Output: 下一轮可直接续接的状态块。
+- Action: 先用 `append-codex-memory-turn` 记录当轮总结，再更新 `change-log`，最后执行状态维护脚本。
+- Output: 下一轮可直接续接的当日记忆块。
 3. Example C (process changed):
 - Situation: 新增了归档脚本或门禁脚本。
 - Action: 同步更新 `startup-checklist` 与 `state-change-log`。

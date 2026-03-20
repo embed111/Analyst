@@ -3,16 +3,34 @@
 ## Purpose
 Define minimum required sections so continuity files stay consistent.
 
-## `workspace_state/core/session-snapshot.md`
+## `.codex/MEMORY.md`
 Required:
 1. `最后更新`
-2. `当前长期机制`
-3. `当前默认工作方式`
-4. `本次新增资产`
-5. `下一轮启动时优先关注`
-6. Per-turn check sentence (when `MEMORY_UPDATE_SWITCH: ON`):
-- `快照检查：用户偏好已更新=<是/否>；用户需求已完全理解=<是/否>`
-7. Keep all historical check sentences (no overwrite), and keep the latest one at file end.
+2. read order rules
+3. daily write rules
+4. day/month rollover archive rules
+
+## `.codex/memory/全局记忆总览.md`
+Required:
+1. `最后更新`
+2. current month marker
+3. archived thematic summary section
+4. should summarize one archived month per item rather than expand to daily detail
+
+## `.codex/memory/YYYY-MM/记忆总览.md`
+Required:
+1. `最后更新`
+2. month scope description
+3. archived thematic summary section
+4. should summarize one archived day per item rather than expand to turn-by-turn detail
+
+## `.codex/memory/YYYY-MM/YYYY-MM-DD-每日记忆.md`
+Required:
+1. `最后更新`
+2. month marker
+3. status line
+4. turn record section with timestamped entries
+5. current-day continuity should be recoverable from the latest entries without relying on a separate snapshot file
 
 ## `workspace_state/core/startup-checklist.md`
 Required:

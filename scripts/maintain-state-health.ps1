@@ -52,26 +52,8 @@ function Get-BlockCount {
 }
 
 $repoRoot = Get-RepoRoot
-$repairScript = Join-Path $repoRoot "scripts/repair-session-snapshot-tail.ps1"
-if (Test-Path $repairScript) {
-    if ($DryRun) {
-        & $repairScript -DryRun
-    }
-    else {
-        & $repairScript
-    }
-}
 
 $targets = @(
-    @{
-        Name = "session-snapshot"
-        FileRel = "workspace_state/core/session-snapshot.md"
-        IndexRel = "workspace_state/logs/session-history-index.md"
-        LineThreshold = $SnapshotLineThreshold
-        SizeThreshold = $SnapshotSizeKbThreshold
-        BlockThreshold = $SnapshotBlockThreshold
-        HeadingRegex = "^## 本轮更新"
-    },
     @{
         Name = "thinking-patterns-change-log"
         FileRel = "user_profile/logs/thinking-patterns-change-log.md"
@@ -113,10 +95,6 @@ foreach ($target in $targets) {
     if ($ArchiveIdleDays -gt 0 -and $daysSinceLastArchive -ge 0 -and $daysSinceLastArchive -ge $ArchiveIdleDays) {
         $reasons.Add("days_since_last_archive($daysSinceLastArchive) >= $ArchiveIdleDays")
     }
-    if ($ArchiveIdleDays -gt 0 -and $daysSinceLastArchive -lt 0) {
-        $reasons.Add("archive_index_missing")
-    }
-
     $triggeredThis = $reasons.Count -gt 0
     $report.Add([PSCustomObject]@{
             target = $target.Name

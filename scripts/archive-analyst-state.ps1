@@ -1,10 +1,12 @@
-﻿param(
+param(
     [int]$KeepSnapshotBlocks = 12,
     [int]$KeepChangeLogBlocks = 12,
     [switch]$DryRun
 )
 
 $ErrorActionPreference = "Stop"
+
+# KeepSnapshotBlocks is retained only for backward-compatible invocation.
 
 function Get-RepoRoot {
     return (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
@@ -48,17 +50,6 @@ function Extract-DateFromHeading {
     return ""
 }
 
-function Extract-TitleFromSessionHeading {
-    param([string]$Heading)
-    $normalized = ($Heading -replace "\s*<!--.+-->\s*$", "").Trim()
-    $marker = "）- "
-    $idx = $normalized.IndexOf($marker)
-    if ($idx -ge 0) {
-        return $normalized.Substring($idx + $marker.Length).Trim()
-    }
-    return $normalized
-}
-
 function Get-ArchiveDigestLines {
     param(
         [object[]]$MovedSections,
@@ -66,28 +57,6 @@ function Get-ArchiveDigestLines {
     )
 
     $digest = New-Object System.Collections.Generic.List[string]
-
-    if ($SourceLabel -eq "workspace_state/core/session-snapshot.md") {
-        $groups = [ordered]@{}
-        foreach ($sec in $MovedSections) {
-            $heading = [string]$sec[0]
-            $date = Extract-DateFromHeading -Heading $heading
-            $title = Extract-TitleFromSessionHeading -Heading $heading
-            if (-not $groups.Contains($date)) {
-                $groups[$date] = New-Object System.Collections.Generic.List[string]
-            }
-            if (-not $groups[$date].Contains($title)) {
-                $groups[$date].Add($title)
-            }
-        }
-
-        foreach ($key in @($groups.Keys | Select-Object -Last 4)) {
-            $titles = @($groups[$key] | Select-Object -First 3)
-            $suffix = if ($groups[$key].Count -gt 3) { " 等 $($groups[$key].Count) 项" } else { "" }
-            $digest.Add(("{0}: {1}{2}" -f $key, ($titles -join "；"), $suffix))
-        }
-        return $digest
-    }
 
     if ($SourceLabel -eq "user_profile/logs/thinking-patterns-change-log.md") {
         $dateCounts = [ordered]@{}
@@ -103,7 +72,6 @@ function Get-ArchiveDigestLines {
         foreach ($key in @($dateCounts.Keys | Select-Object -Last 4)) {
             $digest.Add(("{0}: 已归档 {1} 个日期块" -f $key, $dateCounts[$key]))
         }
-        return $digest
     }
 
     return $digest
@@ -265,12 +233,8 @@ function Archive-FileByBlocks {
 }
 
 $repoRoot = Get-RepoRoot
-$sessionPath = Join-Path $repoRoot "workspace_state/core/session-snapshot.md"
 $changePath = Join-Path $repoRoot "user_profile/logs/thinking-patterns-change-log.md"
 
-if (-not (Test-Path $sessionPath)) {
-    throw "Missing file: $sessionPath"
-}
 if (-not (Test-Path $changePath)) {
     throw "Missing file: $changePath"
 }
@@ -279,18 +243,8 @@ $backupStamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $backupDir = Join-Path $repoRoot ".tmp/state-backups/$backupStamp"
 if (-not $DryRun) {
     New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
-    Copy-Item -Path $sessionPath -Destination (Join-Path $backupDir "session-snapshot.md.bak") -Force
     Copy-Item -Path $changePath -Destination (Join-Path $backupDir "thinking-patterns-change-log.md.bak") -Force
 }
-
-$sessionResult = Archive-FileByBlocks `
-    -FilePath $sessionPath `
-    -HeadingRegex "^## 本轮更新" `
-    -KeepBlocks $KeepSnapshotBlocks `
-    -ArchiveDir (Join-Path $repoRoot "workspace_state/logs/session-history") `
-    -ArchivePrefix "session-history" `
-    -IndexPath (Join-Path $repoRoot "workspace_state/logs/session-history-index.md") `
-    -SourceLabel "workspace_state/core/session-snapshot.md"
 
 $changeResult = Archive-FileByBlocks `
     -FilePath $changePath `
@@ -301,5 +255,4 @@ $changeResult = Archive-FileByBlocks `
     -IndexPath (Join-Path $repoRoot "user_profile/logs/change-log-history-index.md") `
     -SourceLabel "user_profile/logs/thinking-patterns-change-log.md"
 
-Write-Host "DONE dry_run=$($DryRun.IsPresent) snapshot_changed=$($sessionResult.changed) changelog_changed=$($changeResult.changed)"
-
+Write-Host "DONE dry_run=$($DryRun.IsPresent) changelog_changed=$($changeResult.changed)"
