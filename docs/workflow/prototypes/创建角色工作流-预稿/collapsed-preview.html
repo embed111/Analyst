@@ -1,0 +1,720 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>创建角色工作流预稿</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --panel-soft: #f7f8fa;
+      --line: #e3e5e8;
+      --line-soft: #eceef1;
+      --text: #1f2329;
+      --muted: #646a73;
+      --accent: #2f6feb;
+      --accent-soft: #eef4ff;
+      --ok: #00a871;
+      --ok-soft: #eefaf5;
+      --warn: #d97904;
+      --warn-soft: #fff7eb;
+      --danger: #d84b4b;
+      --danger-soft: #fff3f2;
+      --shadow: 0 0 0 rgba(31, 35, 41, 0);
+      --rail-width: 248px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font: 13px/1.5 "PingFang SC", "Helvetica Neue", "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    button { font: inherit; border: none; border-radius: 6px; padding: 6px 10px; background: var(--accent); color: #fff; cursor: default; }
+    button.alt { border: 1px solid var(--line); background: #fff; color: var(--text); }
+    .app { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); gap: 10px; height: 100vh; padding: 10px; }
+    .rail, .window, .panel { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); }
+    .rail { padding: 12px; display: grid; grid-template-rows: auto auto 1fr; gap: 10px; overflow: hidden; }
+    .brand { border: 1px solid var(--line-soft); border-radius: 8px; padding: 10px; background: var(--panel-soft); }
+    .title { font-size: 15px; font-weight: 700; }
+    .meta, .helper, .window-note, .current-role, .panel-desc { font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .tabs { display: flex; flex-direction: column; gap: 8px; }
+    .tab { border: 1px solid var(--line-soft); border-radius: 8px; background: var(--panel-soft); color: #4e5969; padding: 8px 12px; font-weight: 500; }
+    .tab.active { border-color: #c8d9ff; background: var(--accent-soft); color: #245bdb; font-weight: 700; }
+    .workspace { min-width: 0; min-height: 0; display: flex; overflow: hidden; }
+    .window { padding: 8px; display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; overflow: hidden; }
+    .window-head, .window-top, .panel-head, .chip-row, .action-row, .flow-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .window-title { font-size: 20px; font-weight: 700; line-height: 1.1; }
+    .module-tabs { display: flex; align-items: flex-end; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+    .module-tab { position: relative; border-radius: 7px 7px 0 0; padding: 4px 8px 5px; color: var(--muted); font-weight: 700; background: transparent; }
+    .module-tab.active { color: #245bdb; background: #f7f9fc; }
+    .module-tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; border-radius: 999px; background: var(--accent); }
+    .workbench { --draft-width: 232px; display: grid; grid-template-columns: var(--draft-width) minmax(0, 6fr) minmax(320px, 4fr); gap: 10px; min-height: 0; flex: 1 1 auto; overflow: hidden; }
+    .workbench.draft-collapsed { --draft-width: 56px; }
+    .column, .panel { min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+    .panel-head { padding: 12px 14px; border-bottom: 1px solid var(--line); background: #fff; }
+    .panel-title { font-size: 15px; font-weight: 700; }
+    .scroll { min-height: 0; flex: 1 1 auto; overflow: auto; scrollbar-width: thin; scrollbar-color: #c9cfda #f5f6f8; }
+    .scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+    .scroll::-webkit-scrollbar-track { background: #f5f6f8; border-radius: 999px; }
+    .scroll::-webkit-scrollbar-thumb { background: #c9cfda; border-radius: 999px; border: 2px solid #f5f6f8; }
+    .list-body, .main-body, .detail-body { padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .card, .message, .spec-card, .detail-card, .gate-card, .flow-hint, .stage-card, .flow-card { border: 1px solid var(--line-soft); border-radius: 8px; background: var(--panel-soft); }
+    .card, .message, .spec-card, .detail-card, .gate-card, .stage-card, .flow-card { padding: 10px; }
+    .card.active { border-color: #d5def0; background: #f7f9fc; box-shadow: inset 0 0 0 1px rgba(36,91,219,.06); }
+    .draft-column { position: relative; }
+    .draft-handle {
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 62px;
+      padding: 0;
+      border-radius: 999px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      box-shadow: 0 1px 4px rgba(31,35,41,.08);
+    }
+    .draft-handle svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: #4e5969;
+      stroke-width: 2.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 140ms ease;
+    }
+    .workbench.draft-collapsed .draft-handle svg { transform: rotate(180deg); }
+    .draft-collapsed-body {
+      display: none;
+      flex: 1 1 auto;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 6px;
+      background: #fff;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .workbench.draft-collapsed .draft-head-main,
+    .workbench.draft-collapsed .draft-actions,
+    .workbench.draft-collapsed .list-body { display: none; }
+    .workbench.draft-collapsed .draft-collapsed-body { display: flex; }
+    .workbench.draft-collapsed .panel-head { padding: 10px 8px; justify-content: center; }
+    .draft-count {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-soft);
+      color: #245bdb;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .draft-current-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #245bdb;
+      box-shadow: 0 0 0 4px #eef3ff;
+    }
+    .draft-collapsed-label {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4e5969;
+    }
+    .draft-name, .stage-title, .detail-title, .spec-name { font-size: 14px; font-weight: 700; }
+    .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .chip.idle, .chip.done { background: var(--ok-soft); color: var(--ok); }
+    .chip.active, .chip.running { background: var(--accent-soft); color: #245bdb; }
+    .chip.warn, .chip.pending { background: var(--warn-soft); color: var(--warn); }
+    .chip.danger { background: var(--danger-soft); color: var(--danger); }
+    .mini-k { font-size: 11px; color: var(--muted); }
+    .mini-v { margin-top: 4px; font-size: 12px; font-weight: 700; line-height: 1.45; }
+    .message {
+      padding: 0;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .message-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: min(560px, calc(100% - 44px));
+    }
+    .message-role {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 32px;
+      margin: 0;
+      background: #eef1f5;
+      color: #4e5969;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .message-text {
+      white-space: pre-line;
+      border: 1px solid var(--line-soft);
+      border-radius: 6px 16px 16px 16px;
+      background: #fff;
+      padding: 10px 12px;
+      line-height: 1.65;
+    }
+    .message.assistant .message-role { background: #eef4ff; color: #245bdb; }
+    .message.user { justify-content: flex-end; }
+    .message.user .message-role {
+      order: 2;
+      background: #dfeaff;
+      color: #245bdb;
+    }
+    .message.user .message-body {
+      order: 1;
+      align-items: flex-end;
+    }
+    .message.user .message-text {
+      background: #eaf2ff;
+      border-color: #d7e6ff;
+      border-radius: 16px 6px 16px 16px;
+    }
+    .message.system {
+      display: block;
+      text-align: center;
+      padding: 4px 0;
+    }
+    .message.system .message-role {
+      width: auto;
+      height: auto;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fff3d6;
+      color: #9a6400;
+      margin: 0 auto 6px;
+      font-size: 10px;
+    }
+    .message.system .message-body {
+      display: block;
+      max-width: none;
+    }
+    .message.system .message-text {
+      display: inline-block;
+      border: none;
+      background: transparent;
+      padding: 0;
+      color: #8a5a00;
+      font-size: 12px;
+    }
+    .asset-row, .summary-grid, .detail-grid, .gate-list, .action-row, .composer-actions, .task-picks { display: flex; gap: 8px; flex-wrap: wrap; }
+    .asset-card, .summary-card, .detail-kv, .detail-block, .gate-item { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 8px 9px; }
+    .asset-card { width: 120px; min-height: 82px; display: flex; flex-direction: column; justify-content: space-between; background: #fff; }
+    .summary-grid, .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .conversation-shell {
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      min-height: 344px;
+    }
+    .history-head {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line-soft);
+      background: #fff;
+    }
+    .conversation-scroll {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+      max-height: 360px;
+      background: #f5f6f8;
+    }
+    .composer-card {
+      border: 1px solid var(--line-soft);
+      border-width: 1px 0 0;
+      background: #fff;
+      box-shadow: none;
+      margin: 0;
+      padding: 12px 14px;
+    }
+    .composer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .composer-title { font-size: 13px; font-weight: 700; }
+    .composer-box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px 12px;
+      min-height: 88px;
+      box-shadow: none;
+    }
+    .composer-input {
+      width: 100%;
+      min-height: 70px;
+      border: none;
+      padding: 0;
+      resize: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      line-height: 1.6;
+    }
+    .composer-input::placeholder { color: #8a919f; }
+    .composer-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .composer-ready { color: #245bdb; font-weight: 700; }
+    .composer-actions { margin-top: 8px; align-items: center; justify-content: space-between; }
+    .composer-left { display: flex; gap: 8px; flex-wrap: wrap; }
+    .attach-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #dbe1ea;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #f7f8fa;
+      color: #4e5969;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .draft-inline-files { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .draft-file {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #dbe1ea;
+      border-radius: 10px;
+      padding: 6px 10px;
+      background: #f7f8fa;
+      color: #3f4752;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .draft-file::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #edf3ff, #dfe9ff);
+      box-shadow: inset 0 0 0 1px #cad8ff;
+      flex: 0 0 14px;
+    }
+    .stage-meta { margin-top: 4px; font-size: 12px; color: var(--muted); }
+    .stage-steps { margin-top: 10px; display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 8px; }
+    .stage-step { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 8px; min-height: 84px; display: flex; flex-direction: column; gap: 6px; }
+    .stage-step.current { border-color: #c8d9ff; background: #f5f8ff; }
+    .step-index { width: 20px; height: 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: #edf2ff; color: #245bdb; }
+    .step-title { font-size: 12px; font-weight: 700; }
+    .step-desc { font-size: 11px; color: var(--muted); line-height: 1.45; }
+    .evolution-card { border: 1px solid var(--line-soft); border-radius: 8px; background: #fff; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+    .evolution-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .evolution-title { font-size: 14px; font-weight: 700; }
+    .evolution-desc { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .evolution-legend { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+    .legend-dot { width: 9px; height: 9px; border-radius: 999px; display: inline-block; }
+    .legend-dot.done { background: var(--ok); }
+    .legend-dot.running { background: var(--accent); }
+    .legend-dot.pending { background: var(--warn); }
+    .legend-dot.blocked { background: var(--danger); }
+    .status-sync {
+      border: 1px solid #dbe6ff;
+      border-radius: 8px;
+      background: #f7faff;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #3b5ccc;
+    }
+    .flow-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .flow-node {
+      width: 100%;
+      min-height: 82px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+      box-shadow: none;
+    }
+    .flow-node.done { border-color: #d4f0e3; background: #f6fdf9; }
+    .flow-node.running { border-color: #c8d9ff; background: #f5f8ff; }
+    .flow-node.pending { border-style: dashed; background: #fffdf7; }
+    .flow-node.active { box-shadow: inset 0 0 0 1px rgba(36,91,219,.15); }
+    .flow-node-title { font-size: 13px; font-weight: 700; }
+    .flow-node-meta { font-size: 12px; color: var(--muted); line-height: 1.45; }
+    .evolution-svg {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fbfcfe, #f7f9fc);
+    }
+    .graph-line { fill: none; stroke-width: 3; stroke-linecap: round; }
+    .graph-line.main { stroke: #78c8a7; }
+    .graph-line.branch { stroke: #9fb8f0; }
+    .graph-line.pending { stroke: #e6b778; stroke-dasharray: 6 6; }
+    .graph-line.blocked { stroke: #e39a9a; stroke-dasharray: 4 6; }
+    .graph-node { stroke-width: 3; }
+    .graph-node.done { fill: #edfdf6; stroke: var(--ok); }
+    .graph-node.running { fill: #edf3ff; stroke: var(--accent); }
+    .graph-node.pending { fill: #fff7eb; stroke: var(--warn); }
+    .graph-node.blocked { fill: #fff2f0; stroke: var(--danger); }
+    .graph-label { font-size: 12px; font-weight: 700; fill: #1f2329; }
+    .graph-muted { font-size: 11px; fill: #7b8492; }
+    .task-picks { display: none; }
+    .task-pick {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .task-pick.active {
+      border-color: #8fb6ff;
+      background: #f5f8ff;
+      color: #245bdb;
+    }
+    .spec-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .mono { font-family: "Cascadia Mono","SFMono-Regular",Consolas,monospace; font-size: 12px; }
+    button[disabled] { opacity: 0.45; cursor: default; }
+    @media (max-width: 1360px) { .workbench { grid-template-columns: var(--draft-width) minmax(0,1fr); } .detail-column { grid-column: 1 / -1; } }
+    @media (max-width: 1080px) { html, body { overflow: auto; } .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; } .tabs { flex-direction: row; flex-wrap: wrap; } .window { overflow: visible; } .workbench, .summary-grid, .detail-grid { grid-template-columns: 1fr; } .conversation-scroll { max-height: none; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand">
+        <div class="title">workflow</div>
+        <div class="meta">[15:56:12] 预稿模式</div>
+        <div class="meta">本页为创建角色预稿，不影响现有正式原型。</div>
+      </div>
+      <div class="tabs">
+        <div class="tab">对话</div>
+        <div class="tab">工作记录与训练</div>
+        <div class="tab active">训练中心</div>
+        <div class="tab">任务中心</div>
+        <div class="tab">设置</div>
+      </div>
+      <div></div>
+    </aside>
+
+    <main class="workspace">
+      <section class="window">
+        <div class="window-head">
+          <div>
+            <div class="window-title">训练中心</div>
+            <div class="window-note">创建角色预稿：通过对话收集角色需求，并引用任务中心中仅属于当前角色的创建工作流任务。</div>
+          </div>
+          <div class="current-role">草稿结论：`lifecycle_status` 与 `runtime_status` 并行展示</div>
+        </div>
+        <div class="window-top">
+          <div class="module-tabs">
+            <div class="module-tab">角色资产与版本</div>
+            <div class="module-tab active">创建角色</div>
+            <div class="module-tab">训练闭环</div>
+          </div>
+        </div>
+
+        <div class="workbench draft-collapsed" id="workbench">
+          <aside class="column draft-column" id="draftColumn">
+            <button class="draft-handle alt" id="draftHandle" aria-label="折叠角色列表" title="折叠角色列表">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M12.5 5.5 8 10l4.5 4.5"></path>
+                <path d="M8.5 5.5 4 10l4.5 4.5"></path>
+              </svg>
+            </button>
+            <section class="panel">
+              <div class="panel-head">
+                <div class="draft-head-main">
+                  <div class="panel-title">角色创建草稿</div>
+                  <div class="panel-desc">左栏可横向折叠，给中部聊天区让出更多宽度。</div>
+                </div>
+                <div class="draft-actions"><button class="alt">+ 新建</button></div>
+              </div>
+              <div class="scroll list-body">
+                <div class="card active">
+                  <div class="draft-name">增长分析师</div>
+                  <div class="chip-row"><span class="chip active">创建中</span><span class="chip warn">预发布态</span></div>
+                  <div class="mini-k">当前阶段</div><div class="mini-v">结果回看与调向 · 4 / 6</div>
+                </div>
+                <div class="card">
+                  <div class="draft-name">品牌文案助手</div>
+                  <div class="chip-row"><span class="chip pending">收集中</span><span class="chip idle">空闲</span></div>
+                  <div class="mini-k">当前阶段</div><div class="mini-v">角色画像收集 · 2 / 6</div>
+                </div>
+                <div class="card">
+                  <div class="draft-name">开发排障助理</div>
+                  <div class="chip-row"><span class="chip done">已完成</span><span class="chip warn">预发布态</span></div>
+                  <div class="mini-k">最近动作</div><div class="mini-v">上一轮能力验收通过后已回到空闲。</div>
+                </div>
+              </div>
+              <div class="draft-collapsed-body" aria-hidden="true">
+                <div class="draft-count">3</div>
+                <div class="draft-current-dot"></div>
+                <div class="draft-collapsed-label">角色草稿</div>
+                <div class="helper">创建中</div>
+              </div>
+            </section>
+          </aside>
+
+          <section class="column">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">增长分析师</div>
+                  <div class="panel-desc">创建中会话。当前分析 agent 负责分析引导、阶段切换与任务联动。</div>
+                </div>
+                <div class="chip-row"><span class="chip running">阶段 4 / 6</span><span class="chip warn">预发布态</span></div>
+              </div>
+              <div class="scroll main-body">
+                <div class="conversation-shell">
+                  <div class="history-head">
+                    <div class="helper">当前分析 agent：Analyst</div>
+                    <div class="chip-row"><span class="chip active">创建中</span></div>
+                  </div>
+                  <div class="scroll conversation-scroll">
+                    <div class="message user">
+                      <div class="message-role">你</div>
+                      <div class="message-body">
+                        <div class="message-text">我想创建一个“增长分析师”角色。它要能把模糊增长问题拆成指标、实验路径、优先级和复盘建议。</div>
+                      </div>
+                    </div>
+                    <div class="message user">
+                      <div class="message-role">你</div>
+                      <div class="message-body">
+                        <div class="message-text">希望它写出来像“问题树 + 指标漏斗 + 实验方案”。我上传两张参考图给它理解信息密度和表达方式。</div>
+                        <div class="asset-row">
+                          <div class="asset-card"><div class="mini-k">图片 A</div><div class="mini-v">拆解图</div><div class="helper">用于理解结构密度</div></div>
+                          <div class="asset-card"><div class="mini-k">图片 B</div><div class="mini-v">优先级画布</div><div class="helper">用于理解展示层级</div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="message assistant">
+                      <div class="message-role">助手</div>
+                      <div class="message-body">
+                        <div class="message-text">已识别角色目标、核心能力、风格示例与禁止项。当前仍在补全：
+1. 输出边界是否允许直接给开发实现建议；
+2. 默认交付物是否包含实验排期；
+3. 该角色是否需要维护长期方法库。</div>
+                      </div>
+                    </div>
+                    <div class="message user">
+                      <div class="message-role">你</div>
+                      <div class="message-body">
+                        <div class="message-text">边界上不要直接写代码实现；默认交付物要有实验排期；需要能沉淀方法模板，但先别自动发布。</div>
+                      </div>
+                    </div>
+                    <div class="message system">
+                      <div class="message-role">系统任务更新</div>
+                      <div class="message-body">
+                        <div class="message-text">后台任务已创建：资料收集整理、画像沉淀入工作区</div>
+                      </div>
+                    </div>
+                    <div class="message assistant">
+                      <div class="message-role">助手</div>
+                      <div class="message-body">
+                        <div class="message-text">角色画像已经足够清晰，我切到“能力后台生成”。先让新角色在后台产出问题树和指标漏斗，再把结果回传给你看。</div>
+                      </div>
+                    </div>
+                    <div class="message system">
+                      <div class="message-role">系统任务更新</div>
+                      <div class="message-body">
+                        <div class="message-text">当前阶段已切换为：结果回看与调向；当前任务：能力截图回传</div>
+                      </div>
+                    </div>
+                    <div class="message assistant">
+                      <div class="message-role">助手</div>
+                      <div class="message-body">
+                        <div class="message-text">我已经回传两张能力截图。你先看右侧统一图里的当前任务锚点，再告诉我要不要补“实验排期”和“复盘模板”。</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="composer-card">
+                    <div class="composer-top">
+                      <div class="helper">继续给 Analyst 发消息，图片和文字会作为同一条消息一起发出。</div>
+                      <span class="chip warn">草稿中</span>
+                    </div>
+                    <div class="composer-box">
+                      <div class="draft-inline-files">
+                        <span class="draft-file">问题树参考图</span>
+                        <span class="draft-file">漏斗样例图</span>
+                      </div>
+                      <textarea class="composer-input">把实验排期补进去，但不要替我假设研发资源；复盘模板先给一个轻量版。</textarea>
+                      <div class="composer-meta">
+                        <span>发送后会继续作为当前创建会话的一条图文消息。</span>
+                        <span class="composer-ready">Enter 发送</span>
+                      </div>
+                    </div>
+                    <div class="composer-actions">
+                      <div class="composer-left">
+                        <span class="attach-pill">2 张图片已附带</span>
+                      </div>
+                      <div class="action-row">
+                        <button class="alt">发送</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <aside class="column detail-column">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <div class="panel-title">阶段与任务演进图</div>
+                  <div class="panel-desc">右侧只保留这一张图，当前阶段、当前任务、真相源与回退路径都在图内表达。</div>
+                </div>
+                <div class="chip-row"><span class="chip running">阶段 4 / 6</span><span class="chip active">当前任务：能力截图回传</span></div>
+              </div>
+              <div class="scroll detail-body">
+                <div class="evolution-card">
+                  <div class="evolution-head">
+                    <div>
+                      <div class="evolution-title">增长分析师</div>
+                      <div class="evolution-desc">阶段 1 仅为脚本前置条件；从阶段 2 开始，每个阶段都可能挂接任务中心任务引用。</div>
+                    </div>
+                    <div class="evolution-legend">
+                      <span class="legend-item"><span class="legend-dot done"></span>已完成</span>
+                      <span class="legend-item"><span class="legend-dot running"></span>当前任务</span>
+                      <span class="legend-item"><span class="legend-dot pending"></span>待开始</span>
+                    </div>
+                  </div>
+                  <div class="status-sync">truth source：右侧图只投影当前角色创建工作流；若当前轮结果不满足要求，橙色虚线回退到阶段 2 / 3，而不是另开第二块详情卡或门禁卡。</div>
+                  <svg class="evolution-svg" viewBox="0 0 980 640" aria-label="当前角色阶段与任务演进图">
+                    <path class="graph-line main" d="M220 86 C 300 86, 340 128, 380 170 S 500 250, 570 300 S 650 360, 680 416 S 710 486, 720 548" />
+                    <path class="graph-line pending" d="M570 300 C 640 330, 710 350, 810 392" />
+                    <path class="graph-line pending" d="M810 392 C 844 428, 854 478, 840 542" />
+                    <path class="graph-line pending" d="M680 416 C 570 430, 428 340, 388 236" />
+                    <path class="graph-line pending" d="M388 236 C 350 196, 306 172, 220 170" />
+
+                    <rect x="36" y="44" width="128" height="56" rx="14" fill="#ffffff" stroke="#d7eee2" />
+                    <text x="52" y="66" class="graph-label">阶段 1</text>
+                    <text x="52" y="84" class="graph-label">初始化工作区</text>
+                    <text x="52" y="101" class="graph-muted">脚本前置</text>
+
+                    <rect x="36" y="144" width="128" height="64" rx="14" fill="#ffffff" stroke="#d7eee2" />
+                    <text x="52" y="166" class="graph-label">阶段 2</text>
+                    <text x="52" y="184" class="graph-label">角色画像收集</text>
+                    <text x="52" y="201" class="graph-muted">已完成</text>
+
+                    <rect x="36" y="274" width="128" height="64" rx="14" fill="#ffffff" stroke="#d7eee2" />
+                    <text x="52" y="296" class="graph-label">阶段 3</text>
+                    <text x="52" y="314" class="graph-label">能力后台生成</text>
+                    <text x="52" y="331" class="graph-muted">已完成</text>
+
+                    <rect x="36" y="390" width="128" height="72" rx="14" fill="#f5f8ff" stroke="#8fb6ff" />
+                    <text x="52" y="412" class="graph-label">阶段 4</text>
+                    <text x="52" y="430" class="graph-label">结果回看与调向</text>
+                    <text x="52" y="447" class="graph-muted">当前阶段</text>
+
+                    <rect x="36" y="500" width="128" height="64" rx="14" fill="#ffffff" stroke="#eadfca" />
+                    <text x="52" y="522" class="graph-label">阶段 5</text>
+                    <text x="52" y="540" class="graph-label">确认验收</text>
+                    <text x="52" y="557" class="graph-muted">待进入</text>
+
+                    <rect x="36" y="574" width="128" height="50" rx="14" fill="#ffffff" stroke="#eadfca" />
+                    <text x="52" y="596" class="graph-label">阶段 6</text>
+                    <text x="52" y="614" class="graph-label">完成角色创建</text>
+
+                    <circle cx="220" cy="170" r="20" class="graph-node done" />
+                    <text x="254" y="165" class="graph-label">资料收集整理</text>
+                    <text x="254" y="183" class="graph-muted">任务中心引用 · 已完成</text>
+
+                    <circle cx="388" cy="236" r="20" class="graph-node done" />
+                    <text x="422" y="231" class="graph-label">角色画像沉淀</text>
+                    <text x="422" y="249" class="graph-muted">role_spec 收口完成</text>
+
+                    <circle cx="570" cy="300" r="20" class="graph-node done" />
+                    <text x="604" y="295" class="graph-label">能力结构拆解</text>
+                    <text x="604" y="313" class="graph-muted">问题树 / 指标漏斗</text>
+
+                    <circle cx="680" cy="416" r="22" class="graph-node running" />
+                    <text x="714" y="411" class="graph-label">能力截图回传</text>
+                    <text x="714" y="429" class="graph-muted">当前任务 · 等待你回看结果</text>
+
+                    <circle cx="810" cy="392" r="20" class="graph-node pending" />
+                    <text x="844" y="387" class="graph-label">调向补强</text>
+                    <text x="844" y="405" class="graph-muted">若不满足则回退</text>
+
+                    <circle cx="840" cy="542" r="20" class="graph-node pending" />
+                    <text x="874" y="537" class="graph-label">确认验收</text>
+                    <text x="874" y="555" class="graph-muted">用户明确确认后才能完成</text>
+
+                    <rect x="600" y="72" width="314" height="140" rx="16" fill="#ffffff" stroke="#d7e0f0" />
+                    <text x="624" y="102" class="graph-muted">当前任务锚点</text>
+                    <text x="624" y="128" class="graph-label">能力截图回传</text>
+                    <text x="624" y="152" class="graph-muted">状态：运行中</text>
+                    <text x="624" y="174" class="graph-muted">执行者：Analyst + 新角色</text>
+                    <text x="624" y="196" class="graph-muted">下一跳：确认验收 / 回退到画像收集</text>
+                  </svg>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var workbench = document.getElementById("workbench");
+      var draftHandle = document.getElementById("draftHandle");
+      function setCollapsed(collapsed) {
+        if (!workbench || !draftHandle) { return; }
+        workbench.classList.toggle("draft-collapsed", collapsed);
+        draftHandle.setAttribute("aria-label", collapsed ? "展开角色列表" : "折叠角色列表");
+        draftHandle.setAttribute("title", collapsed ? "展开角色列表" : "折叠角色列表");
+      }
+      if (draftHandle) {
+        draftHandle.addEventListener("click", function () {
+          setCollapsed(!workbench.classList.contains("draft-collapsed"));
+        });
+      }
+      setCollapsed(false);
+    })();
+  </script>
+</body>
+</html>
+
