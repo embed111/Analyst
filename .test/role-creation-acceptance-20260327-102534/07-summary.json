@@ -1,0 +1,72 @@
+{
+  "evidence_root": "C:\\work\\J-Agents\\Analyst\\.test\\role-creation-acceptance-20260327-102534",
+  "session_id": "rcs-20260327-102534-c1fbb0",
+  "session_title": "workflow_tester ???? 20260327-102534",
+  "create_status": 200,
+  "message_status": 200,
+  "detail_status": 200,
+  "role_spec": {
+    "role_name": "",
+    "role_goal": "",
+    "core_capabilities": [],
+    "boundaries": [],
+    "applicable_scenarios": [],
+    "collaboration_style": "",
+    "example_assets": []
+  },
+  "profile": {
+    "role_name": "workflow_tester ???? 20260327-102534",
+    "role_goal": "",
+    "core_capabilities": [],
+    "boundaries": [],
+    "applicable_scenarios": [],
+    "collaboration_style": "",
+    "example_assets": [],
+    "missing_fields": [
+      "role_name",
+      "role_goal",
+      "core_capabilities",
+      "boundaries",
+      "applicable_scenarios",
+      "collaboration_style"
+    ],
+    "missing_labels": [
+      "角色名",
+      "角色目标",
+      "核心能力",
+      "禁止边界",
+      "适用场景",
+      "协作方式"
+    ],
+    "can_start": false
+  },
+  "start_status": 409,
+  "start_body": {
+    "ok": false,
+    "error": "当前草案信息不足，不能开始创建",
+    "code": "role_creation_spec_incomplete",
+    "missing_fields": [
+      "role_name",
+      "role_goal",
+      "core_capabilities",
+      "boundaries",
+      "applicable_scenarios",
+      "collaboration_style"
+    ],
+    "missing_labels": [
+      "角色名",
+      "角色目标",
+      "核心能力",
+      "禁止边界",
+      "适用场景",
+      "协作方式"
+    ]
+  },
+  "status_after_start": "draft",
+  "assignment_ticket_id": "",
+  "created_agent_id": "",
+  "created_agent_name": "",
+  "created_agent_workspace_path": "",
+  "created_agent_workspace_exists": false,
+  "matched_agents": []
+}

@@ -1,0 +1,65 @@
+{
+  "session_status": "creating",
+  "created_agent_runtime_status": "creating",
+  "active_tasks": [
+    {
+      "stage_key": "workspace_init",
+      "tasks": []
+    },
+    {
+      "stage_key": "persona_collection",
+      "tasks": [
+        {
+          "node_id": "rc-47b7c8-collect",
+          "task_name": "收集workflow_tester行业案例资料",
+          "status": "running",
+          "status_text": "进行中",
+          "result_ref": "",
+          "artifact_paths": []
+        },
+        {
+          "node_id": "rc-47b7c8-profile",
+          "task_name": "沉淀workflow_tester角色画像资料",
+          "status": "pending",
+          "status_text": "待开始",
+          "result_ref": "",
+          "artifact_paths": []
+        }
+      ]
+    },
+    {
+      "stage_key": "capability_generation",
+      "tasks": [
+        {
+          "node_id": "rc-47b7c8-capability",
+          "task_name": "生成workflow_tester能力样例草案",
+          "status": "pending",
+          "status_text": "待开始",
+          "result_ref": "",
+          "artifact_paths": []
+        }
+      ]
+    },
+    {
+      "stage_key": "review_and_alignment",
+      "tasks": [
+        {
+          "node_id": "rc-47b7c8-review",
+          "task_name": "整理workflow_tester回看材料",
+          "status": "pending",
+          "status_text": "待开始",
+          "result_ref": "",
+          "artifact_paths": []
+        }
+      ]
+    },
+    {
+      "stage_key": "acceptance_confirmation",
+      "tasks": []
+    },
+    {
+      "stage_key": "complete_creation",
+      "tasks": []
+    }
+  ]
+}

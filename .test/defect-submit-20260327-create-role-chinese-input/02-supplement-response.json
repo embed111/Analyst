@@ -1,0 +1,137 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "report": {
+      "report_id": "dr-20260327-f0cc7258f9",
+      "dts_id": "",
+      "dts_sequence": 0,
+      "display_id": "dr-20260327-f0cc7258f9",
+      "defect_summary": "[Create Role][P0] Chinese input becomes ??? and blocks start",
+      "report_text": "Module: Training Center > Create Role\nSuggested Priority: P0\n\nPhenomenon:\n- In black-box acceptance on 2026-03-27, Chinese text sent into the real role-creation API chain is stored as question marks.\n- Session rcs-20260327-102534-c1fbb0 saved the user message as ????..., role_spec stayed empty, can_start=false.\n- POST /api/training/role-creation/sessions/rcs-20260327-102534-c1fbb0/start returned 409 role_creation_spec_incomplete.\n- In the same environment, an ASCII payload in session rcs-20260327-102733-1e2d4b succeeded and started real creation ticket asg-20260327-102824-8a62bd.\n\nExpected Result:\n- Chinese session_title and Chinese role profile text should be stored and parsed correctly.\n- Chinese users should be able to start role creation without text corruption.\n\nActual Result:\n- Chinese content is persisted as question marks and the role profile cannot be extracted.\n- The role cannot enter start phase.\n\nImpact:\n- Real role creation is not reliable for Chinese input.\n- This blocks production verification if operators describe role profile in Chinese.\n\nEvidence:\n- C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/07-summary.json\n- C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/03-detail-after-message.json\n- C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102733/07-summary.json",
+      "evidence_images": [],
+      "task_priority": "P0",
+      "reported_at": "2026-03-27T11:44:10+08:00",
+      "is_formal": false,
+      "status": "not_formal",
+      "status_text": "当前不构成缺陷",
+      "discovered_iteration": "",
+      "resolved_version": "",
+      "current_decision": {
+        "decision_source": "fallback_rule",
+        "decision": "not_defect",
+        "title": "当前不构成 workflow 缺陷",
+        "summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+        "matched_rules": [],
+        "confidence": "medium",
+        "scored_images": 0,
+        "decided_at": "2026-03-27T11:44:10+08:00"
+      },
+      "report_source": "blackbox-acceptance",
+      "automation_context": {
+        "acceptance_date": "2026-03-27",
+        "failed_session_id": "rcs-20260327-102534-c1fbb0",
+        "control_session_id": "rcs-20260327-102733-1e2d4b",
+        "control_ticket_id": "asg-20260327-102824-8a62bd",
+        "evidence_root": "C:\\work\\J-Agents\\Analyst\\.test\\defect-submit-20260327-create-role-chinese-input",
+        "evidence_refs": [
+          "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/07-summary.json",
+          "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/03-detail-after-message.json",
+          "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102733/07-summary.json"
+        ]
+      },
+      "is_test_data": false,
+      "created_at": "2026-03-27T11:44:10+08:00",
+      "updated_at": "2026-03-27T11:46:12+08:00",
+      "decision_title": "当前不构成 workflow 缺陷",
+      "decision_summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+      "decision_source": "fallback_rule",
+      "task_ref_total": 0,
+      "queue_eligible": false,
+      "has_task_chain": false,
+      "queue_mode": "out_of_queue",
+      "queue_mode_text": "不在顺序建单队列"
+    },
+    "history": [
+      {
+        "history_id": "dh-20260327-44176ff8e4",
+        "report_id": "dr-20260327-f0cc7258f9",
+        "entry_type": "decision",
+        "actor": "workflow agent",
+        "title": "当前不构成 workflow 缺陷",
+        "detail": {
+          "decision_source": "fallback_rule",
+          "decision": "not_defect",
+          "title": "当前不构成 workflow 缺陷",
+          "summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+          "matched_rules": [],
+          "confidence": "medium",
+          "scored_images": 0
+        },
+        "created_at": "2026-03-27T11:44:10+08:00"
+      },
+      {
+        "history_id": "dh-20260327-82b9c2e38f",
+        "report_id": "dr-20260327-f0cc7258f9",
+        "entry_type": "submitted",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "用户提交缺陷记录",
+        "detail": {
+          "defect_summary": "[Create Role][P0] Chinese input becomes ??? and blocks start",
+          "task_priority": "P0",
+          "task_priority_source": "field",
+          "reported_at": "2026-03-27T11:44:10+08:00",
+          "report_source": "blackbox-acceptance",
+          "image_count": 0,
+          "automation_context": {
+            "acceptance_date": "2026-03-27",
+            "failed_session_id": "rcs-20260327-102534-c1fbb0",
+            "control_session_id": "rcs-20260327-102733-1e2d4b",
+            "control_ticket_id": "asg-20260327-102824-8a62bd",
+            "evidence_root": "C:\\work\\J-Agents\\Analyst\\.test\\defect-submit-20260327-create-role-chinese-input",
+            "evidence_refs": [
+              "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/07-summary.json",
+              "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102534/03-detail-after-message.json",
+              "C:/work/J-Agents/Analyst/.test/role-creation-acceptance-20260327-102733/07-summary.json"
+            ]
+          }
+        },
+        "created_at": "2026-03-27T11:44:10+08:00"
+      },
+      {
+        "history_id": "dh-20260327-166c02e403",
+        "report_id": "dr-20260327-f0cc7258f9",
+        "entry_type": "supplement_text",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "补充文字说明",
+        "detail": {
+          "text": "This is a confirmed bug, not a feature request. Real black-box reproduction already shows failure: Chinese input is corrupted to question marks, role extraction fails, and start returns role_creation_spec_incomplete. The same flow succeeds with ASCII input in the same environment."
+        },
+        "created_at": "2026-03-27T11:46:12+08:00"
+      }
+    ],
+    "task_refs": [],
+    "history_total": 3,
+    "task_ref_total": 0,
+    "queue": {
+      "enabled": false,
+      "updated_at": "2026-03-26T11:43:11+08:00",
+      "candidate_total": 4,
+      "active_slot_busy": true,
+      "head_report_id": "dr-20260325-8e8f1de370",
+      "active_report_id": "dr-20260325-33d0f8fd52",
+      "active_display_id": "DTS-00003",
+      "active_summary": "[创建角色][P0] 错误数据写入：能力边界被写入用户追问句",
+      "active_task_priority": "P0",
+      "next_report_id": "dr-20260325-8e8f1de370",
+      "next_display_id": "DTS-00001",
+      "next_summary": "[创建角色][P0] 超时或脏草稿仍显示可直接开始创建",
+      "next_task_priority": "P0",
+      "next_reported_at": "2026-03-25T13:14:02+08:00"
+    },
+    "show_re_review_input": true,
+    "can_process": false,
+    "can_review": true,
+    "can_close": false
+  }
+}

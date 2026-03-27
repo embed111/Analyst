@@ -1,0 +1,24 @@
+{
+  "status": 409,
+  "body": {
+    "ok": false,
+    "error": "当前草案信息不足，不能开始创建",
+    "code": "role_creation_spec_incomplete",
+    "missing_fields": [
+      "role_name",
+      "role_goal",
+      "core_capabilities",
+      "boundaries",
+      "applicable_scenarios",
+      "collaboration_style"
+    ],
+    "missing_labels": [
+      "角色名",
+      "角色目标",
+      "核心能力",
+      "禁止边界",
+      "适用场景",
+      "协作方式"
+    ]
+  }
+}
