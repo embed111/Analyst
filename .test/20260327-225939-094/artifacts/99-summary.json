@@ -1,0 +1,22 @@
+{
+  "ticket_id": "asg-20260327-223335-b79f27",
+  "node_id": "dr-20260327-fc1b947def-analyze",
+  "terminal_reached": true,
+  "latest_http_status": 200,
+  "node_status": "succeeded",
+  "node_failure_reason": "",
+  "node_result_ref": "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/runs/arun-20260327-224100-db252f/result.json",
+  "artifact_paths": [
+    "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/artifacts/dr-20260327-fc1b947def-analyze/output/分析缺陷报告.html",
+    "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/artifacts/dr-20260327-fc1b947def-analyze/delivery/workflow/分析缺陷报告.html"
+  ],
+  "run_id": "arun-20260327-224100-db252f",
+  "run_status": "succeeded",
+  "run_summary": null,
+  "run_latest_event": "执行完成并已自动回写结果。",
+  "run_event_count": 120,
+  "run_result_ref": "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/runs/arun-20260327-224100-db252f/result.json",
+  "run_started_at": "2026-03-27T22:41:00+08:00",
+  "run_finished_at": "2026-03-27T22:59:22+08:00",
+  "sample_count": 1
+}

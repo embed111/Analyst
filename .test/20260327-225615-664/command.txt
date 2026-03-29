@@ -1,0 +1,1 @@
+﻿python .tmp\watch-assignment-node.py --ticket-id asg-20260327-223335-b79f27 --node-id dr-20260327-fc1b947def-analyze --timeout 60 --interval 5

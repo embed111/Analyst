@@ -1,0 +1,158 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "report": {
+      "report_id": "dr-20260327-fc1b947def",
+      "dts_id": "DTS-00001",
+      "dts_sequence": 1,
+      "display_id": "DTS-00001",
+      "defect_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+      "report_text": "Module: workflow_tester > first real probe task\nSuggested Priority: P0\n\nPhenomenon:\n- A real workflow_tester agent was created on 2026-03-27 and a real chat session was opened: sess-web-20260327-222529-1b13b1.\n- The first real /api/tasks/execute call created task task-20260327-9f356109.\n- The task failed immediately with status=failed and summary=AttributeError: 'SessionLockEntry' object has no attribute 'acquire'.\n- Trace/events show the failure happened before any assistant output was produced.\n\nExpected Result:\n- workflow_tester should be able to execute its first low-risk black-box probe task.\n- The session should produce an assistant result or at least enter normal running/completion flow.\n\nActual Result:\n- The task failed immediately.\n- Backend error: AttributeError: 'SessionLockEntry' object has no attribute 'acquire'.\n\nImpact:\n- The newly created workflow_tester cannot perform the first real bug-probe task.\n- This blocks using workflow_tester as a stable production bug-probing role.\n\nEvidence:\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\04-task-final.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\06-task-trace.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\02-create-session.json",
+      "evidence_images": [],
+      "task_priority": "P0",
+      "reported_at": "2026-03-27T22:28:10+08:00",
+      "is_formal": true,
+      "status": "unresolved",
+      "status_text": "未解决",
+      "discovered_iteration": "20260327-204747",
+      "resolved_version": "",
+      "current_decision": {
+        "decision_source": "fallback_rule",
+        "decision": "defect",
+        "title": "构成 workflow 缺陷",
+        "summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+        "matched_rules": [
+          "bug"
+        ],
+        "confidence": "medium",
+        "scored_images": 0,
+        "decided_at": "2026-03-27T22:28:10+08:00"
+      },
+      "report_source": "workflow-ui",
+      "automation_context": {
+        "acceptance_date": "2026-03-27",
+        "chat_session_id": "sess-web-20260327-222529-1b13b1",
+        "task_id": "task-20260327-9f356109",
+        "task_status": "failed",
+        "task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+        "probe_evidence_root": "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts",
+        "probe_evidence_refs": [
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/99-summary.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/04-task-final.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/06-task-trace.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/02-create-session.json"
+        ],
+        "policy_session_mode": "edit"
+      },
+      "is_test_data": false,
+      "created_at": "2026-03-27T22:28:10+08:00",
+      "updated_at": "2026-03-27T22:28:10+08:00",
+      "decision_title": "构成 workflow 缺陷",
+      "decision_summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+      "decision_source": "fallback_rule",
+      "task_ref_total": 0,
+      "queue_eligible": true,
+      "has_task_chain": false,
+      "queue_mode": "manual",
+      "queue_mode_text": "手动建单模式"
+    },
+    "history": [
+      {
+        "history_id": "dh-20260327-639d4107e1",
+        "report_id": "dr-20260327-fc1b947def",
+        "entry_type": "submitted",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "用户提交缺陷记录",
+        "detail": {
+          "defect_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+          "task_priority": "P0",
+          "task_priority_source": "defect_summary",
+          "reported_at": "2026-03-27T22:28:10+08:00",
+          "report_source": "workflow-ui",
+          "image_count": 0,
+          "automation_context": {
+            "acceptance_date": "2026-03-27",
+            "chat_session_id": "sess-web-20260327-222529-1b13b1",
+            "task_id": "task-20260327-9f356109",
+            "task_status": "failed",
+            "task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+            "probe_evidence_root": "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts",
+            "probe_evidence_refs": [
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/99-summary.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/04-task-final.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/06-task-trace.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/02-create-session.json"
+            ],
+            "policy_session_mode": "edit"
+          }
+        },
+        "created_at": "2026-03-27T22:28:10+08:00"
+      },
+      {
+        "history_id": "dh-20260327-b3abae761b",
+        "report_id": "dr-20260327-fc1b947def",
+        "entry_type": "decision",
+        "actor": "workflow agent",
+        "title": "构成 workflow 缺陷",
+        "detail": {
+          "decision_source": "fallback_rule",
+          "decision": "defect",
+          "title": "构成 workflow 缺陷",
+          "summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+          "matched_rules": [
+            "bug"
+          ],
+          "confidence": "medium",
+          "scored_images": 0
+        },
+        "created_at": "2026-03-27T22:28:10+08:00"
+      }
+    ],
+    "task_refs": [],
+    "history_total": 2,
+    "task_ref_total": 0,
+    "queue": {
+      "enabled": false,
+      "updated_at": "2026-03-27T20:50:36+08:00",
+      "candidate_total": 1,
+      "active_slot_busy": false,
+      "head_report_id": "dr-20260327-fc1b947def",
+      "active_report_id": "",
+      "active_display_id": "",
+      "active_summary": "",
+      "active_task_priority": "",
+      "next_report_id": "dr-20260327-fc1b947def",
+      "next_display_id": "DTS-00001",
+      "next_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+      "next_task_priority": "P0",
+      "next_reported_at": "2026-03-27T22:28:10+08:00"
+    },
+    "show_re_review_input": false,
+    "can_process": true,
+    "can_review": false,
+    "can_close": false
+  },
+  "request": {
+    "defect_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+    "report_text": "Module: workflow_tester > first real probe task\nSuggested Priority: P0\n\nPhenomenon:\n- A real workflow_tester agent was created on 2026-03-27 and a real chat session was opened: sess-web-20260327-222529-1b13b1.\n- The first real /api/tasks/execute call created task task-20260327-9f356109.\n- The task failed immediately with status=failed and summary=AttributeError: 'SessionLockEntry' object has no attribute 'acquire'.\n- Trace/events show the failure happened before any assistant output was produced.\n\nExpected Result:\n- workflow_tester should be able to execute its first low-risk black-box probe task.\n- The session should produce an assistant result or at least enter normal running/completion flow.\n\nActual Result:\n- The task failed immediately.\n- Backend error: AttributeError: 'SessionLockEntry' object has no attribute 'acquire'.\n\nImpact:\n- The newly created workflow_tester cannot perform the first real bug-probe task.\n- This blocks using workflow_tester as a stable production bug-probing role.\n\nEvidence:\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\04-task-final.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\06-task-trace.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts\\02-create-session.json",
+    "evidence_images": [],
+    "is_test_data": false,
+    "operator": "analyst-blackbox-acceptance",
+    "automation_context": {
+      "acceptance_date": "2026-03-27",
+      "chat_session_id": "sess-web-20260327-222529-1b13b1",
+      "task_id": "task-20260327-9f356109",
+      "task_status": "failed",
+      "task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+      "probe_evidence_root": "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222226-333\\artifacts",
+      "probe_evidence_refs": [
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/99-summary.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/04-task-final.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/06-task-trace.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/02-create-session.json"
+      ],
+      "policy_session_mode": "edit"
+    }
+  }
+}

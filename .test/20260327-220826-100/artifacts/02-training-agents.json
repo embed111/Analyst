@@ -1,0 +1,317 @@
+﻿{
+    "ok":  true,
+    "body":  {
+                 "ok":  true,
+                 "items":  [
+                               {
+                                   "agent_id":  "agent_gen",
+                                   "agent_name":  "agent_gen",
+                                   "vector_icon":  "persona_analyst",
+                                   "workspace_path":  "D:/code/AI/J-Agents/agent_gen",
+                                   "current_version":  "6370e619bcad",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "released",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "released",
+                                   "pre_release_reason":  "git_status_clean",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "Analyst",
+                                   "agent_name":  "Analyst",
+                                   "vector_icon":  "persona_auditor",
+                                   "workspace_path":  "D:/code/AI/J-Agents/Analyst",
+                                   "current_version":  "d541a34dbd24",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "pre_release",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+                                                        "directory-maintenance-governor",
+                                                        "method-selection-orchestrator",
+                                                        "preference-cap-review-governor",
+                                                        "proactive-practice-advisor",
+                                                        "requirement-convergence-gate",
+                                                        "requirements-doc-structure-governor",
+                                                        "session-state-maintainer",
+                                                        "snapshot-archive-governor",
+                                                        "subrole-invocation-orchestrator"
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "pre_release",
+                                   "pre_release_reason":  "git_status_non_empty",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "M \".codex/memory/2026-02/\\350\\256\\260\\345\\277\\206\\346\\200\\273\\350\\247\\210.md\"\n M \".codex/memory/2026-03/\\350\\256\\260\\345\\277\\206\\346\\200\\273\\350\\247\\210.md\"\n M \".codex/memory/\\345\\205\\250\\345\\261\\200\\350\\256\\260\\345\\277\\206\\346\\200\\273\\350\\247\\210.md\"\n?? .test/20260327-220826-100/",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+                                                       "pre_release"
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "Analyst2",
+                                   "agent_name":  "Analyst2",
+                                   "vector_icon":  "persona_architect",
+                                   "workspace_path":  "D:/code/AI/J-Agents/Analyst2",
+                                   "current_version":  "30e42dc005fe",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "released",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+                                                        "directory-maintenance-governor",
+                                                        "method-selection-orchestrator",
+                                                        "preference-cap-review-governor",
+                                                        "proactive-practice-advisor",
+                                                        "requirement-convergence-gate",
+                                                        "requirements-doc-structure-governor",
+                                                        "session-state-maintainer",
+                                                        "snapshot-archive-governor",
+                                                        "subrole-invocation-orchestrator"
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "released",
+                                   "pre_release_reason":  "git_status_clean",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "openclaw",
+                                   "agent_name":  "openclaw",
+                                   "vector_icon":  "persona_trainer",
+                                   "workspace_path":  "D:/code/AI/J-Agents/openclaw",
+                                   "current_version":  "8a16a2d09e1c",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "released",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+                                                        "chat-preference-recorder",
+                                                        "safe-home-cleanup-planner",
+                                                        "session-bootstrap-check",
+                                                        "workspace-scope-guard"
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "released",
+                                   "pre_release_reason":  "git_status_clean",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "skill_manager",
+                                   "agent_name":  "skill_manager",
+                                   "vector_icon":  "persona_analyst",
+                                   "workspace_path":  "D:/code/AI/J-Agents/skill_manager",
+                                   "current_version":  "8c900c712e58",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "released",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+                                                        "self-improving-agent",
+                                                        "temp-local-skill",
+                                                        "windows-desktop-control-gate",
+                                                        "workspace-local-skill-installer"
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "released",
+                                   "pre_release_reason":  "git_status_clean",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "trainer",
+                                   "agent_name":  "trainer",
+                                   "vector_icon":  "persona_architect",
+                                   "workspace_path":  "D:/code/AI/J-Agents/trainer",
+                                   "current_version":  "e50de1134878",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "released",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "released",
+                                   "pre_release_reason":  "git_status_clean",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               },
+                               {
+                                   "agent_id":  "workflow",
+                                   "agent_name":  "workflow",
+                                   "vector_icon":  "persona_analyst",
+                                   "workspace_path":  "D:/code/AI/J-Agents/workflow",
+                                   "current_version":  "4dd0df3f439c",
+                                   "latest_release_version":  "",
+                                   "bound_release_version":  "",
+                                   "lifecycle_state":  "pre_release",
+                                   "training_gate_state":  "trainable",
+                                   "parent_agent_id":  "",
+                                   "runtime_status":  "idle",
+                                   "core_capabilities":  "",
+                                   "capability_summary":  "",
+                                   "knowledge_scope":  "",
+                                   "skills":  [
+
+                                              ],
+                                   "agent_skills":  [
+
+                                                    ],
+                                   "applicable_scenarios":  "",
+                                   "version_notes":  "",
+                                   "avatar_uri":  "",
+                                   "git_available":  true,
+                                   "pre_release_state":  "pre_release",
+                                   "pre_release_reason":  "git_status_non_empty",
+                                   "pre_release_checked_at":  "2026-03-27T22:08:26+08:00",
+                                   "pre_release_git_output":  "M .codex/memory/2026-03/2026-03-27.md\n M scripts/start_workflow_env.ps1\n M scripts/workflow_env_common.ps1",
+                                   "last_release_at":  "",
+                                   "status_tags":  [
+                                                       "pre_release"
+                                                   ],
+                                   "active_role_profile_release_id":  "",
+                                   "active_role_profile_ref":  "",
+                                   "updated_at":  "2026-03-27T22:08:26+08:00"
+                               }
+                           ],
+                 "stats":  {
+                               "agent_total":  7,
+                               "git_available_count":  7,
+                               "latest_release_at":  "",
+                               "training_queue_pending":  0
+                           },
+                 "include_test_data":  false,
+                 "environment":  "prod",
+                 "show_test_data":  false,
+                 "show_test_data_source":  "environment_policy",
+                 "agent_search_root":  "D:/code/AI/J-Agents",
+                 "agent_search_root_ready":  true,
+                 "features_locked":  false,
+                 "artifact_root":  "C:/work/J-Agents/.output",
+                 "artifact_workspace_root":  "C:/work/J-Agents/.output/tasks",
+                 "artifact_root_default":  "D:/code/AI/J-Agents/workflow/.running/.output",
+                 "artifact_root_validation_status":  "ok",
+                 "assignment_execution_settings":  {
+                                                       "execution_provider":  "codex",
+                                                       "codex_command_path":  "C:\\Users\\jmqj\\AppData\\Roaming\\npm\\codex.CMD",
+                                                       "command_template":  "\"{codex_path}\" exec --dangerously-bypass-approvals-and-sandbox --json --skip-git-repo-check --add-dir \"{workspace_path}\" -C \"{workspace_path}\" -",
+                                                       "global_concurrency_limit":  5,
+                                                       "updated_at":  "2026-03-20T10:23:10+08:00",
+                                                       "poll_mode":  "event_stream",
+                                                       "poll_interval_ms":  450
+                                                   }
+             },
+    "uri":  "http://127.0.0.1:8090/api/training/agents",
+    "method":  "GET"
+}

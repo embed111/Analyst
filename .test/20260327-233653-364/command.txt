@@ -1,0 +1,1 @@
+﻿python .tmp\submit-role-creation-persona-failure-defect.py --session-id rcs-20260327-221113-1110e0 --ticket-id asg-20260327-221156-d84991 --failed-node-id rc-a9eacd-collect

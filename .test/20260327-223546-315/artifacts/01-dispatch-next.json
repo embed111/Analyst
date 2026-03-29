@@ -1,0 +1,55 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "ticket_id": "asg-20260327-223335-b79f27",
+    "dispatched": [],
+    "dispatched_runs": [],
+    "skipped": [],
+    "message": "scheduler_not_running",
+    "graph_overview": {
+      "ticket_id": "asg-20260327-223335-b79f27",
+      "graph_name": "任务中心全局主图",
+      "source_workflow": "workflow-ui",
+      "summary": "任务中心手动创建（全局主图）",
+      "review_mode": "none",
+      "global_concurrency_limit": 5,
+      "is_test_data": false,
+      "external_request_id": "workflow-ui-global-graph-v1",
+      "scheduler_state": "idle",
+      "scheduler_state_text": "未启动",
+      "pause_note": "",
+      "created_at": "2026-03-27T22:33:33+08:00",
+      "updated_at": "2026-03-27T22:33:35+08:00",
+      "metrics_summary": {
+        "total_nodes": 3,
+        "status_counts": {
+          "pending": 2,
+          "ready": 1,
+          "running": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "blocked": 0
+        },
+        "executed_count": 0,
+        "unexecuted_count": 3
+      },
+      "scheduler": {
+        "state": "idle",
+        "state_text": "未启动",
+        "running_agent_count": 0,
+        "system_running_agent_count": 0,
+        "graph_running_node_count": 0,
+        "system_running_node_count": 0,
+        "global_concurrency_limit": 5,
+        "graph_concurrency_limit": 5,
+        "effective_concurrency_limit": 5,
+        "pause_note": "",
+        "settings_updated_at": "2026-03-18T17:20:07+08:00"
+      }
+    }
+  },
+  "request": {
+    "operator": "analyst-blackbox-acceptance"
+  }
+}

@@ -1,26 +1,11 @@
 ﻿# 用户思维模式变更日志
 
 ## 历史归档引用
-1. 已归档 8 个历史块到 user_profile\logs\change-log-history\thinking-patterns-change-log-history-2026-03-20-to-2026-03-21.md。
+1. 已归档 1 个历史块到 user_profile\logs\change-log-history\thinking-patterns-change-log-history-2026-03-21-to-2026-03-21.md。
 2. 历史索引见 user_profile\logs\change-log-history-index.md。
 3. 最近归档摘要：
-   - 2026-03-20: 已归档 3 个日期块
-   - 2026-03-21: 已归档 5 个日期块
+   - 2026-03-21: 已归档 1 个日期块
 
-## 2026-03-21
-1053. New observations（用户明示）：
-   - 用户本轮明确要求：左侧角色创建列表支持 `压缩模式 / 详情模式` 两种密度，以便快速扫列表时压低噪音、聚焦单个角色时再展开更多辅助信息。
-1054. Changed confidence or behavior（推断/假设，置信度: 中）：
-   - 对信息密度较高的工作台列表，用户当前更偏好“默认压缩 + 按需展开详情”的双态设计，而不是长期固定为单一密度；该判断当前主要基于创建角色预稿场景，先记录流水日志，待跨其他列表型页面复现后再评估是否升级长期偏好主档。
-1055. New observations（用户明示）：
-   - 用户本轮明确要求：`创建角色会话` 与 `创建进度` 的主次关系应更明确，中部会话区与右侧进度区约按 `6 / 4` 分栏，使聊天始终成为主阅读区。
-1056. Changed confidence or behavior（推断/假设，置信度: 中）：
-   - 对聊天驱动的工作台布局，用户当前更偏好“会话区主、进度区辅”的主从关系，而不是中右两侧等权或右侧过重；该判断当前主要基于创建角色预稿场景，先记录流水日志，待跨其他聊天型页面复现后再评估是否升级长期偏好主档。
-## 2026-03-21
-1057. New observations（用户明示）：
-   - 用户本轮明确纠正：此前所说的“压缩”不是左侧列表的信息密度切换，而是类似 `<< / >>` 的横向折叠与展开，用于在需要时给中部会话区让出更多宽度。
-1058. Changed confidence or behavior（推断/假设，置信度: 中）：
-   - 在聊天驱动的工作台中，用户当前更关注“通过栏位折叠重新分配横向空间”而不是“在固定宽度内做卡片密度切换”；本条用于纠偏上一轮对“压缩”的误读，当前先记录流水日志，待跨其他页面复现后再评估是否升级长期偏好主档。
 ## 2026-03-21
 1059. New observations（用户明示）：
    - 用户本轮明确指出：中栏“增长分析师”窗口标题与“Analyst 正在引导收口”不应并列为两套主标题，保留一个即可，更符合第一性原理。
@@ -539,3 +524,366 @@
      2. “提交缺陷”卡在真实界面中会在有列表记录且当前无草稿时默认折叠，原型中默认保持展开
      3. 真实界面整体比原型更紧凑、更扁平，这与用户此前要求一致
    - 同时注意：原型目录里的 `需求与缺陷模块参考图.png` 仍是 2026-03-23 的旧截图，若拿旧 PNG 对比会误判为偏差较大；当前有效设计应以 2026-03-27 更新后的 HTML 为准。
+1256. Maintenance notes（边界澄清）：
+   - 用户本轮明确澄清：不允许我改动其他工作区实现，但允许我直接使用 `8090` 应用做真实黑盒操作。
+   - 因此本轮执行口径从“只交执行提示词”切换为“可直接使用应用验收，但仍不改 `../workflow` 代码与脚本”。
+1257. Maintenance notes（真实创建结果）：
+   - 已按 `http://127.0.0.1:8090` 当前真实接口先探测现状，再在确认缺失后创建 `workflow_tester`。
+   - 本轮新建会话：`rcs-20260327-221113-1110e0`。
+   - 本轮新建任务图：`asg-20260327-221156-d84991`。
+   - 当前创建结果：`created_agent_id=workflow_tester`，`created_agent_workspace_path=D:/code/AI/J-Agents/workflow_tester`，阶段 1 已完成，阶段 2 已进入 `creating`。
+1258. Maintenance notes（首轮真实探测失败）：
+   - 已继续用 `workflow_tester` 创建真实会话 `sess-web-20260327-222529-1b13b1`，并下发首轮低风险黑盒巡检任务。
+   - 真实任务 `task-20260327-9f356109` 在 102ms 内直接失败，`task_summary=AttributeError: 'SessionLockEntry' object has no attribute 'acquire'`。
+   - 失败发生在真正产出 assistant 回复前；当前会话仅落下用户消息，未进入正常探测执行。
+   - 证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-222226-333/artifacts/`。
+1259. Maintenance notes（缺陷已落盘）：
+   - 已通过真实 `/api/defects` 链路提交该问题，当前正式记录为：
+     1. `report_id=dr-20260327-fc1b947def`
+     2. `display_id=DTS-00001`
+     3. `task_priority=P0`
+     4. `status=unresolved`
+   - 缺陷主题：`[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError`。
+   - 提交证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-222810-793/artifacts/`。
+1260. Maintenance notes（偏好结论）：
+   - 本轮未新增 owner 已确认长期偏好。
+   - “允许直接使用应用做黑盒验收，但不改实现”当前先按任务边界记录为本轮明确约束，不单独升格为跨主题长期偏好。
+1261. Maintenance notes（任务图恢复前置条件）：
+   - 继续围绕 `DTS-00001` 的处理任务图做黑盒验证时，确认 `POST /api/assignments/asg-20260327-223335-b79f27/resume` 为必要前置动作。
+   - 先前直接调用 `dispatch-next` 返回 `200` 但 `message=scheduler_not_running`，本轮在同一任务图上先 `resume` 后再调度，scheduler 状态成功从 `idle` 切到 `running`。
+1262. Maintenance notes（缺陷处理链路已真实起跑）：
+   - `resume` 后，分析节点 `dr-20260327-fc1b947def-analyze` 已从 `ready` 进入 `running`。
+   - 真实执行批次为 `arun-20260327-224100-db252f`，分派对象为 `workflow`，工作区为 `D:/code/AI/J-Agents/workflow`。
+   - 对应黑盒证据已落盘到 `D:/code/AI/J-Agents/Analyst/.test/20260327-224221-291/artifacts/`。
+1263. Maintenance notes（运行中分析结论已可见）：
+   - 通过只读轮询可见，分析任务正在读取 `workflow` 侧相关实现与本轮故障证据，且已在运行事件中产出明确结论草稿。
+   - 事件中给出的核心结论是：通用 `C:/work/J-Agents/.output/tasks/execute` worker 在 `SessionLockEntry` 锁封装重构后仍沿用旧的 `lock.acquire()/lock.release()` 调用，导致同路径任务在启动前失败；聊天接口未受同样影响。
+   - 该结论当前来自运行中任务的事件内容，属于“运行时可见中间产物”，不是我在本工作区直接改码或人工复核后的最终结论。
+1264. Maintenance notes（新观察的运行风险）：
+   - 截至本轮结束，分析 run `arun-20260327-224100-db252f` 已持续运行约 15 分钟以上，最新事件显示其已经开始序列化 `result_summary` 与 `分析缺陷报告.html`，但节点状态仍停留在 `running`，`node_result_ref` 与 `artifact_paths` 仍为空。
+   - 该现象当前先记为“疑似运行态未闭合风险/待继续观察”，暂未单独升级为正式缺陷。
+1265. Maintenance notes（偏好结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 用户本轮连续要求“继续”推进，当前更适合作为任务推进节奏观察，先记流水，不单独升格为跨主题长期偏好。
+1266. Maintenance notes（分析节点最终收尾）：
+   - 在后续短轮询中，`dr-20260327-fc1b947def-analyze` 已成功从 `running` 切到 `succeeded`。
+   - 对应执行批次 `arun-20260327-224100-db252f` 的 `finished_at=2026-03-27T22:59:22+08:00`，`node_result_ref` 已回写，`artifact_paths` 已落出。
+   - 终态证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-225939-094/artifacts/`。
+1267. Maintenance notes（当前结论收口）：
+   - 当前可确认两件事：
+     1. `workflow_tester` 首轮真实探测失败的正式缺陷 `DTS-00001` 仍成立；
+     2. 其处理任务图并非“不可执行”，而是需要先 `resume` 才能调度，且分析节点最终已成功交付 `分析缺陷报告.html`。
+   - 因此本轮不再把“分析 run 长时间 running”升级为新缺陷，先视为已完成的长时执行观察。
+1268. Maintenance notes（修复节点已自动接棒）：
+   - 在分析节点成功后，任务图未停住，而是由 `assignment-executor` 自动派发了后继修复节点 `dr-20260327-fc1b947def-fix`。
+   - 当前修复 run 为 `arun-20260327-225945-80da1b`，于 `2026-03-27T22:59:34+08:00` 启动，状态已进入 `running`。
+   - 这说明在 `resume` 之后，该全局任务图具备自动串行推进能力，不需要我再次手动 `dispatch-next`。
+1269. Maintenance notes（修复节点超时失败）：
+   - 持续黑盒观察后，`dr-20260327-fc1b947def-fix` 最终没有成功收尾，而是在 `2026-03-27T23:19:47+08:00` 以 `assignment execution timeout after 1200s` 失败。
+   - 该失败直接导致下游发布节点 `dr-20260327-fc1b947def-release` 转为 `blocked`，阻塞原因是 `upstream_failed`。
+   - 终态证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/`。
+1270. Maintenance notes（原始故障即时回测仍复现）：
+   - 在修复节点超时后，已立即重新通过 `workflow_tester` 发起真实黑盒任务回测。
+   - 新会话 `sess-web-20260327-232020-a7e191` 的真实任务 `task-20260327-d8b10e5f` 仍然以 `AttributeError: 'SessionLockEntry' object has no attribute 'acquire'` 失败，说明 `8090` 对外运行面上的原始故障并未消失。
+   - 回测证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/`。
+1271. Maintenance notes（原缺陷已补充新证据）：
+   - 已将“修复链超时 + 线上即时回测仍复现”的新证据作为文字补充挂到 `DTS-00001 / dr-20260327-fc1b947def`。
+   - 补充响应与最新 defect 详情证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-232251-046/artifacts/`。
+1272. Maintenance notes（新增第二缺陷）：
+   - 由于“修复链超时并阻塞 release”已形成独立问题，已正式提交第二个缺陷：
+     1. `report_id=dr-20260327-5b159b7ae1`
+     2. `display_id=DTS-00002`
+     3. `task_priority=P0`
+     4. `status=unresolved`
+   - 新缺陷主题聚焦 assignment/process 链路：修复节点在本地 smoke 已通过后仍超时失败，且 release 被阻塞。
+   - 提交证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-232518-310/artifacts/`。
+1273. Maintenance notes（偏好结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 用户继续要求“直接往下推进并黑盒验证”的行为模式再次出现，但当前仍按任务推进节奏记录，不单独升格为长期偏好。
+1274. Maintenance notes（修复任务失败原因复盘）：
+   - 本轮继续复核 `dr-20260327-fc1b947def-fix / arun-20260327-225945-80da1b` 的直接失败原因。
+   - 当前可确认其最终失败不是因为 `stderr` 中出现了新的 Python 异常；`stderr.txt` 长度为 0。
+   - 任务图给出的直接失败原因是：`assignment execution timeout after 1200s`，运行批次以 `exit_code=124` 收尾，节点完成时间为 `2026-03-27T23:19:47+08:00`。
+1275. Maintenance notes（修复任务失败前的真实进展）：
+   - `stdout` 事件显示该修复 run 并非一直空转：
+     1. `23:15:40` 已实际修改 `src/workflow_app/server/services/task_orchestration.py`
+     2. `23:16:55` 真实 `task_execute_lock_smoke` 已返回两轮 `success`
+     3. `23:17:20` agent 自述“代码修复和真实 smoke 已通过”
+   - 这说明 run 在业务修复与最小 smoke 层面已经前进到接近收尾，而不是一开始就卡死。
+1276. Maintenance notes（导致超时的主要拖延项）：
+   - 从 `22:59:34` 启动到 `23:15:40` 首次落下代码变更前，run 已消耗约 16 分钟在治理文件读取、成因追查、门禁脚本检查与路径回退梳理上。
+   - 中途还出现两个明显耗时点：
+     1. `workflow_gate` 验收先被 `workspace line budget triggered refactor_skill` 拦下，并未直接服务于本次 P0 修复闭环；
+     2. 首次内联 smoke 命令因引号/命令拼接问题失败，后续才改为 `.test/task_execute_lock_smoke.py` 成功执行。
+   - 在确认 smoke 已通过后，run 又于 `23:18:53` 启动了一次额外的 `workspace-scoped smoke`，该命令尚未完成即被 1200 秒总超时切断。
+1277. Maintenance notes（当前结论）：
+   - 本轮结论是：修复任务失败的主因是“在固定 1200 秒 assignment 执行预算内未完成收尾”，而不是“修复代码本身再次抛出明确异常”。
+   - 推断/假设（高）：由于 fix 节点在生成正式修复说明与 release 前被超时杀掉，修复结果没有完整进入发布链，这也是 `8090` 上原始故障仍然即时复现的重要原因。
+1278. Maintenance notes（创建角色画像执行失败已核实）：
+   - 用户追加指出“创建角色的画像也有执行失败”。本轮已在 `8090` 上复核现有真实创建会话 `rcs-20260327-221113-1110e0` 与其任务图 `asg-20260327-221156-d84991`。
+   - 结论是：该创建流程当前确实卡在 `persona_collection`，不是停留在“未开始”，而是首个画像任务 `rc-a9eacd-collect` 已真实失败。
+   - 节点终态：`status=failed`、`failure_reason=assignment execution failed with exit=1`；其下游 `rc-a9eacd-profile` 已被阻塞。
+1279. Maintenance notes（画像任务失败细节）：
+   - 失败 run 为 `arun-20260327-221157-1ef94c`。
+   - 运行事件显示两层显著异常：
+     1. 它在新建的 `workflow_tester` 工作区里读取 `./.codex/skills/workspace-memory-context/SKILL.md` 时触发 `PathNotFound`；
+     2. 随后出现连续 5 次以上 `stream disconnected before completion: error sending request for url (https://gmn.chuangzuoli.com/responses)`，最终 `turn.failed` 并以 `exit=1` 收尾。
+   - 因此当前可见失败链并非单一原因，而是“工作区内预期技能缺失 + 上游响应流断开”共同出现在同一真实 run 中。
+1280. Maintenance notes（新缺陷已登记）：
+   - 已将该问题正式登记为新的缺陷记录：
+     1. `report_id=dr-20260327-16a4fa716a`
+     2. `display_id=DTS-00003`
+     3. `task_priority=P0`
+     4. `status=dispute`
+   - 当前缺陷主题聚焦“创建角色在画像收集阶段真实执行失败并阻塞后续画像链路”。
+   - 提交证据目录：`D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/`。
+1281. Maintenance notes（偏好结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 用户持续沿真实链路逐段追 bug，当前继续按“黑盒推进优先”记录为任务推进方式，不单独升格为长期偏好。
+1282. Maintenance notes（新增协作偏好）：
+   - 用户本轮明确要求：后续提缺陷、补充缺陷、以及通过真实链路创建或驱动 agent 时，默认使用中文。
+   - 该要求属于 owner 明示协作偏好，且会直接影响后续真实提单与探测脚本的默认文案，建议升格为长期协作偏好。
+1283. Maintenance notes（中文默认值已落到本地工具）：
+   - 已仅在 `Analyst/.tmp/` 辅助脚本内完成默认文案收口：
+     1. 缺陷标题、正文、supplement/dispute 原因改为中文；
+     2. `workflow_tester` 探测提示词与会话策略兜底文案改为中文；
+     3. 创建 `workflow_tester` 的角色画像默认值改为“兼容键名 + 中文内容”。
+   - 本轮未改动 `../workflow` 实现代码，仍保持黑盒边界。
+1284. Maintenance notes（DTS-00001 串行复测新状态）：
+   - `dr-20260327-fc1b947def-fix` 的 rerun `arun-20260327-233539-db6254` 已在 `2026-03-27T23:49:46+08:00` 成功收尾；其 `result.json` 明确声称：运行副本已修复并通过隔离烟测。
+   - 但下游 `dr-20260327-fc1b947def-release` 当前失败，failure_reason 为“运行句柄缺失或 workflow 已重启，请手动重跑”，说明卡点已从 `fix` 转移到 `release`。
+   - 随后按串行方式再次对 live `8090` 做真实黑盒回归，会话 `sess-web-20260327-235610-0af87f`、任务 `task-20260327-34fd575f` 仍然报 `AttributeError: 'SessionLockEntry' object has no attribute 'acquire'`，说明线上运行面尚未真正吃到修复结果。
+1285. Maintenance notes（缺陷提任务命名能力已核实）：
+   - 用户追问：缺陷处理时去任务中心提任务，是否可以指定任务名称，而不是固定生成“分析缺陷”。
+   - 本轮通过只读核对 `../workflow` 当前实现确认：
+     1. 任务中心手工建任务支持自定义 `node_name`；
+     2. 缺陷中心 `process-task` 前端当前仅提交 `operator`；
+     3. 后端 `create_defect_process_task(...)` 当前仅消费 `operator / auto_queue / assigned_agent_id`，未接收自定义任务名；
+     4. 处理链节点标题固定写死为“分析缺陷 / 修复缺陷 / 推送到目标版本”。
+   - 当前结论：任务中心手工建任务可以指定名称；缺陷处理自动提任务到任务中心这条链路当前不能指定自定义名称。
+1286. Maintenance notes（偏好归属结论）：
+   - 本轮未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前对“任务名称可控”有明确关注，但更像对 `workflow` 的即时产品能力诉求，而非已稳定沉淀的个人长期偏好；暂不写入长期偏好主档。
+1287. Maintenance notes（任务名称“应支持”与“现支持”已区分）：
+   - 用户进一步指出：提 bug 后仍需 agent 判定，判定为正式缺陷后，任务名称理论上完全可以指定。
+   - 本轮补查确认：`defect_reports` 确实保存 `defect_summary`，缺陷中心列表与详情也会展示该摘要；但 `process-task` 建任务链时未读取 `defect_summary` 参与 `node_name` 生成。
+   - 当前结论因此收敛为两层：
+     1. 产品/业务逻辑上，这个能力完全说得通，且应当支持；
+     2. 但按当前代码实现，它还没有真正落地，既不支持前端显式传入自定义任务名，也不支持自动用缺陷摘要派生任务名。
+1288. Maintenance notes（缺陷处理任务命名需求已落文档）：
+   - 用户确认继续后，本轮未改动 `../workflow`，仅在 `Analyst/docs/workflow/` 内完成需求收口。
+   - 已新增 `docs/workflow/requirements/需求详情-缺陷处理任务命名可指定.md`，并同步更新 `docs/workflow/overview/需求概述.md` 索引与增量节。
+   - 当前文档口径收敛为：
+     1. 缺陷确认后，`处理缺陷 / 提交复核` 两条链路都必须支持任务名称确认；
+     2. 默认任务名称基名优先使用 `DTS 展示编号 + 缺陷摘要`；
+     3. 自动顺序建单也必须使用语义化命名，不得回退成固定通用名；
+     4. 命名变化不得突破既有 `report_id + action_kind` 幂等约束。
+1289. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更关注“缺陷处理链是否具备业务语义和串行可追踪性”，这已体现在需求文档约束中，但暂不单独升格为新的长期偏好条目。
+1290. Maintenance notes（已交付 ../workflow 执行提示词）：
+   - 用户要求把“缺陷处理任务命名可指定”交付给 `../workflow`。
+   - 本轮在 `Analyst/docs/workflow/prompts/` 内新增中文执行提示词：`执行提示词-缺陷处理任务命名可指定开工-20260328.md`。
+   - 提示词已明确：
+     1. 缺陷确认后，`处理缺陷 / 提交复核` 都要支持建单前任务名称确认；
+     2. 默认命名优先采用 `DTS 展示编号 + 缺陷摘要`；
+     3. 自动顺序建单也必须沿用同一命名真相源；
+     4. 名称能力不得破坏既有串行门禁与幂等防重复建链约束。
+1291. Maintenance notes（prompts 目录清理已执行）：
+   - 按 `docs/workflow/prompts/README.md` 的目录保留规则，本轮新增提示词后仅保留最近 7 轮提示词。
+   - 已删除最旧历史提示词：`docs/workflow/prompts/执行提示词-需求与缺陷模块缺陷闭环首期开工-20260322.md`。
+   - 当前 `docs/workflow/prompts/` 下保留 7 份执行提示词 + 1 份 `README.md`。
+1292. Maintenance notes（全局唯一任务图需求已上升为任务中心总原则）：
+   - 用户补充要求：`../workflow` 的任务中心中展示的任务图应收敛为全局只有一张。
+   - 本轮已在 `Analyst/docs/workflow/` 中把该要求从“缺陷任务挂全局主图”升级为“任务中心整体只保留全局唯一任务图”的正式需求。
+   - 已更新文档：
+     1. `docs/workflow/requirements/需求详情-任务中心与依赖可视化编排.md`
+     2. `docs/workflow/requirements/需求详情-任务中心后端接口与调度规则.md`
+     3. `docs/workflow/requirements/需求详情-任务中心真实执行化与执行链路可视化.md`
+     4. `docs/workflow/requirements/需求详情-定时任务模块与日历视图.md`
+     5. `docs/workflow/overview/需求概述.md`
+   - 当前口径已明确：
+     1. 页面只展示 1 张全局唯一任务图；
+     2. 若保留 `ticket_id`，必须稳定指向该唯一任务图；
+     3. 外部模块统一改为“向全局图追加节点/依赖”；
+     4. `定时任务` 也不再创建新的单任务实例图，而是向全局图追加单任务节点。
+1293. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户对“全局唯一真相源”的要求已稳定体现在任务中心与缺陷治理文档约束中，但目前仍属于产品机制要求，不单独升格为新的长期个人偏好条目。
+1294. Maintenance notes（已补可交付给 ../workflow 的同步检查提示词）：
+   - 用户进一步要求：同步到 `../workflow` 并让其先做一次检查。
+   - 受 `Analyst` 职责边界限制，本轮未直接写入或驱动 `../workflow` 工作区；改为在 `Analyst/docs/workflow/prompts/` 内新增可直接转发的中文检查提示词：
+     1. `docs/workflow/prompts/执行提示词-任务中心全局唯一任务图同步检查-20260328.md`
+   - 提示词要求 `../workflow` 先按“任务中心全局唯一任务图”新口径做差异检查，重点覆盖：
+     1. 任务中心前端是否仍存在多图入口；
+     2. `/api/assignments` 是否仍会创建新图；
+     3. 缺陷与定时任务是否仍可能生成新的独立活动图；
+     4. 历史数据与恢复逻辑是否仍会扫出多图。
+1295. Maintenance notes（prompts 目录已再次按规则收口）：
+   - 本轮新增检查提示词后，按 `docs/workflow/prompts/README.md` 保留最近 7 轮提示词。
+   - 已删除最旧历史提示词：`docs/workflow/prompts/执行提示词-定时任务模块与日历视图开工-20260323.md`。
+   - 当前 `docs/workflow/prompts/` 下继续保持 7 份执行提示词 + 1 份 `README.md`。
+1296. Maintenance notes（三模块任务中心落点已做代码+运行态复核）：
+   - 用户追问：训练中心、定时任务、需求与缺陷三个大模块里，凡会创建任务中心任务的链路，是否都已经排查完。
+   - 本轮补齐只读核查，结论分层如下：
+     1. 代码层：`需求与缺陷`、`定时任务`、`训练中心（创建角色）` 当前源码都已定位到对应落任务入口，并且三者都指向 `workflow-ui-global-graph-v1` 这张全局主图；
+     2. 运行态：`8090` 当前 `/api/assignments?limit=24` 仍返回 3 张任务图，其中包含一张 `source_workflow=training-role-creation` 的独立训练中心旧图，以及一张旧的 `workflow-ui` 主图；
+     3. 因此，“三个模块的创建入口是否排查到”可以回答为“已完成本轮核查”，但“任务中心是否已经收敛到全局唯一任务图”不能回答为“已经完成”。
+   - 当前最关键事实：
+     1. `需求与缺陷` 已有真实运行证据落在 `任务中心全局主图`；
+     2. `训练中心` 现有存量 `workflow_tester` 会话仍绑定独立旧图；
+     3. `定时任务` 代码已改为向全局图追加节点，但当前 prod 运行态没有现成 schedule 数据可做同层级实证。
+1297. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更在意“不要把代码层已改好”和“运行态已经完全收敛”混为一谈；该要求已体现在本轮结论表达方式中，暂不单独升格为新的长期偏好条目。
+1298. Maintenance notes（docs/workflow 已同步到 ../workflow）：
+   - 用户要求先把当前 `Analyst/docs/workflow` 中与“缺陷处理任务命名可指定”“任务中心全局唯一任务图”相关的最新文档同步到 `../workflow`，再由其执行工作区继续处理。
+   - 本轮已实际同步并校验哈希一致的文件包括：
+     1. `overview/需求概述.md`
+     2. `requirements/需求详情-缺陷处理任务命名可指定.md`
+     3. `requirements/需求详情-任务中心与依赖可视化编排.md`
+     4. `requirements/需求详情-任务中心后端接口与调度规则.md`
+     5. `requirements/需求详情-任务中心真实执行化与执行链路可视化.md`
+     6. `requirements/需求详情-定时任务模块与日历视图.md`
+     7. `prompts/执行提示词-缺陷处理任务命名可指定开工-20260328.md`
+     8. `prompts/执行提示词-任务中心全局唯一任务图同步检查-20260328.md`
+   - 同时已将 `../workflow/docs/workflow/prompts/` 中两份已在 Analyst 侧淘汰的旧提示词删除，使两边提示词集合重新对齐。
+1299. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更关注“文档同步后即可直接驱动执行工作区开工”的交付完整性；这属于当前任务目标，不单独升格为长期偏好。
+1300. Maintenance notes（../workflow 对话中断原因已做只读复盘）：
+   - 用户追问：`../workflow` 工作区中的对话为什么会在工作过程中突然中断。
+   - 本轮核查到两类不同现象：
+     1. 2026-03-27 晚上的 `workflow_tester` 真实对话任务并非“被用户中断”，而是后台 `task execute` 在 81~133ms 内直接失败，`summary` 一致为 `AttributeError: 'SessionLockEntry' object has no attribute 'acquire'`；
+     2. 2026-03-28 17:32:42 +08:00 prod 环境又发生过一次成功升级切换，若用户说的是该时间点附近的工作中断，则服务重启本身也会打断正在进行的工作区对话。
+   - 当前更强结论：
+     1. 若指向 2026-03-27 那批 `workflow_tester` 会话，根因是旧的 8090 运行进程未加载锁修复补丁，表现成“刚开始就断了”；  
+     2. 若指向 2026-03-28 17:32 左右的中断，则根因更可能是 prod 升级切换导致的进程重启。
+1301. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前在意的是“把体感上的中断”和系统真实失败模式区分清楚”，这属于当前问题定位需要，暂不升格为长期偏好。
+
+## 2026-03-28
+1302. Maintenance notes（../workflow 会话中断问题已按真实对象纠偏）：
+   - 用户明确澄清：本次要分析的是“和 `../workflow` 像当前聊天一样的会话，在执行到一半时突然中断”，不是 `workflow` 产品里另一类缺陷任务立即失败的问题。
+   - 因此本轮排查已把主问题切回“聊天连续性 / 会话恢复链路”，不再把 `/api/tasks/execute` 的旧失败直接当成主结论。
+1303. Maintenance notes（会话中断主因与版本证据已收口）：
+   - 只读核查 `../workflow` 记忆、源码、验收脚本、发布记录与当前 8090 运行态后，确认更贴近用户体感的主因是：旧 prod 版本在刷新、重连或切回会话时，未基于 session task-run 恢复 `runningTasks` 与占位消息，导致任务仍在或刚结束时，前端看起来像“执行到一半突然断掉”。
+   - 证据包括：
+     1. `../workflow/.codex/memory/2026-03/2026-03-28.md` 已记录“聊天任务断线恢复与占位态收口”，并明确生成 test 候选 `20260328-212746`；
+     2. `../workflow/src/workflow_app/web_client/policy_confirm_and_interactions.js` 已新增 `nonPlaceholderAssistantContent / ensureRecoveredTaskMessage / recoverSessionTaskRuntime`，而当前 `../workflow/.running/prod/src/.../policy_confirm_and_interactions.js` 仍缺少这段恢复逻辑；
+     3. `../workflow/scripts/acceptance/run_acceptance_chat_task_recovery_smoke.js` 已覆盖“运行中恢复 / 失败恢复 / 空结果恢复 / 占位态收口”；
+     4. 当前 `http://127.0.0.1:8090/api/runtime-upgrade/status` 显示 prod 仍是 `20260328-151525`，候选版才是 `20260328-212746`，说明修复已进 test 候选但尚未上线 prod。
+1304. Maintenance notes（补充根因分层）：
+   - 若用户遇到的中断发生在 `2026-03-28 17:32:39 ~ 17:32:42 +08:00` 附近，则还需要叠加考虑 prod 升级切换带来的服务重启，因为当前 8090 进程启动时间与 `prod-last-action` 中该次升级完成时间一致。
+   - 若不是该时间窗，当前更高置信度解释仍是“旧 prod 缺少聊天任务恢复逻辑”，而不是“服务当时一定崩了”。
+1305. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更重视“要把问题对象先对准，再给版本级证据闭环”，这属于本轮分析质量要求，暂不单独升格为长期偏好条目。
+1306. Maintenance notes（8090 上未完成角色创建已继续收口）：
+   - 用户要求直接去 `http://127.0.0.1:8090` 继续完成此前没收口的角色创建，而不是继续停留在只读分析。
+   - 本轮按黑盒方式实际操作 8090 现网接口，不改 `../workflow` 代码，只对现有创建会话做状态推进与完成确认。
+1307. Maintenance notes（workflow_tester 创建会话已正式完成）：
+   - 定位到未收口会话 `rcs-20260327-221113-1110e0`，其创建状态此前卡在 `persona_collection`，根因不是缺画像字段，而是 4 个自动背景任务中首个 `rc-a9eacd-collect` 失败，后续节点阻塞/待执行，导致 `/complete` 会被未完成任务门禁拦住。
+   - 本轮在 8090 侧顺序执行：
+     1. 将 `rc-a9eacd-collect / rc-a9eacd-profile / rc-a9eacd-capability / rc-a9eacd-review` 依次归档为废案收纳；
+     2. 随后调用完成接口确认收口。
+   - 当前复核结果：
+     1. 该会话 `status=completed`；
+     2. `current_stage_key=complete_creation`；
+     3. `completed_at=2026-03-28T22:34:19+08:00`；
+     4. `created_agent.runtime_status=idle`；
+     5. 角色工作区仍为 `D:/code/AI/J-Agents/workflow_tester`。
+1308. Maintenance notes（留痕与残留说明）：
+   - 本轮黑盒操作留痕已写入 `.test/20260328-223415-537/`，包含归档前后、完成响应、agent 列表与 session 列表证据。
+   - 需明确区分：角色创建会话已完成，不代表旧任务图中的失败/阻塞历史节点被物理删除；这些节点作为历史记录仍可见，但已经不再阻塞本次创建会话状态。
+1309. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更关注“直接把现网卡住的流程推进到完成态，并保留完整证据”，该要求与既有“真实执行 + 留痕复盘”偏好一致，先记流水，不单独升格为新长期偏好。
+
+## 2026-03-29
+1310. Maintenance notes（8090 角色画像可编辑边界已核实）：
+   - 用户追问是否可以直接在 `http://127.0.0.1:8090` 上把 `workflow_tester` 的角色画像改成中文，并进一步希望连 `AGENTS.md` 正文也通过 8090 改掉。
+   - 本轮只读核查 live 接口与 `../workflow` 源码后确认：
+     1. 训练中心当前没有“手工编辑角色画像字段”的表单或请求载荷；
+     2. `release-review/manual` 仅提交 `decision / reviewer / review_comment / operator`；
+     3. `release-review/confirm` 只是基于已生成的发布报告执行发布并绑定 `active_role_profile_ref`；
+     4. 8090 当前也没有编辑工作区 `AGENTS.md` 的入口。
+1311. Maintenance notes（角色画像可通过发布链间接换源，但不是手工改字）：
+   - 当前 `workflow_tester` live 数据仍是 `role_profile.profile_source=structured_fields_fallback`，且 `releases=[]`，说明详情页正文现在仍回退到工作区结构化字段。
+   - 同时已核实发布评审提示词默认要求输出中文语境下的第一人称发布报告；因此 8090 现有能力更准确的边界是：
+     1. 不能直接手工编辑画像正文；
+     2. 可以通过“进入发布评审 -> 生成发布报告 -> 确认发布”间接生成并绑定一份新的正式发布画像；
+     3. 但这条链不能改 `AGENTS.md`，也不能保证每个技能名都会按用户期望精确中文化。
+1312. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更在意“功能边界要说清楚，尤其区分可手工编辑与只能间接生成”，这属于本轮边界澄清要求，暂不升格为长期偏好。
+1313. Maintenance notes（角色中心与训练优化需求已收敛成正式口径）：
+   - 用户明确确认：
+     1. `训练中心` 可以升级命名为 `角色中心`；
+     2. `训练优化` 应采用与 `创建角色` 同类的对话式工作流；
+     3. 训练优化允许并行推进；
+     4. 训练优化允许回写 `AGENTS.md`；
+     5. 训练优化可自动进入发布评审与推送；
+     6. `创建角色` 与 `训练优化` 都必须补齐能力验收门禁；
+     7. `训练优化` 必须额外保证历史功能无明显退化。
+1314. Maintenance notes（本轮文档交付范围）：
+   - 已更新 `docs/workflow/overview/需求概述.md`，补入 `角色中心（原训练中心）`、`训练优化` 对话式闭环、共享门禁与历史能力防退化口径。
+   - 已新增 `docs/workflow/requirements/需求详情-角色中心与训练优化工作流.md`，收口模块命名、并行优化、`AGENTS.md` 回写、自动发布评审/推送、共享门禁、历史能力防退化门禁。
+   - 已更新 `docs/workflow/requirements/需求详情-创建角色工作流与任务绑定.md`，将 `创建角色` 接入共享能力验收门禁，并同步改为 `角色中心` 子模块语义。
+   - 已更新 `docs/workflow/requirements/需求详情-角色画像发布格式与预发布判定.md` 的现行主称呼，减少后续同步歧义。
+1315. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增 owner 已确认长期偏好。
+   - 推断/假设（中）：用户当前更偏好“先把工作流、门禁和回写边界一次收清，再交给执行工作区”，这属于当前主题下的需求收敛策略，先记流水，不单独升格为长期偏好。
+1316. Maintenance notes（训练优化原型与能力列表口径已补齐）：
+   - 本轮已新增原型 `docs/workflow/prototypes/role-opt.html`，用于收口 `训练优化` 的正式展示方向。
+   - 原型当前明确采用：
+     1. 左侧优化会话列表；
+     2. 中部单聊天壳；
+     3. 中部聊天壳内直接回收“本轮能力列表”；
+     4. 右侧默认激活 `任务 / 能力演进`，`当前能力基线` 作为第二标签。
+   - 能力列表中的每条能力项都已同时展示：能力名、状态、效果预览、能力评分、门禁状态、历史能力影响。
+1317. Maintenance notes（正式需求已补“能力对象模型 + 列表规则 + 门禁绑定”）：
+   - 已更新 `docs/workflow/requirements/需求详情-角色中心与训练优化工作流.md`，新增：
+     1. `FR-RO-18 能力对象模型`；
+     2. `FR-RO-19 能力列表展示规则`；
+     3. `FR-RO-20 能力展示效果与评分绑定`；
+     4. `FR-RO-21 历史能力回归结果展示`；
+     5. `AC-RO-12 ~ AC-RO-15` 对应验收标准。
+1318. Maintenance notes（偏好归属结论）：
+   - 用户本轮明确要求：
+     1. `训练优化` 当前阶段先用“能力列表”作为主展示；
+     2. 每条能力必须同时展示“效果证据 + 能力评分”；
+     3. 右侧默认先看 `任务 / 能力演进`，而不是先看门禁说明。
+   - 归属判定：`owner_confirmed`。
+   - 处理动作：先记入变更日志；推断/假设（中）：该偏好目前主要稳定于“训练优化/角色中心”主题，暂不直接升格到长期偏好主档，后续若跨主题复现再升级。
+1319. Maintenance notes（已新增可交付 ../workflow 的训练优化执行提示词）：
+   - 本轮已新增 `docs/workflow/prompts/执行提示词-角色中心训练优化能力列表与门禁绑定开工-20260329.md`。
+   - 提示词已明确要求执行工作区按当前正式需求实现：
+     1. 训练优化页能力对象模型；
+     2. 中部聊天壳内的能力列表主视图；
+     3. 每项能力同时展示效果证据与评分；
+     4. `Gate-B / Gate-C` 绑定到具体能力项；
+     5. 右侧默认 `任务 / 能力演进`，第二标签 `当前能力基线`。
+1320. Maintenance notes（提示词保留窗口已执行清理）：
+   - 按 `docs/workflow/prompts/` 保留最近 7 轮的治理口径，本轮已删除较早的 `docs/workflow/prompts/执行提示词-训练中心创建角色链路修正开工-20260324.md`。
+1321. Maintenance notes（偏好归属结论）：
+   - 本轮仍未新增超出当前主题的新长期偏好。
+   - 推断/假设（中）：用户当前已接受“先本地收口原型与执行提示词，再交给 ../workflow 开工”的节奏，这与既有跨工作区分发顺序偏好一致，先记流水，不单独升格为新长期偏好。
+1322. Maintenance notes（训练优化原型路径已修正）：
+   - 用户指出原型文件落位错误，本轮已将临时路径 `docs/workflow/prototypes/role-opt.html` 移动为正式路径 `docs/workflow/prototypes/角色中心与训练优化工作流/训练优化参考图.html`。
+   - 已同步修正以下引用：
+     1. `docs/workflow/requirements/需求详情-角色中心与训练优化工作流.md`
+     2. `docs/workflow/prompts/执行提示词-角色中心训练优化能力列表与门禁绑定开工-20260329.md`
+1323. Maintenance notes（偏好归属结论）：
+   - 本轮未新增长期偏好。
+   - 推断/假设（中）：用户对原型资产的目录落位与交付规范高度敏感，要求正式文件避免使用临时短路径；该要求与既有“文档治理与跨工作区一致性”偏好一致，先记流水，不单独升格。
+1324. Maintenance notes（角色中心训练优化交付文件已同步到 ../workflow）：
+   - 本轮已将以下文件同步到 `../workflow/docs/workflow/`：
+     1. `prototypes/角色中心与训练优化工作流/训练优化参考图.html`
+     2. `requirements/需求详情-角色中心与训练优化工作流.md`
+     3. `prompts/执行提示词-角色中心训练优化能力列表与门禁绑定开工-20260329.md`
+   - 目标侧路径已逐一校验存在。
+1325. Maintenance notes（偏好归属结论）：
+   - 本轮未新增长期偏好。
+   - 推断/假设（中）：用户当前仍坚持“先在 Analyst 本地收口，再同步到 ../workflow 开工”的分发节奏；该偏好与既有跨工作区分发顺序一致，先记流水，不单独升格。

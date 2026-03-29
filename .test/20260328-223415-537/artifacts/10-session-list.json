@@ -1,0 +1,52 @@
+﻿{
+    "ok":  true,
+    "items":  [
+                  {
+                      "session_id":  "rcs-20260327-221113-1110e0",
+                      "session_title":  "workflow_tester",
+                      "status":  "completed",
+                      "current_stage_key":  "complete_creation",
+                      "current_stage_index":  6,
+                      "last_message_preview":  "角色创建已完成，后续可以直接进入训练闭环和版本治理。",
+                      "last_message_at":  "2026-03-28T22:34:19+08:00",
+                      "assignment_ticket_id":  "asg-20260327-221156-d84991",
+                      "created_agent_id":  "workflow_tester",
+                      "created_agent_name":  "workflow_tester",
+                      "created_agent_workspace_path":  "D:/code/AI/J-Agents/workflow_tester",
+                      "workspace_init_status":  "completed",
+                      "workspace_init_ref":  "logs/runs/role-creation-workspace-init-20260327-221154-8b3c38.md",
+                      "dialogue_agent_name":  "Analyst",
+                      "dialogue_agent_workspace_path":  "D:/code/AI/J-Agents/Analyst",
+                      "dialogue_provider":  "codex",
+                      "last_dialogue_trace_ref":  "logs/runs/role-creation-analyst-rcs-20260327-221113-1110e0-20260327-221114-ca3543",
+                      "message_processing_status":  "idle",
+                      "message_processing_status_text":  "空闲",
+                      "message_processing_error":  "",
+                      "message_processing_started_at":  "",
+                      "message_processing_updated_at":  "2026-03-27T22:11:49+08:00",
+                      "message_processing_batch_id":  "",
+                      "user_message_count":  1,
+                      "unhandled_user_message_count":  0,
+                      "started_at":  "2026-03-27T22:11:56+08:00",
+                      "completed_at":  "2026-03-28T22:34:19+08:00",
+                      "created_at":  "2026-03-27T22:11:13+08:00",
+                      "updated_at":  "2026-03-28T22:34:19+08:00",
+                      "role_name":  "workflow_tester",
+                      "missing_fields":  [
+
+                                         ],
+                      "delete_available":  true,
+                      "delete_mode":  "record",
+                      "delete_label":  "删除记录",
+                      "delete_block_reason":  "",
+                      "delete_block_reason_text":  "",
+                      "assignment_running_node_count":  0,
+                      "assignment_scheduler_state":  "",
+                      "assignment_scheduler_state_text":  ""
+                  }
+              ],
+    "total":  1,
+    "agent_search_root":  "D:/code/AI/J-Agents",
+    "agent_search_root_ready":  true,
+    "features_locked":  false
+}

@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-221052-062",
+    "status":  "FAIL",
+    "started_at_utc":  "2026-03-27T14:10:52.0931629Z",
+    "finished_at_utc":  "2026-03-27T14:10:52.9800750Z",
+    "duration_ms":  887,
+    "exit_code":  1,
+    "command":  "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .tmp\\probe-workflow-tester-state.ps1 -CreateIfMissing",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-221052-062\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  3,
+    "artifact_total_bytes":  65452,
+    "log_total_bytes":  565
+}

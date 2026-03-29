@@ -1,0 +1,12 @@
+{
+  "report_id": "dr-20260327-16a4fa716a",
+  "display_id": "DTS-00003",
+  "status": "dispute",
+  "status_text": "有分歧",
+  "task_priority": "P0",
+  "queue_eligible": true,
+  "role_creation_session_id": "rcs-20260327-221113-1110e0",
+  "ticket_id": "asg-20260327-221156-d84991",
+  "failed_node_id": "rc-a9eacd-collect",
+  "failed_run_id": "arun-20260327-221157-1ef94c"
+}

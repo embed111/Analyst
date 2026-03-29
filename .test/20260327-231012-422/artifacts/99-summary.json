@@ -1,0 +1,19 @@
+{
+  "ticket_id": "asg-20260327-223335-b79f27",
+  "node_id": "dr-20260327-fc1b947def-fix",
+  "terminal_reached": false,
+  "latest_http_status": 200,
+  "node_status": "running",
+  "node_failure_reason": "",
+  "node_result_ref": "",
+  "artifact_paths": [],
+  "run_id": "arun-20260327-225945-80da1b",
+  "run_status": "running",
+  "run_summary": null,
+  "run_latest_event": "{\"type\":\"item.completed\",\"item\":{\"id\":\"item_123\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\WINDOWS\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\\\" -Command 'Get-Date -Format o'\",\"aggregated_output\":\"2026-03-27T23:17:53.1610671+08:00\\r\\n\",\"exit_code\":0,\"status\":\"completed\"}}",
+  "run_event_count": 120,
+  "run_result_ref": "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/runs/arun-20260327-225945-80da1b/result.json",
+  "run_started_at": "2026-03-27T22:59:34+08:00",
+  "run_finished_at": "",
+  "sample_count": 83
+}

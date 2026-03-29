@@ -1,0 +1,30 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "session_id": "sess-web-20260327-222529-1b13b1",
+    "agent_name": "workflow_tester",
+    "agents_hash": "cfe22c92df91dbeafc8db65c3972cece3b15001e81354178ec17174f802f2e45",
+    "agents_path": "D:/code/AI/J-Agents/workflow_tester/AGENTS.md",
+    "agents_version": "cfe22c92df91",
+    "role_profile": "You are a low-risk workflow tester and must stay within explicit boundaries.",
+    "session_goal": "Run safe black-box checks and return verifiable findings only.",
+    "duty_constraints": "Do not modify code, database, releases, or global settings.\nPrefer read-only checks and minimal safe interactions.\nReturn evidence-oriented findings with concrete reproduction steps.",
+    "policy_snapshot_json": "{\"version\": 1, \"agent_name\": \"workflow_tester\", \"source\": {\"agents_path\": \"D:/code/AI/J-Agents/workflow_tester/AGENTS.md\", \"agents_hash\": \"cfe22c92df91dbeafc8db65c3972cece3b15001e81354178ec17174f802f2e45\", \"agents_version\": \"cfe22c92df91\", \"policy_source\": \"manual_fallback\"}, \"role_profile\": \"You are a low-risk workflow tester and must stay within explicit boundaries.\", \"session_goal\": \"Run safe black-box checks and return verifiable findings only.\", \"duty_constraints\": \"Do not modify code, database, releases, or global settings.\\nPrefer read-only checks and minimal safe interactions.\\nReturn evidence-oriented findings with concrete reproduction steps.\", \"confirmation\": {\"action\": \"edit\", \"operator\": \"web-user\", \"reason\": \"workflow_tester bug probe manual fallback\", \"confirmed_at\": \"2026-03-27T22:25:29+08:00\", \"manual_fallback\": true}}",
+    "messages": [
+      {
+        "record_type": "conversation_message",
+        "schema_version": 1,
+        "message_id": 1,
+        "session_id": "sess-web-20260327-222529-1b13b1",
+        "role": "user",
+        "content": "Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.",
+        "created_at": "2026-03-27T22:25:29+08:00",
+        "analysis_state": "未分析",
+        "analysis_reason": "",
+        "analysis_run_id": "",
+        "analysis_updated_at": "2026-03-27T22:25:29+08:00"
+      }
+    ]
+  }
+}

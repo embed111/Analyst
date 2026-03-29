@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-222810-793",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-27T14:28:10.8258230Z",
+    "finished_at_utc":  "2026-03-27T14:28:10.9704161Z",
+    "duration_ms":  145,
+    "exit_code":  0,
+    "command":  "python .tmp\\submit-workflow-tester-probe-defect.py --probe-artifacts .test\\20260327-222226-333\\artifacts",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-222810-793\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  2,
+    "artifact_total_bytes":  9776,
+    "log_total_bytes":  336
+}

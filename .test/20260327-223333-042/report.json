@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-223333-042",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-27T14:33:33.0786114Z",
+    "finished_at_utc":  "2026-03-27T14:33:36.9569790Z",
+    "duration_ms":  3878,
+    "exit_code":  0,
+    "command":  "python .tmp\\create-defect-process-task.py --report-id dr-20260327-fc1b947def",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-223333-042\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  5,
+    "artifact_total_bytes":  79030,
+    "log_total_bytes":  16535
+}

@@ -1,0 +1,418 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "include_test_data": false,
+    "environment": "prod",
+    "show_test_data": false,
+    "show_test_data_source": "environment_policy",
+    "ticket_id": "asg-20260327-221156-d84991",
+    "graph": {
+      "ticket_id": "asg-20260327-221156-d84991",
+      "graph_name": "workflow_tester创建工作流",
+      "source_workflow": "training-role-creation",
+      "summary": "训练中心创建角色工作流",
+      "review_mode": "none",
+      "global_concurrency_limit": 5,
+      "is_test_data": false,
+      "external_request_id": "rcs-20260327-221113-1110e0",
+      "scheduler_state": "running",
+      "scheduler_state_text": "运行中",
+      "pause_note": "",
+      "created_at": "2026-03-27T22:11:54+08:00",
+      "updated_at": "2026-03-27T22:12:47+08:00",
+      "metrics_summary": {
+        "total_nodes": 4,
+        "status_counts": {
+          "pending": 2,
+          "ready": 0,
+          "running": 0,
+          "succeeded": 0,
+          "failed": 1,
+          "blocked": 1
+        },
+        "executed_count": 1,
+        "unexecuted_count": 3
+      },
+      "scheduler": {
+        "state": "running",
+        "state_text": "运行中",
+        "running_agent_count": 0,
+        "system_running_agent_count": 1,
+        "graph_running_node_count": 0,
+        "system_running_node_count": 1,
+        "global_concurrency_limit": 5,
+        "graph_concurrency_limit": 5,
+        "effective_concurrency_limit": 5,
+        "pause_note": "",
+        "settings_updated_at": "2026-03-18T17:20:07+08:00"
+      }
+    },
+    "nodes": [
+      {
+        "node_id": "rc-a9eacd-review",
+        "ticket_id": "asg-20260327-221156-d84991",
+        "node_name": "整理workflow_tester回看材料",
+        "source_schedule_id": "",
+        "planned_trigger_at": "",
+        "trigger_instance_id": "",
+        "trigger_rule_summary": "",
+        "assigned_agent_id": "workflow_tester",
+        "assigned_agent_name": "workflow_tester",
+        "node_goal": "整理workflow_tester的样例结果、预览截图和回看摘要，便于当前会话验收。",
+        "expected_artifact": "回看材料包.html",
+        "delivery_mode": "none",
+        "delivery_mode_text": "默认交付给当前 agent",
+        "delivery_receiver_agent_id": "",
+        "delivery_receiver_agent_name": "",
+        "delivery_target_agent_id": "workflow_tester",
+        "delivery_target_agent_name": "workflow_tester",
+        "delivery_inbox_relative_path": "delivery/workflow_tester/整理workflow_tester回看材料",
+        "delivery_info_relative_path": "delivery/workflow_tester/整理workflow_tester回看材料/DELIVERY_INFO.json",
+        "delivery_inbox_relative_paths": [],
+        "artifact_delivery_status": "pending",
+        "artifact_delivery_status_text": "待交付",
+        "artifact_delivered_at": "",
+        "artifact_paths": [],
+        "status": "pending",
+        "status_text": "待开始",
+        "priority": 1,
+        "priority_label": "P1",
+        "completed_at": "",
+        "success_reason": "",
+        "result_ref": "",
+        "failure_reason": "",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "updated_at": "2026-03-27T22:11:54+08:00",
+        "upstream_node_ids": [
+          "rc-a9eacd-capability"
+        ],
+        "downstream_node_ids": [],
+        "upstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-capability",
+            "node_name": "生成workflow_tester能力样例草案",
+            "status": "pending"
+          }
+        ],
+        "downstream_nodes": [],
+        "blocking_reasons": [
+          {
+            "code": "upstream_incomplete",
+            "node_id": "rc-a9eacd-capability",
+            "node_name": "生成workflow_tester能力样例草案",
+            "status": "pending",
+            "status_text": "待开始"
+          }
+        ],
+        "last_receipt": {
+          "completed_at": "",
+          "success_reason": "",
+          "result_ref": "",
+          "failure_reason": ""
+        },
+        "is_test_data": false
+      },
+      {
+        "node_id": "rc-a9eacd-capability",
+        "ticket_id": "asg-20260327-221156-d84991",
+        "node_name": "生成workflow_tester能力样例草案",
+        "source_schedule_id": "",
+        "planned_trigger_at": "",
+        "trigger_instance_id": "",
+        "trigger_rule_summary": "",
+        "assigned_agent_id": "workflow_tester",
+        "assigned_agent_name": "workflow_tester",
+        "node_goal": "根据画像资料生成workflow_tester的关键能力样例和执行模板。",
+        "expected_artifact": "能力样例草案.html",
+        "delivery_mode": "none",
+        "delivery_mode_text": "默认交付给当前 agent",
+        "delivery_receiver_agent_id": "",
+        "delivery_receiver_agent_name": "",
+        "delivery_target_agent_id": "workflow_tester",
+        "delivery_target_agent_name": "workflow_tester",
+        "delivery_inbox_relative_path": "delivery/workflow_tester/生成workflow_tester能力样例草案",
+        "delivery_info_relative_path": "delivery/workflow_tester/生成workflow_tester能力样例草案/DELIVERY_INFO.json",
+        "delivery_inbox_relative_paths": [],
+        "artifact_delivery_status": "pending",
+        "artifact_delivery_status_text": "待交付",
+        "artifact_delivered_at": "",
+        "artifact_paths": [],
+        "status": "pending",
+        "status_text": "待开始",
+        "priority": 1,
+        "priority_label": "P1",
+        "completed_at": "",
+        "success_reason": "",
+        "result_ref": "",
+        "failure_reason": "",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "updated_at": "2026-03-27T22:11:54+08:00",
+        "upstream_node_ids": [
+          "rc-a9eacd-profile"
+        ],
+        "downstream_node_ids": [
+          "rc-a9eacd-review"
+        ],
+        "upstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-profile",
+            "node_name": "沉淀workflow_tester角色画像资料",
+            "status": "blocked"
+          }
+        ],
+        "downstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-review",
+            "node_name": "整理workflow_tester回看材料",
+            "status": "pending"
+          }
+        ],
+        "blocking_reasons": [
+          {
+            "code": "upstream_incomplete",
+            "node_id": "rc-a9eacd-profile",
+            "node_name": "沉淀workflow_tester角色画像资料",
+            "status": "blocked",
+            "status_text": "阻塞"
+          }
+        ],
+        "last_receipt": {
+          "completed_at": "",
+          "success_reason": "",
+          "result_ref": "",
+          "failure_reason": ""
+        },
+        "is_test_data": false
+      },
+      {
+        "node_id": "rc-a9eacd-profile",
+        "ticket_id": "asg-20260327-221156-d84991",
+        "node_name": "沉淀workflow_tester角色画像资料",
+        "source_schedule_id": "",
+        "planned_trigger_at": "",
+        "trigger_instance_id": "",
+        "trigger_rule_summary": "",
+        "assigned_agent_id": "workflow_tester",
+        "assigned_agent_name": "workflow_tester",
+        "node_goal": "把当前对话收口为workflow_tester的角色画像、边界和协作说明。",
+        "expected_artifact": "角色画像资料包.html",
+        "delivery_mode": "none",
+        "delivery_mode_text": "默认交付给当前 agent",
+        "delivery_receiver_agent_id": "",
+        "delivery_receiver_agent_name": "",
+        "delivery_target_agent_id": "workflow_tester",
+        "delivery_target_agent_name": "workflow_tester",
+        "delivery_inbox_relative_path": "delivery/workflow_tester/沉淀workflow_tester角色画像资料",
+        "delivery_info_relative_path": "delivery/workflow_tester/沉淀workflow_tester角色画像资料/DELIVERY_INFO.json",
+        "delivery_inbox_relative_paths": [],
+        "artifact_delivery_status": "pending",
+        "artifact_delivery_status_text": "待交付",
+        "artifact_delivered_at": "",
+        "artifact_paths": [],
+        "status": "blocked",
+        "status_text": "阻塞",
+        "priority": 0,
+        "priority_label": "P0",
+        "completed_at": "",
+        "success_reason": "",
+        "result_ref": "",
+        "failure_reason": "",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "updated_at": "2026-03-27T22:12:47+08:00",
+        "upstream_node_ids": [
+          "rc-a9eacd-collect"
+        ],
+        "downstream_node_ids": [
+          "rc-a9eacd-capability"
+        ],
+        "upstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-collect",
+            "node_name": "收集workflow_tester行业案例资料",
+            "status": "failed"
+          }
+        ],
+        "downstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-capability",
+            "node_name": "生成workflow_tester能力样例草案",
+            "status": "pending"
+          }
+        ],
+        "blocking_reasons": [
+          {
+            "code": "upstream_failed",
+            "node_id": "rc-a9eacd-collect",
+            "node_name": "收集workflow_tester行业案例资料",
+            "status": "failed",
+            "status_text": "失败"
+          }
+        ],
+        "last_receipt": {
+          "completed_at": "",
+          "success_reason": "",
+          "result_ref": "",
+          "failure_reason": ""
+        },
+        "is_test_data": false
+      },
+      {
+        "node_id": "rc-a9eacd-collect",
+        "ticket_id": "asg-20260327-221156-d84991",
+        "node_name": "收集workflow_tester行业案例资料",
+        "source_schedule_id": "",
+        "planned_trigger_at": "",
+        "trigger_instance_id": "",
+        "trigger_rule_summary": "",
+        "assigned_agent_id": "workflow_tester",
+        "assigned_agent_name": "workflow_tester",
+        "node_goal": "围绕workflow_tester收集真实案例、参考材料和约束依据，作为后续画像收口输入。",
+        "expected_artifact": "行业案例资料汇总.html",
+        "delivery_mode": "none",
+        "delivery_mode_text": "默认交付给当前 agent",
+        "delivery_receiver_agent_id": "",
+        "delivery_receiver_agent_name": "",
+        "delivery_target_agent_id": "workflow_tester",
+        "delivery_target_agent_name": "workflow_tester",
+        "delivery_inbox_relative_path": "delivery/workflow_tester/收集workflow_tester行业案例资料",
+        "delivery_info_relative_path": "delivery/workflow_tester/收集workflow_tester行业案例资料/DELIVERY_INFO.json",
+        "delivery_inbox_relative_paths": [],
+        "artifact_delivery_status": "pending",
+        "artifact_delivery_status_text": "待交付",
+        "artifact_delivered_at": "",
+        "artifact_paths": [],
+        "status": "failed",
+        "status_text": "失败",
+        "priority": 0,
+        "priority_label": "P0",
+        "completed_at": "2026-03-27T22:12:47+08:00",
+        "success_reason": "",
+        "result_ref": "",
+        "failure_reason": "assignment execution failed with exit=1",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "updated_at": "2026-03-27T22:12:47+08:00",
+        "upstream_node_ids": [],
+        "downstream_node_ids": [
+          "rc-a9eacd-profile"
+        ],
+        "upstream_nodes": [],
+        "downstream_nodes": [
+          {
+            "node_id": "rc-a9eacd-profile",
+            "node_name": "沉淀workflow_tester角色画像资料",
+            "status": "blocked"
+          }
+        ],
+        "blocking_reasons": [],
+        "last_receipt": {
+          "completed_at": "2026-03-27T22:12:47+08:00",
+          "success_reason": "",
+          "result_ref": "",
+          "failure_reason": "assignment execution failed with exit=1"
+        },
+        "is_test_data": false
+      }
+    ],
+    "edges": [
+      {
+        "from_node_id": "rc-a9eacd-capability",
+        "to_node_id": "rc-a9eacd-review",
+        "edge_kind": "depends_on",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "record_state": "active"
+      },
+      {
+        "from_node_id": "rc-a9eacd-collect",
+        "to_node_id": "rc-a9eacd-profile",
+        "edge_kind": "depends_on",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "record_state": "active"
+      },
+      {
+        "from_node_id": "rc-a9eacd-profile",
+        "to_node_id": "rc-a9eacd-capability",
+        "edge_kind": "depends_on",
+        "created_at": "2026-03-27T22:11:54+08:00",
+        "record_state": "active"
+      }
+    ],
+    "node_catalog": [
+      {
+        "node_id": "rc-a9eacd-review",
+        "node_name": "整理workflow_tester回看材料",
+        "status": "pending",
+        "priority": 1,
+        "priority_label": "P1"
+      },
+      {
+        "node_id": "rc-a9eacd-capability",
+        "node_name": "生成workflow_tester能力样例草案",
+        "status": "pending",
+        "priority": 1,
+        "priority_label": "P1"
+      },
+      {
+        "node_id": "rc-a9eacd-profile",
+        "node_name": "沉淀workflow_tester角色画像资料",
+        "status": "blocked",
+        "priority": 0,
+        "priority_label": "P0"
+      },
+      {
+        "node_id": "rc-a9eacd-collect",
+        "node_name": "收集workflow_tester行业案例资料",
+        "status": "failed",
+        "priority": 0,
+        "priority_label": "P0"
+      }
+    ],
+    "metrics_summary": {
+      "total_nodes": 4,
+      "status_counts": {
+        "pending": 2,
+        "ready": 0,
+        "running": 0,
+        "succeeded": 0,
+        "failed": 1,
+        "blocked": 1
+      },
+      "executed_count": 1,
+      "unexecuted_count": 3
+    },
+    "priority_rules": {
+      "ui_levels": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "backend_levels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "highest_first": true,
+      "tie_breaker": "created_at_asc"
+    },
+    "active": {
+      "base_visible_count": 3,
+      "loaded_extra_count": 0,
+      "next_active_loaded": 24,
+      "remaining_count": 0,
+      "has_more": false,
+      "batch_size": 24,
+      "visible_count": 3,
+      "total_count": 3
+    },
+    "history": {
+      "base_recent_count": 1,
+      "loaded_extra_count": 0,
+      "next_history_loaded": 12,
+      "remaining_completed_count": 0,
+      "has_more": false,
+      "batch_size": 12
+    }
+  }
+}

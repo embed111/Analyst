@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-231012-422",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-27T15:10:12.4571211Z",
+    "finished_at_utc":  "2026-03-27T15:18:15.2765651Z",
+    "duration_ms":  482819,
+    "exit_code":  0,
+    "command":  "python .tmp\\watch-assignment-node.py --ticket-id asg-20260327-223335-b79f27 --node-id dr-20260327-fc1b947def-fix --timeout 480 --interval 5",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231012-422\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  3,
+    "artifact_total_bytes":  1826611,
+    "log_total_bytes":  1169
+}

@@ -1,0 +1,15 @@
+﻿{
+    "ok":  true,
+    "body":  {
+                 "ok":  true,
+                 "items":  [
+
+                           ],
+                 "total":  0,
+                 "agent_search_root":  "D:/code/AI/J-Agents",
+                 "agent_search_root_ready":  true,
+                 "features_locked":  false
+             },
+    "uri":  "http://127.0.0.1:8090/api/training/role-creation/sessions",
+    "method":  "GET"
+}

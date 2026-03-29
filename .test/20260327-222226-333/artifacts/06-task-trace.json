@@ -1,0 +1,98 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "task_id": "task-20260327-9f356109",
+    "task": {
+      "record_type": "task_run",
+      "schema_version": 1,
+      "task_id": "task-20260327-9f356109",
+      "session_id": "sess-web-20260327-222529-1b13b1",
+      "agent_name": "workflow_tester",
+      "agent_search_root": "D:/code/AI/J-Agents",
+      "default_agents_root": "D:/code/AI/J-Agents",
+      "target_path": "D:/code/AI/J-Agents",
+      "status": "failed",
+      "message": "Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.",
+      "command_json": "[\"C:\\\\Users\\\\jmqj\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe\", \"-u\", \"D:\\\\code\\\\AI\\\\J-Agents\\\\workflow\\\\.running\\\\prod\\\\src\\\\workflow_app\\\\task_agent_runner.py\", \"--root\", \"D:\\\\code\\\\AI\\\\J-Agents\\\\workflow\\\\.running\\\\control\\\\runtime\\\\prod\", \"--session-id\", \"sess-web-20260327-222529-1b13b1\", \"--agent\", \"workflow_tester\", \"--agent-search-root\", \"D:/code/AI/J-Agents\", \"--focus\", \"workflow-bug-probe\", \"--message\", \"Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.\", \"--trace-file\", \"C:\\\\work\\\\J-Agents\\\\.output\\\\records\\\\runs\\\\task-20260327-9f356109\\\\trace.json\"]",
+      "command_display": "[\"C:\\\\Users\\\\jmqj\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe\", \"-u\", \"D:\\\\code\\\\AI\\\\J-Agents\\\\workflow\\\\.running\\\\prod\\\\src\\\\workflow_app\\\\task_agent_runner.py\", \"--root\", \"D:\\\\code\\\\AI\\\\J-Agents\\\\workflow\\\\.running\\\\control\\\\runtime\\\\prod\", \"--session-id\", \"sess-web-20260327-222529-1b13b1\", \"--agent\", \"workflow_tester\", \"--agent-search-root\", \"D:/code/AI/J-Agents\", \"--focus\", \"workflow-bug-probe\", \"--message\", \"Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.\", \"--trace-file\", \"C:\\\\work\\\\J-Agents\\\\.output\\\\records\\\\runs\\\\task-20260327-9f356109\\\\trace.json\"]",
+      "start_at": "2026-03-27T22:25:30+08:00",
+      "end_at": "2026-03-27T22:25:30+08:00",
+      "duration_ms": 102,
+      "stdout_ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/stdout.txt",
+      "stderr_ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/stderr.txt",
+      "trace_ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/trace.json",
+      "events_ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/events.log",
+      "summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+      "ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/summary.md",
+      "created_at": "2026-03-27T22:25:30+08:00",
+      "updated_at": "2026-03-27T22:25:30+08:00",
+      "event_seq": 4,
+      "stdout": "",
+      "stderr": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'\n",
+      "command": [
+        "C:\\Users\\jmqj\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-u",
+        "D:\\code\\AI\\J-Agents\\workflow\\.running\\prod\\src\\workflow_app\\task_agent_runner.py",
+        "--root",
+        "D:\\code\\AI\\J-Agents\\workflow\\.running\\control\\runtime\\prod",
+        "--session-id",
+        "sess-web-20260327-222529-1b13b1",
+        "--agent",
+        "workflow_tester",
+        "--agent-search-root",
+        "D:/code/AI/J-Agents",
+        "--focus",
+        "workflow-bug-probe",
+        "--message",
+        "Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.",
+        "--trace-file",
+        "C:\\work\\J-Agents\\.output\\records\\runs\\task-20260327-9f356109\\trace.json"
+      ]
+    },
+    "trace": {},
+    "events": [
+      {
+        "event_id": 1,
+        "timestamp": "2026-03-27T22:25:30+08:00",
+        "event_type": "created",
+        "payload": {
+          "task_id": "task-20260327-9f356109",
+          "session_id": "sess-web-20260327-222529-1b13b1",
+          "agent_name": "workflow_tester",
+          "status": "pending"
+        }
+      },
+      {
+        "event_id": 2,
+        "timestamp": "2026-03-27T22:25:30+08:00",
+        "event_type": "queued",
+        "payload": {
+          "task_id": "task-20260327-9f356109",
+          "session_id": "sess-web-20260327-222529-1b13b1",
+          "agent_name": "workflow_tester"
+        }
+      },
+      {
+        "event_id": 3,
+        "timestamp": "2026-03-27T22:25:30+08:00",
+        "event_type": "error",
+        "payload": {
+          "error": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'"
+        }
+      },
+      {
+        "event_id": 4,
+        "timestamp": "2026-03-27T22:25:30+08:00",
+        "event_type": "done",
+        "payload": {
+          "task_id": "task-20260327-9f356109",
+          "status": "failed",
+          "summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+          "duration_ms": 102,
+          "ref": "C:/work/J-Agents/.output/records/runs/task-20260327-9f356109/summary.md"
+        }
+      }
+    ]
+  }
+}

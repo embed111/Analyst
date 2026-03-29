@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-232518-310",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-27T15:25:18.3400844Z",
+    "finished_at_utc":  "2026-03-27T15:25:18.8622982Z",
+    "duration_ms":  522,
+    "exit_code":  0,
+    "command":  "python .tmp\\submit-fix-timeout-defect.py --fix-watch-artifacts .test\\20260327-231844-225\\artifacts --retest-artifacts .test\\20260327-232020-167\\artifacts",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  3,
+    "artifact_total_bytes":  18407,
+    "log_total_bytes":  385
+}

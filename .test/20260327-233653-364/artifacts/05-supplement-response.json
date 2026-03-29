@@ -1,0 +1,153 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "report": {
+      "report_id": "dr-20260327-16a4fa716a",
+      "dts_id": "",
+      "dts_sequence": 0,
+      "display_id": "dr-20260327-16a4fa716a",
+      "defect_summary": "[Create Role][P0] Persona collection task fails and blocks role creation at persona stage",
+      "report_text": "Module: Training Center > Create Role > persona_collection\nSuggested Priority: P0\n\nPhenomenon:\n- Real role creation session rcs-20260327-221113-1110e0 for workflow_tester started successfully and entered persona_collection.\n- The first persona task rc-a9eacd-collect failed as run arun-20260327-221157-1ef94c.\n- Current failure_reason is assignment execution failed with exit=1.\n- After that failure, downstream persona/profile/capability/review nodes no longer progressed, and role creation stayed in creating/persona_collection.\n\nDirect Evidence From Runtime Events:\n- The failed run tried to read ./.codex/skills/workspace-memory-context/SKILL.md inside the freshly created workflow_tester workspace and hit a path-not-found error.\n- The same run then emitted repeated stream disconnect errors to https://gmn.chuangzuoli.com/responses and ended with turn.failed plus assignment execution failed with exit=1.\n\nExpected Result:\n- After a role is created and enters persona_collection, the first persona task should run successfully and continue the creation workflow.\n- The created role workspace should not immediately fail on missing local dependency/skill path assumptions.\n\nActual Result:\n- The first persona collection task failed with exit=1.\n- The role creation workflow stayed stuck in persona_collection with one failed node and one blocked node.\n\nImpact:\n- workflow_tester cannot complete role creation and remains in creating state.\n- This blocks using create-role as a reliable production workflow for new execution roles.\n\nEvidence:\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-233653-364\\artifacts\\01-role-creation-detail.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-233653-364\\artifacts\\02-failed-node-status.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-233653-364\\artifacts\\03-graph.json",
+      "evidence_images": [],
+      "task_priority": "P0",
+      "reported_at": "2026-03-27T23:37:02+08:00",
+      "is_formal": false,
+      "status": "not_formal",
+      "status_text": "当前不构成缺陷",
+      "discovered_iteration": "",
+      "resolved_version": "",
+      "current_decision": {
+        "decision_source": "fallback_rule",
+        "decision": "not_defect",
+        "title": "当前不构成 workflow 缺陷",
+        "summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+        "matched_rules": [],
+        "confidence": "medium",
+        "scored_images": 0,
+        "decided_at": "2026-03-27T23:37:02+08:00"
+      },
+      "report_source": "workflow-ui",
+      "automation_context": {
+        "role_creation_session_id": "rcs-20260327-221113-1110e0",
+        "role_creation_ticket_id": "asg-20260327-221156-d84991",
+        "failed_node_id": "rc-a9eacd-collect",
+        "failed_run_id": "arun-20260327-221157-1ef94c",
+        "failed_run_status": "failed",
+        "failed_run_latest_event": "assignment execution failed with exit=1",
+        "role_creation_status": "creating",
+        "current_stage_key": "persona_collection",
+        "created_agent_id": "workflow_tester",
+        "created_agent_workspace_path": "D:/code/AI/J-Agents/workflow_tester",
+        "failure_reason": "assignment execution failed with exit=1",
+        "evidence_refs": [
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/01-role-creation-detail.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/02-failed-node-status.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/03-graph.json"
+        ]
+      },
+      "is_test_data": false,
+      "created_at": "2026-03-27T23:37:02+08:00",
+      "updated_at": "2026-03-27T23:37:04+08:00",
+      "decision_title": "当前不构成 workflow 缺陷",
+      "decision_summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+      "decision_source": "fallback_rule",
+      "task_ref_total": 0,
+      "queue_eligible": false,
+      "has_task_chain": false,
+      "queue_mode": "out_of_queue",
+      "queue_mode_text": "不在顺序建单队列"
+    },
+    "history": [
+      {
+        "history_id": "dh-20260327-5342bc3788",
+        "report_id": "dr-20260327-16a4fa716a",
+        "entry_type": "submitted",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "用户提交缺陷记录",
+        "detail": {
+          "defect_summary": "[Create Role][P0] Persona collection task fails and blocks role creation at persona stage",
+          "task_priority": "P0",
+          "task_priority_source": "defect_summary",
+          "reported_at": "2026-03-27T23:37:02+08:00",
+          "report_source": "workflow-ui",
+          "image_count": 0,
+          "automation_context": {
+            "role_creation_session_id": "rcs-20260327-221113-1110e0",
+            "role_creation_ticket_id": "asg-20260327-221156-d84991",
+            "failed_node_id": "rc-a9eacd-collect",
+            "failed_run_id": "arun-20260327-221157-1ef94c",
+            "failed_run_status": "failed",
+            "failed_run_latest_event": "assignment execution failed with exit=1",
+            "role_creation_status": "creating",
+            "current_stage_key": "persona_collection",
+            "created_agent_id": "workflow_tester",
+            "created_agent_workspace_path": "D:/code/AI/J-Agents/workflow_tester",
+            "failure_reason": "assignment execution failed with exit=1",
+            "evidence_refs": [
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/01-role-creation-detail.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/02-failed-node-status.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-233653-364/artifacts/03-graph.json"
+            ]
+          }
+        },
+        "created_at": "2026-03-27T23:37:02+08:00"
+      },
+      {
+        "history_id": "dh-20260327-ff0c6778e8",
+        "report_id": "dr-20260327-16a4fa716a",
+        "entry_type": "decision",
+        "actor": "workflow agent",
+        "title": "当前不构成 workflow 缺陷",
+        "detail": {
+          "decision_source": "fallback_rule",
+          "decision": "not_defect",
+          "title": "当前不构成 workflow 缺陷",
+          "summary": "更像需求、建议或描述不足，先不进入正式缺陷链路。",
+          "matched_rules": [],
+          "confidence": "medium",
+          "scored_images": 0
+        },
+        "created_at": "2026-03-27T23:37:02+08:00"
+      },
+      {
+        "history_id": "dh-20260327-93facf201b",
+        "report_id": "dr-20260327-16a4fa716a",
+        "entry_type": "supplement_text",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "补充文字说明",
+        "detail": {
+          "text": "This is a confirmed execution failure in real create-role flow. The role was created and entered persona_collection, then the first persona task failed with exit=1, leaving downstream nodes blocked and the role stuck in creating state."
+        },
+        "created_at": "2026-03-27T23:37:04+08:00"
+      }
+    ],
+    "task_refs": [],
+    "history_total": 3,
+    "task_ref_total": 0,
+    "queue": {
+      "enabled": false,
+      "updated_at": "2026-03-27T20:50:36+08:00",
+      "candidate_total": 2,
+      "active_slot_busy": true,
+      "head_report_id": "dr-20260327-fc1b947def",
+      "active_report_id": "dr-20260327-fc1b947def",
+      "active_display_id": "DTS-00001",
+      "active_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+      "active_task_priority": "P0",
+      "next_report_id": "dr-20260327-5b159b7ae1",
+      "next_display_id": "DTS-00002",
+      "next_summary": "[assignment][P0] Fix run times out and blocks release while live 8090 still reproduces DTS-00001",
+      "next_task_priority": "P0",
+      "next_reported_at": "2026-03-27T23:25:18+08:00"
+    },
+    "show_re_review_input": true,
+    "can_process": false,
+    "can_review": true,
+    "can_close": false
+  },
+  "request": {
+    "text": "This is a confirmed execution failure in real create-role flow. The role was created and entered persona_collection, then the first persona task failed with exit=1, leaving downstream nodes blocked and the role stuck in creating state.",
+    "operator": "analyst-blackbox-acceptance"
+  }
+}

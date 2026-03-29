@@ -1,0 +1,37 @@
+{
+  "status": 202,
+  "body": {
+    "ok": true,
+    "task_id": "task-20260327-9f356109",
+    "status": "pending",
+    "session_id": "sess-web-20260327-222529-1b13b1",
+    "agent_name": "workflow_tester",
+    "agents_hash": "cfe22c92df91dbeafc8db65c3972cece3b15001e81354178ec17174f802f2e45",
+    "agents_loaded_at": "2026-03-27T22:11:54+08:00",
+    "agents_path": "D:/code/AI/J-Agents/workflow_tester/AGENTS.md",
+    "agents_version": "cfe22c92df91",
+    "policy_summary": "goal=Run safe black-box checks and return verifiable findings only.; constraints=Do not modify code, database, releases, or global settings. Prefer read-only checks and minimal safe interactions. Return evidence-oriented...",
+    "agent_search_root": "D:/code/AI/J-Agents",
+    "is_test_data": false,
+    "command": [
+      "C:\\Users\\jmqj\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-u",
+      "D:\\code\\AI\\J-Agents\\workflow\\.running\\prod\\src\\workflow_app\\task_agent_runner.py",
+      "--root",
+      "D:\\code\\AI\\J-Agents\\workflow\\.running\\control\\runtime\\prod",
+      "--session-id",
+      "sess-web-20260327-222529-1b13b1",
+      "--agent",
+      "workflow_tester",
+      "--agent-search-root",
+      "D:/code/AI/J-Agents",
+      "--focus",
+      "workflow-bug-probe",
+      "--message",
+      "Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly.",
+      "--trace-file",
+      "C:\\work\\J-Agents\\.output\\records\\runs\\task-20260327-9f356109\\trace.json"
+    ]
+  },
+  "prompt": "Run one low-risk black-box probe on the current workflow product. Do not modify code, database, global settings, release state, or delete data. Prefer read-only checks and only use the minimum safe interactions needed to confirm behavior. Prioritize these areas: Training Center loading, Task Center loading, and Requirement & Defects > Defects list/filter/detail. For each confirmed issue, output module, reproduction steps, expected result, actual result, and evidence hints. If no clear issue is confirmed in this pass, state that explicitly."
+}

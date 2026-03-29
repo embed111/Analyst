@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260328-223415-537",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-28T14:34:15.5670837Z",
+    "finished_at_utc":  "2026-03-28T14:34:20.4026998Z",
+    "duration_ms":  4836,
+    "exit_code":  0,
+    "command":  "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .tmp\\complete-role-creation-8090.ps1",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260328-223415-537\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  10,
+    "artifact_total_bytes":  743522,
+    "log_total_bytes":  1115
+}

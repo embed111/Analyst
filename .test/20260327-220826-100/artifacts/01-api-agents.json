@@ -1,0 +1,737 @@
+﻿{
+    "ok":  true,
+    "body":  {
+                 "ok":  true,
+                 "agents_root":  "D:/code/AI/J-Agents",
+                 "agent_search_root":  "D:/code/AI/J-Agents",
+                 "workspace_root_valid":  true,
+                 "workspace_root_error":  "",
+                 "agent_search_root_ready":  true,
+                 "features_locked":  false,
+                 "environment":  "prod",
+                 "show_test_data":  false,
+                 "show_test_data_source":  "environment_policy",
+                 "allow_manual_policy_input":  true,
+                 "policy_closure":  {
+                                        "fallback_triggered":  0,
+                                        "fallback_trigger_rate_pct":  0.0,
+                                        "manual_fallback_triggered":  0,
+                                        "manual_fallback_rate_pct":  0.0,
+                                        "manual_fallback_usage_alert":  false,
+                                        "patch_task_total":  1,
+                                        "patch_task_done":  0,
+                                        "patch_completion_rate_pct":  0.0,
+                                        "created_sessions":  0,
+                                        "rejected_confirmations":  0
+                                    },
+                 "artifact_root":  "C:/work/J-Agents/.output",
+                 "task_artifact_root":  "C:/work/J-Agents/.output",
+                 "artifact_workspace_root":  "C:/work/J-Agents/.output/tasks",
+                 "task_records_root":  "C:/work/J-Agents/.output/tasks",
+                 "tasks_root":  "C:/work/J-Agents/.output/tasks",
+                 "tasks_structure_path":  "C:/work/J-Agents/.output/TASKS_STRUCTURE.md",
+                 "artifact_root_default":  "D:/code/AI/J-Agents/workflow/.running/.output",
+                 "default_task_artifact_root":  "D:/code/AI/J-Agents/workflow/.running/.output",
+                 "artifact_root_validation_status":  "ok",
+                 "assignment_execution_settings":  {
+                                                       "execution_provider":  "codex",
+                                                       "codex_command_path":  "C:\\Users\\jmqj\\AppData\\Roaming\\npm\\codex.CMD",
+                                                       "command_template":  "\"{codex_path}\" exec --dangerously-bypass-approvals-and-sandbox --json --skip-git-repo-check --add-dir \"{workspace_path}\" -C \"{workspace_path}\" -",
+                                                       "global_concurrency_limit":  5,
+                                                       "updated_at":  "2026-03-20T10:23:10+08:00",
+                                                       "poll_mode":  "event_stream",
+                                                       "poll_interval_ms":  450
+                                                   },
+                 "agents":  [
+                                {
+                                    "agent_name":  "agent_gen",
+                                    "agents_hash":  "6370e619bcad40908d850c14b6dbb1a008abd126cdff78e03d3133b6b7abf60e",
+                                    "agents_loaded_at":  "2026-03-14T11:11:20+08:00",
+                                    "agents_version":  "6370e619bcad",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/agent_gen/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1773457880.527205
+                                },
+                                {
+                                    "agent_name":  "Analyst",
+                                    "agents_hash":  "16b013074707ae21bd484ff92ce97a526ba903f4789db424ee1ee1e2a9a7e7be",
+                                    "agents_loaded_at":  "2026-03-20T21:13:28+08:00",
+                                    "agents_version":  "16b013074707",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/Analyst/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1774012408.1080112
+                                },
+                                {
+                                    "agent_name":  "Analyst2",
+                                    "agents_hash":  "30e42dc005fe3a381962017a94e23fcd00207e6a028999dda451977c67c3a6b5",
+                                    "agents_loaded_at":  "2026-03-13T23:47:52+08:00",
+                                    "agents_version":  "30e42dc005fe",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/Analyst2/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1773416872.6787815
+                                },
+                                {
+                                    "agent_name":  "openclaw",
+                                    "agents_hash":  "8a16a2d09e1c83cb98ab88c0da2c1ff1b82289566bd6f43c4f4cde59d9011800",
+                                    "agents_loaded_at":  "2026-03-16T00:45:16+08:00",
+                                    "agents_version":  "8a16a2d09e1c",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/openclaw/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1773593116.2966228
+                                },
+                                {
+                                    "agent_name":  "skill_manager",
+                                    "agents_hash":  "8c900c712e58dd02fbadd84025377a21eff5c886b0857007dc1383c27553b8ad",
+                                    "agents_loaded_at":  "2026-03-18T20:33:12+08:00",
+                                    "agents_version":  "8c900c712e58",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/skill_manager/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1773837192.884898
+                                },
+                                {
+                                    "agent_name":  "trainer",
+                                    "agents_hash":  "e50de1134878f0567f376c54f85a1c0975846ae692b3b34b8bf6695c115adbef",
+                                    "agents_loaded_at":  "2026-03-14T11:20:27+08:00",
+                                    "agents_version":  "e50de1134878",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/trainer/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1773458427.5204048
+                                },
+                                {
+                                    "agent_name":  "workflow",
+                                    "agents_hash":  "596ec74f68d16b48b788988f27710370f900bf0e94e3c91dcf89111cdc6afaf3",
+                                    "agents_loaded_at":  "2026-03-20T21:13:49+08:00",
+                                    "agents_version":  "596ec74f68d1",
+                                    "agents_md_path":  "D:/code/AI/J-Agents/workflow/AGENTS.md",
+                                    "duty_title":  "",
+                                    "duty_excerpt":  "",
+                                    "duty_text":  "",
+                                    "duty_truncated":  false,
+                                    "role_profile":  "",
+                                    "session_goal":  "",
+                                    "duty_constraints":  [
+
+                                                         ],
+                                    "duty_constraints_text":  "",
+                                    "constraints":  {
+                                                        "must":  [
+
+                                                                 ],
+                                                        "must_not":  [
+
+                                                                     ],
+                                                        "preconditions":  [
+
+                                                                          ],
+                                                        "issues":  [
+
+                                                                   ],
+                                                        "conflicts":  [
+
+                                                                      ],
+                                                        "missing_evidence_count":  0,
+                                                        "total":  0
+                                                    },
+                                    "parse_status":  "",
+                                    "parse_warnings":  [
+
+                                                       ],
+                                    "evidence_snippets":  {
+                                                              "role":  "",
+                                                              "goal":  "",
+                                                              "duty":  ""
+                                                          },
+                                    "score_model":  "v2",
+                                    "score_total":  0,
+                                    "score_weights":  {
+                                                          "completeness":  0.2,
+                                                          "executability":  0.2,
+                                                          "consistency":  0.2,
+                                                          "traceability":  0.15,
+                                                          "risk_coverage":  0.15,
+                                                          "operability":  0.1
+                                                      },
+                                    "score_dimensions":  {
+
+                                                         },
+                                    "clarity_score":  0,
+                                    "clarity_details":  {
+                                                            "completeness":  0,
+                                                            "specificity":  0,
+                                                            "consistency":  0,
+                                                            "traceability":  0
+                                                        },
+                                    "clarity_gate":  "",
+                                    "clarity_gate_reason":  "",
+                                    "risk_tips":  [
+
+                                                  ],
+                                    "policy_extract_ok":  false,
+                                    "policy_error":  "",
+                                    "policy_extract_source":  "codex_exec",
+                                    "policy_prompt_version":  "2026-03-01-codex-exec-v2-evidence",
+                                    "analysis_chain":  {
+
+                                                       },
+                                    "policy_contract_status":  "",
+                                    "policy_contract_missing_fields":  [
+
+                                                                       ],
+                                    "policy_contract_issues":  [
+
+                                                               ],
+                                    "policy_gate_state":  "",
+                                    "policy_gate_reason":  "",
+                                    "policy_cache_hit":  false,
+                                    "policy_cache_status":  "pending",
+                                    "policy_cache_reason":  "not_analyzed",
+                                    "policy_cache_cached_at":  "",
+                                    "policy_cache_trace":  [
+                                                               {
+                                                                   "step":  "lookup",
+                                                                   "status":  "miss",
+                                                                   "detail":  "轻量模式未找到缓存记录"
+                                                               }
+                                                           ],
+                                    "agents_mtime":  1774012429.0649862
+                                }
+                            ],
+                 "count":  7
+             },
+    "uri":  "http://127.0.0.1:8090/api/agents",
+    "method":  "GET"
+}

@@ -1,0 +1,11 @@
+{
+  "rows": [
+    {
+      "http_status": 200,
+      "node_status": "running",
+      "run_status": "running",
+      "scheduler_state": null,
+      "timestamp": "2026-03-27T22:42:24"
+    }
+  ]
+}

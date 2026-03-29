@@ -1,0 +1,170 @@
+{
+  "status": 200,
+  "body": {
+    "ok": true,
+    "report": {
+      "report_id": "dr-20260327-5b159b7ae1",
+      "dts_id": "DTS-00002",
+      "dts_sequence": 2,
+      "display_id": "DTS-00002",
+      "defect_summary": "[assignment][P0] Fix run times out and blocks release while live 8090 still reproduces DTS-00001",
+      "report_text": "Module: Defect process chain > assignment execution / release handoff\nSuggested Priority: P0\n\nPhenomenon:\n- Fix node dr-20260327-fc1b947def-fix ran as arun-20260327-225945-80da1b and ended with status=failed and failure_reason=assignment execution timeout after 1200s.\n- Runtime events during the same run showed code repair steps and a local task-execute smoke passing before timeout.\n- Immediately after the timeout, a fresh black-box retest on live 8090 still reproduced the original failure in session sess-web-20260327-232020-a7e191 task task-20260327-d8b10e5f.\n- Release node remained blocked by upstream failure, so the fix chain could not close.\n\nExpected Result:\n- A fix node that reaches repair and local verification should either complete successfully and hand off to release, or fail fast with a concrete implementation/test error.\n- The release node should not be left blocked by an opaque assignment timeout after fix work has already progressed.\n\nActual Result:\n- Fix execution ended with assignment timeout after 1200s at 2026-03-27T23:19:47+08:00.\n- Release stayed blocked because the upstream fix node failed.\n- Live 8090 runtime still reproduced DTS-00001 after the timed-out fix attempt.\n\nImpact:\n- The remediation pipeline cannot reliably push a verified fix through release.\n- A P0 production bug remains unresolved even after the automated fix chain spent time applying and validating changes.\n\nEvidence:\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231844-225\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231844-225\\artifacts\\02-status-detail-latest.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232020-167\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232020-167\\artifacts\\06-task-trace.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\artifacts\\01-release-status.json",
+      "evidence_images": [],
+      "task_priority": "P0",
+      "reported_at": "2026-03-27T23:25:18+08:00",
+      "is_formal": true,
+      "status": "unresolved",
+      "status_text": "未解决",
+      "discovered_iteration": "20260327-204747",
+      "resolved_version": "",
+      "current_decision": {
+        "decision_source": "fallback_rule",
+        "decision": "defect",
+        "title": "构成 workflow 缺陷",
+        "summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+        "matched_rules": [
+          "bug"
+        ],
+        "confidence": "medium",
+        "scored_images": 0,
+        "decided_at": "2026-03-27T23:25:18+08:00"
+      },
+      "report_source": "workflow-ui",
+      "automation_context": {
+        "source_defect_id": "DTS-00001",
+        "timed_out_fix_run_id": "arun-20260327-225945-80da1b",
+        "timed_out_fix_node_id": "dr-20260327-fc1b947def-fix",
+        "timed_out_fix_finished_at": "2026-03-27T23:19:47+08:00",
+        "timed_out_fix_failure_reason": "assignment execution timeout after 1200s",
+        "retest_session_id": "sess-web-20260327-232020-a7e191",
+        "retest_task_id": "task-20260327-d8b10e5f",
+        "retest_task_status": "failed",
+        "retest_task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+        "release_node_status": "blocked",
+        "evidence_refs": [
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/99-summary.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/02-status-detail-latest.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/99-summary.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/06-task-trace.json",
+          "D:/code/AI/J-Agents/Analyst/.test/20260327-232518-310/artifacts/01-release-status.json"
+        ]
+      },
+      "is_test_data": false,
+      "created_at": "2026-03-27T23:25:18+08:00",
+      "updated_at": "2026-03-27T23:25:18+08:00",
+      "decision_title": "构成 workflow 缺陷",
+      "decision_summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+      "decision_source": "fallback_rule",
+      "task_ref_total": 0,
+      "queue_eligible": true,
+      "has_task_chain": false,
+      "queue_mode": "manual",
+      "queue_mode_text": "手动建单模式"
+    },
+    "history": [
+      {
+        "history_id": "dh-20260327-2b67eab901",
+        "report_id": "dr-20260327-5b159b7ae1",
+        "entry_type": "submitted",
+        "actor": "analyst-blackbox-acceptance",
+        "title": "用户提交缺陷记录",
+        "detail": {
+          "defect_summary": "[assignment][P0] Fix run times out and blocks release while live 8090 still reproduces DTS-00001",
+          "task_priority": "P0",
+          "task_priority_source": "defect_summary",
+          "reported_at": "2026-03-27T23:25:18+08:00",
+          "report_source": "workflow-ui",
+          "image_count": 0,
+          "automation_context": {
+            "source_defect_id": "DTS-00001",
+            "timed_out_fix_run_id": "arun-20260327-225945-80da1b",
+            "timed_out_fix_node_id": "dr-20260327-fc1b947def-fix",
+            "timed_out_fix_finished_at": "2026-03-27T23:19:47+08:00",
+            "timed_out_fix_failure_reason": "assignment execution timeout after 1200s",
+            "retest_session_id": "sess-web-20260327-232020-a7e191",
+            "retest_task_id": "task-20260327-d8b10e5f",
+            "retest_task_status": "failed",
+            "retest_task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+            "release_node_status": "blocked",
+            "evidence_refs": [
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/99-summary.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/02-status-detail-latest.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/99-summary.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/06-task-trace.json",
+              "D:/code/AI/J-Agents/Analyst/.test/20260327-232518-310/artifacts/01-release-status.json"
+            ]
+          }
+        },
+        "created_at": "2026-03-27T23:25:18+08:00"
+      },
+      {
+        "history_id": "dh-20260327-6f5397e15e",
+        "report_id": "dr-20260327-5b159b7ae1",
+        "entry_type": "decision",
+        "actor": "workflow agent",
+        "title": "构成 workflow 缺陷",
+        "detail": {
+          "decision_source": "fallback_rule",
+          "decision": "defect",
+          "title": "构成 workflow 缺陷",
+          "summary": "命中异常/失败类线索，已按真实缺陷进入闭环。",
+          "matched_rules": [
+            "bug"
+          ],
+          "confidence": "medium",
+          "scored_images": 0
+        },
+        "created_at": "2026-03-27T23:25:18+08:00"
+      }
+    ],
+    "task_refs": [],
+    "history_total": 2,
+    "task_ref_total": 0,
+    "queue": {
+      "enabled": false,
+      "updated_at": "2026-03-27T20:50:36+08:00",
+      "candidate_total": 2,
+      "active_slot_busy": true,
+      "head_report_id": "dr-20260327-fc1b947def",
+      "active_report_id": "dr-20260327-fc1b947def",
+      "active_display_id": "DTS-00001",
+      "active_summary": "[workflow_tester][P0] First probe task fails with SessionLockEntry.acquire AttributeError",
+      "active_task_priority": "P0",
+      "next_report_id": "dr-20260327-5b159b7ae1",
+      "next_display_id": "DTS-00002",
+      "next_summary": "[assignment][P0] Fix run times out and blocks release while live 8090 still reproduces DTS-00001",
+      "next_task_priority": "P0",
+      "next_reported_at": "2026-03-27T23:25:18+08:00"
+    },
+    "show_re_review_input": false,
+    "can_process": true,
+    "can_review": false,
+    "can_close": false
+  },
+  "request": {
+    "defect_summary": "[assignment][P0] Fix run times out and blocks release while live 8090 still reproduces DTS-00001",
+    "report_text": "Module: Defect process chain > assignment execution / release handoff\nSuggested Priority: P0\n\nPhenomenon:\n- Fix node dr-20260327-fc1b947def-fix ran as arun-20260327-225945-80da1b and ended with status=failed and failure_reason=assignment execution timeout after 1200s.\n- Runtime events during the same run showed code repair steps and a local task-execute smoke passing before timeout.\n- Immediately after the timeout, a fresh black-box retest on live 8090 still reproduced the original failure in session sess-web-20260327-232020-a7e191 task task-20260327-d8b10e5f.\n- Release node remained blocked by upstream failure, so the fix chain could not close.\n\nExpected Result:\n- A fix node that reaches repair and local verification should either complete successfully and hand off to release, or fail fast with a concrete implementation/test error.\n- The release node should not be left blocked by an opaque assignment timeout after fix work has already progressed.\n\nActual Result:\n- Fix execution ended with assignment timeout after 1200s at 2026-03-27T23:19:47+08:00.\n- Release stayed blocked because the upstream fix node failed.\n- Live 8090 runtime still reproduced DTS-00001 after the timed-out fix attempt.\n\nImpact:\n- The remediation pipeline cannot reliably push a verified fix through release.\n- A P0 production bug remains unresolved even after the automated fix chain spent time applying and validating changes.\n\nEvidence:\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231844-225\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-231844-225\\artifacts\\02-status-detail-latest.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232020-167\\artifacts\\99-summary.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232020-167\\artifacts\\06-task-trace.json\n- D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-232518-310\\artifacts\\01-release-status.json",
+    "evidence_images": [],
+    "is_test_data": false,
+    "operator": "analyst-blackbox-acceptance",
+    "automation_context": {
+      "source_defect_id": "DTS-00001",
+      "timed_out_fix_run_id": "arun-20260327-225945-80da1b",
+      "timed_out_fix_node_id": "dr-20260327-fc1b947def-fix",
+      "timed_out_fix_finished_at": "2026-03-27T23:19:47+08:00",
+      "timed_out_fix_failure_reason": "assignment execution timeout after 1200s",
+      "retest_session_id": "sess-web-20260327-232020-a7e191",
+      "retest_task_id": "task-20260327-d8b10e5f",
+      "retest_task_status": "failed",
+      "retest_task_summary": "AttributeError: 'SessionLockEntry' object has no attribute 'acquire'",
+      "release_node_status": "blocked",
+      "evidence_refs": [
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/99-summary.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-231844-225/artifacts/02-status-detail-latest.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/99-summary.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-232020-167/artifacts/06-task-trace.json",
+        "D:/code/AI/J-Agents/Analyst/.test/20260327-232518-310/artifacts/01-release-status.json"
+      ]
+    }
+  }
+}

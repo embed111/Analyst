@@ -1,0 +1,10 @@
+{
+  "ticket_id": "asg-20260327-223335-b79f27",
+  "node_id": "dr-20260327-fc1b947def-analyze",
+  "dispatch_status": 200,
+  "latest_http_status": 200,
+  "node_status": "ready",
+  "run_status": null,
+  "run_summary": null,
+  "scheduler_state": null
+}

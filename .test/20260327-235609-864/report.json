@@ -1,0 +1,22 @@
+﻿{
+    "session_id":  "20260327-235609-864",
+    "status":  "PASS",
+    "started_at_utc":  "2026-03-27T15:56:09.8997169Z",
+    "finished_at_utc":  "2026-03-27T15:56:12.2243420Z",
+    "duration_ms":  2325,
+    "exit_code":  0,
+    "command":  "python .tmp/run-workflow-tester-probe.py --base-url http://127.0.0.1:8090 --timeout 420",
+    "workspace_root":  "D:\\code\\AI\\J-Agents\\Analyst",
+    "session_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864",
+    "logs_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\logs",
+    "tmp_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\tmp",
+    "artifacts_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\artifacts",
+    "run_log":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\logs\\test-run.log",
+    "report_path":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\report.md",
+    "report_json":  "D:\\code\\AI\\J-Agents\\Analyst\\.test\\20260327-235609-864\\report.json",
+    "tmp_file_count":  0,
+    "tmp_total_bytes":  0,
+    "artifact_file_count":  7,
+    "artifact_total_bytes":  61077,
+    "log_total_bytes":  1485
+}

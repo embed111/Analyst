@@ -1,0 +1,19 @@
+{
+  "ticket_id": "asg-20260327-223335-b79f27",
+  "node_id": "dr-20260327-fc1b947def-analyze",
+  "terminal_reached": false,
+  "latest_http_status": 200,
+  "node_status": "running",
+  "node_failure_reason": "",
+  "node_result_ref": "",
+  "artifact_paths": [],
+  "run_id": "arun-20260327-224100-db252f",
+  "run_status": "running",
+  "run_summary": null,
+  "run_latest_event": "{\"type\":\"item.completed\",\"item\":{\"id\":\"item_55\",\"type\":\"command_execution\",\"command\":\"\\\"C:\\\\\\\\WINDOWS\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\\\" -Command \\\"@'\\nfrom pathlib import Path\\npath = Path('src/workflow_app/server/api/legacy_task_queue_handlers.py')\\nfor no, line in enumerate(path.read_text(encoding='utf-8').splitlines(), start=1):\\n if 155 <= no <= 240 or 250 <= no <= 330:\\n print(f'{no}: {line}')\\n'@ | python -\\\"\",\"aggregated_output\":\"155: def handle_chat_non_stream(self, cfg, state, body: dict[str, Any]) -> None:\\r\\n156: resolved = self.resolve_session(body, allow_create=True)\\r\\n157: if not resolved:\\r\\n158: return\\r\\n159: session, _focus = resolved\\r\\n160: if not self.enforce_session_policy_reanalyze(session, \\\"/api/chat\\\"):\\r\\n161: return\\r\\n162: session_id = session[\\\"session_id\\\"]\\r\\n163: agent_name = session[\\\"agent_name\\\"]\\r\\n164: request_id = f\\\"req-{uuid.uuid4().hex[:10]}\\\"\\r\\n165: retry = bool(body.get(\\\"retry\\\"))\\r\\n166: message = str(body.ge...",
+  "run_event_count": 106,
+  "run_result_ref": "C:/work/J-Agents/.output/tasks/asg-20260327-223335-b79f27/runs/arun-20260327-224100-db252f/result.json",
+  "run_started_at": "2026-03-27T22:41:00+08:00",
+  "run_finished_at": "",
+  "sample_count": 42
+}
