@@ -371,6 +371,140 @@ function Join-CompactTexts {
     return (($picked -join "、") + $suffix)
 }
 
+function New-MonthFocusRules {
+    return @(
+        [PSCustomObject]@{ Order = 1; Label = "需求收敛与文档迭代"; Patterns = @("需求", "需求文档", "需求详情", "需求概述", "收敛", "澄清") }
+        [PSCustomObject]@{ Order = 2; Label = "原型预览与信息架构收口"; Patterns = @("原型", "参考图", "HTML", "预稿", "草图", "信息架构") }
+        [PSCustomObject]@{ Order = 3; Label = "执行提示词编写与分发"; Patterns = @("提示词", "开工", "执行指令", "分发") }
+        [PSCustomObject]@{ Order = 4; Label = "8090 live 验收与运行态取证"; Patterns = @("8090", "live", "验收", "运行态", "核验", "复核", "取证", "截图") }
+        [PSCustomObject]@{ Order = 5; Label = "跨工作区同步与一致性校验"; Patterns = @("同步", "SHA256", "哈希", "校验", "一致性") }
+        [PSCustomObject]@{ Order = 6; Label = "工作区治理与记忆机制维护"; Patterns = @("目录治理", "OpenClaw", "记忆", "归档", "恢复", "工作区治理", "maintain-codex-memory") }
+    )
+}
+
+function New-MonthModuleRules {
+    return @(
+        [PSCustomObject]@{ Order = 1; Label = "角色中心/训练优化"; Patterns = @("角色中心", "训练优化", "训练闭环", "训练中心") }
+        [PSCustomObject]@{ Order = 2; Label = "创建角色/能力包"; Patterns = @("创建角色", "角色画像", "能力包", "知识沉淀") }
+        [PSCustomObject]@{ Order = 3; Label = "任务中心"; Patterns = @("任务中心", "任务图", "依赖管理", "执行化") }
+        [PSCustomObject]@{ Order = 4; Label = "需求与缺陷"; Patterns = @("需求与缺陷", "缺陷", "bug", "DTS-") }
+        [PSCustomObject]@{ Order = 5; Label = "发布/版本治理"; Patterns = @("发布", "版本", "评审", "切换") }
+        [PSCustomObject]@{ Order = 6; Label = "设置/路径治理"; Patterns = @("根路径", "agent_search_root", '\$root', "路径语义") }
+        [PSCustomObject]@{ Order = 7; Label = "工作区目录治理"; Patterns = @("目录治理", "OpenClaw", "目录契约", "目录结构") }
+    )
+}
+
+function New-MonthDeliverableRules {
+    return @(
+        [PSCustomObject]@{ Order = 1; Label = "需求文档"; Patterns = @("需求文档", "需求详情", "需求概述") }
+        [PSCustomObject]@{ Order = 2; Label = "执行提示词"; Patterns = @("提示词", "开工", "执行指令") }
+        [PSCustomObject]@{ Order = 3; Label = "原型/预览稿"; Patterns = @("原型", "参考图", "HTML", "预稿", "草图", "PNG") }
+        [PSCustomObject]@{ Order = 4; Label = "验收截图与运行态证据"; Patterns = @("截图", "live", "验收", "运行态", "取证", "核验", "复核") }
+        [PSCustomObject]@{ Order = 5; Label = "跨工作区同步与哈希校验"; Patterns = @("同步", "SHA256", "哈希", "校验", "一致性") }
+    )
+}
+
+function Get-RuleMatchItems {
+    param(
+        [object[]]$Entries,
+        [object[]]$Rules,
+        [int]$MaxItems = 4
+    )
+
+    $items = New-Object System.Collections.Generic.List[object]
+    foreach ($rule in $Rules) {
+        $count = 0
+        foreach ($entry in $Entries) {
+            $combinedText = Normalize-Text -Text ([string]::Join(" ", @(
+                $entry.Topic,
+                $entry.Summary,
+                $entry.Decision,
+                $entry.FollowUp
+            )))
+            if ([string]::IsNullOrWhiteSpace($combinedText)) {
+                continue
+            }
+
+            $matched = $false
+            foreach ($pattern in $rule.Patterns) {
+                if ($combinedText -match $pattern) {
+                    $matched = $true
+                    break
+                }
+            }
+
+            if ($matched) {
+                $count += 1
+            }
+        }
+
+        if ($count -gt 0) {
+            $items.Add([PSCustomObject]@{
+                Label = $rule.Label
+                Count = $count
+                Order = $rule.Order
+            }) | Out-Null
+        }
+    }
+
+    return @(
+        $items |
+            Sort-Object `
+                @{ Expression = "Count"; Descending = $true }, `
+                @{ Expression = "Order"; Descending = $false }, `
+                @{ Expression = "Label"; Descending = $false } |
+            Select-Object -First $MaxItems
+    )
+}
+
+function Get-MonthNarrativeParts {
+    param([object[]]$Entries)
+
+    $parts = New-Object System.Collections.Generic.List[string]
+
+    $focusLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthFocusRules) -MaxItems 5) | ForEach-Object { $_.Label })
+    $moduleLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthModuleRules) -MaxItems 4) | ForEach-Object { $_.Label })
+    $deliverableLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthDeliverableRules) -MaxItems 5) | ForEach-Object { $_.Label })
+
+    if ($focusLabels.Count -gt 0) {
+        $parts.Add("本月主线：$(Join-CompactTexts -Texts $focusLabels -ShowCount 5)") | Out-Null
+    }
+    if ($moduleLabels.Count -gt 0) {
+        $parts.Add("重点模块：$(Join-CompactTexts -Texts $moduleLabels -ShowCount 4)") | Out-Null
+    }
+    if ($deliverableLabels.Count -gt 0) {
+        $parts.Add("主要产出：$(Join-CompactTexts -Texts $deliverableLabels -ShowCount 5)") | Out-Null
+    }
+
+    return $parts.ToArray()
+}
+
+function Get-DayNarrativeParts {
+    param([object[]]$Entries)
+
+    $parts = New-Object System.Collections.Generic.List[string]
+
+    $focusLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthFocusRules) -MaxItems 3) | ForEach-Object { $_.Label })
+    $moduleLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthModuleRules) -MaxItems 3) | ForEach-Object { $_.Label })
+    $deliverableLabels = @((Get-RuleMatchItems -Entries $Entries -Rules (New-MonthDeliverableRules) -MaxItems 3) | ForEach-Object { $_.Label })
+    $summaries = @(Get-UniqueTexts -Texts @($Entries | ForEach-Object { $_.Summary }) -MaxItems 2 -MaxLength 56 -SkipExactText "已从旧工作快照导入该历史回合。")
+
+    if ($focusLabels.Count -gt 0) {
+        $parts.Add("当天主线：$(Join-CompactTexts -Texts $focusLabels -ShowCount 3)") | Out-Null
+    }
+    if ($moduleLabels.Count -gt 0) {
+        $parts.Add("涉及模块：$(Join-CompactTexts -Texts $moduleLabels -ShowCount 3)") | Out-Null
+    }
+    if ($deliverableLabels.Count -gt 0) {
+        $parts.Add("主要产出：$(Join-CompactTexts -Texts $deliverableLabels -ShowCount 3)") | Out-Null
+    }
+    if ($summaries.Count -gt 0) {
+        $parts.Add("结果：$(Join-CompactTexts -Texts $summaries -ShowCount 2)") | Out-Null
+    }
+
+    return $parts.ToArray()
+}
+
 function Get-DaySummaryLines {
     param([object[]]$Entries)
 
@@ -379,24 +513,24 @@ function Get-DaySummaryLines {
 
     foreach ($group in $grouped) {
         $dayEntries = @($group.Group | Sort-Object Timestamp)
-        $topics = @(Get-UniqueTexts -Texts @($dayEntries | ForEach-Object { $_.Topic }) -MaxItems 3 -MaxLength 28)
-        $summaries = @(Get-UniqueTexts -Texts @($dayEntries | ForEach-Object { $_.Summary }) -MaxItems 2 -MaxLength 56 -SkipExactText "已从旧工作快照导入该历史回合。")
-        $decision = @((Get-FrequentTexts -Texts @($dayEntries | ForEach-Object { $_.Decision }) -MaxLength 88) | Select-Object -First 1)
-        $followUp = @((Get-FrequentTexts -Texts @($dayEntries | ForEach-Object { $_.FollowUp }) -MaxLength 88) | Select-Object -First 1)
+        $narrativeParts = @(Get-DayNarrativeParts -Entries $dayEntries)
 
         $parts = New-Object System.Collections.Generic.List[string]
         $parts.Add("$($group.Name)：$($dayEntries.Count) 回合") | Out-Null
-        if ($topics.Count -gt 0) {
-            $parts.Add("主要事项：$(Join-CompactTexts -Texts $topics -ShowCount 3)") | Out-Null
+        if ($narrativeParts.Count -gt 0) {
+            foreach ($narrativePart in $narrativeParts) {
+                $parts.Add($narrativePart) | Out-Null
+            }
         }
-        if ($summaries.Count -gt 0) {
-            $parts.Add("结果：$(Join-CompactTexts -Texts $summaries -ShowCount 2)") | Out-Null
-        }
-        if ($decision.Count -gt 0) {
-            $parts.Add("决策：$($decision[0].Text)") | Out-Null
-        }
-        if ($followUp.Count -gt 0) {
-            $parts.Add("待跟进：$($followUp[0].Text)") | Out-Null
+        else {
+            $topics = @(Get-UniqueTexts -Texts @($dayEntries | ForEach-Object { $_.Topic }) -MaxItems 3 -MaxLength 28)
+            $summaries = @(Get-UniqueTexts -Texts @($dayEntries | ForEach-Object { $_.Summary }) -MaxItems 2 -MaxLength 56 -SkipExactText "已从旧工作快照导入该历史回合。")
+            if ($topics.Count -gt 0) {
+                $parts.Add("主要事项：$(Join-CompactTexts -Texts $topics -ShowCount 3)") | Out-Null
+            }
+            if ($summaries.Count -gt 0) {
+                $parts.Add("结果：$(Join-CompactTexts -Texts $summaries -ShowCount 2)") | Out-Null
+            }
         }
 
         $lines.Add("- $([string]::Join('；', @($parts)))") | Out-Null
@@ -414,24 +548,24 @@ function Get-MonthSummaryLines {
     foreach ($group in $grouped) {
         $monthEntries = @($group.Group | Sort-Object DayId, Timestamp)
         $dayCount = @($monthEntries | Select-Object -ExpandProperty DayId -Unique).Count
-        $topics = @(Get-UniqueTexts -Texts @($monthEntries | ForEach-Object { $_.Topic }) -MaxItems 4 -MaxLength 28)
-        $summaries = @(Get-UniqueTexts -Texts @($monthEntries | ForEach-Object { $_.Summary }) -MaxItems 2 -MaxLength 60 -SkipExactText "已从旧工作快照导入该历史回合。")
-        $decision = @((Get-FrequentTexts -Texts @($monthEntries | ForEach-Object { $_.Decision }) -MaxLength 88) | Select-Object -First 1)
-        $followUp = @((Get-FrequentTexts -Texts @($monthEntries | ForEach-Object { $_.FollowUp }) -MaxLength 88) | Select-Object -First 1)
+        $narrativeParts = @(Get-MonthNarrativeParts -Entries $monthEntries)
 
         $parts = New-Object System.Collections.Generic.List[string]
         $parts.Add("$($group.Name)：$dayCount 天、$($monthEntries.Count) 回合") | Out-Null
-        if ($topics.Count -gt 0) {
-            $parts.Add("主要事项：$(Join-CompactTexts -Texts $topics -ShowCount 4)") | Out-Null
+        if ($narrativeParts.Count -gt 0) {
+            foreach ($narrativePart in $narrativeParts) {
+                $parts.Add($narrativePart) | Out-Null
+            }
         }
-        if ($summaries.Count -gt 0) {
-            $parts.Add("结果：$(Join-CompactTexts -Texts $summaries -ShowCount 2)") | Out-Null
-        }
-        if ($decision.Count -gt 0) {
-            $parts.Add("决策：$($decision[0].Text)") | Out-Null
-        }
-        if ($followUp.Count -gt 0) {
-            $parts.Add("待跟进：$($followUp[0].Text)") | Out-Null
+        else {
+            $topics = @(Get-UniqueTexts -Texts @($monthEntries | ForEach-Object { $_.Topic }) -MaxItems 4 -MaxLength 28)
+            $summaries = @(Get-UniqueTexts -Texts @($monthEntries | ForEach-Object { $_.Summary }) -MaxItems 2 -MaxLength 60 -SkipExactText "已从旧工作快照导入该历史回合。")
+            if ($topics.Count -gt 0) {
+                $parts.Add("主要事项：$(Join-CompactTexts -Texts $topics -ShowCount 4)") | Out-Null
+            }
+            if ($summaries.Count -gt 0) {
+                $parts.Add("结果：$(Join-CompactTexts -Texts $summaries -ShowCount 2)") | Out-Null
+            }
         }
 
         $lines.Add("- $([string]::Join('；', @($parts)))") | Out-Null
