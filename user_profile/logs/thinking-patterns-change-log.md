@@ -1086,3 +1086,57 @@
    - 用户本轮进一步提出具体拆分口径：可以把 `workflow_code` 单独抽出，原先的 `../workflow` 保留为 PM/编排工作区，并新增 `../workflow_coder1/2/3` 与 `tester1/2/3` 等 agent 角色工作区。
 1372. Changed confidence or behavior（推断/假设，置信度: 中）：
    - 用户当前对整改方案的偏好，已经从“补并发锁”转向“通过角色拆分 + 代码主仓独立 + PM 工作区保留”的重构式解法；这说明用户接受为长期并发能力付出一定结构调整成本，但仍要求先把步骤讲清楚再开工。
+1373. Maintenance notes（已生成代码与agent分离方案文档）：
+   - 已在当前工作区新增：
+     `docs/workflow/requirements/需求详情-代码与agent分离治理.md`
+   - 已同步到：
+     `../workflow/docs/workflow/requirements/需求详情-代码与agent分离治理.md`
+   - 已同步更新两侧：
+     `docs/workflow/overview/需求概述.md`
+   - 当前方案口径固定为三层：
+     1. `代码主仓层`
+     2. `agent 工作副本层`
+     3. `agent 运行态层`
+   - 当前明确约束：
+     1. 保留 `agent_search_root` 作为发现根；
+     2. `agent_workspace_root/agent_runtime_root` 可先由 `artifact_root` 派生；
+     3. `Codex` 只写工作副本，主仓只由统一集成链路更新。
+1374. Maintenance notes（偏好归属结论）：
+   - 本轮未新增长期偏好。
+   - 推断/假设（中）：用户当前对“代码与 agent 分离”方案的真实要求，不是抽象架构图，而是要一份可直接落到 `../workflow` 现有目录与执行链路上的三层分离需求方案，并保持 Analyst 与执行工作区文档同源；该判断由本轮明确请求与同步校验动作共同支撑，但仍先记流水，不升格为长期偏好主档。
+1375. New observations（用户明示）：
+   - 用户本轮进一步固定了代码分离方案的核心口径：
+     1. `../workflow_code` 固定作为 `workflow` 的代码根仓；
+     2. 平时每个开发者/开发主体都各自从代码根仓拉取代码进行开发；
+     3. 各自本地提交后，再通过 Git 推送到指向代码根仓的远程分支；
+     4. 当前阶段不需要先成立新的 coder/tester 角色，PM 可继续兼任代码开发。
+1376. New observations（用户明示）：
+   - 用户本轮同时明确了角色创建边界：
+     1. 代码与 agent 分离方案当前不需要先新增其他角色；
+     2. 后续若需要新角色，计划通过当前 `../workflow` 的创新新角色功能，在 `8090` 端口链路中创建。
+1377. Maintenance notes（文档已按新口径收敛）：
+   - 已把 `docs/workflow/requirements/需求详情-代码与agent分离治理.md` 收敛为：
+     1. `../workflow = PM/控制工作区`
+     2. `../workflow_code = 代码根仓`
+     3. `开发工作区层 = 各开发主体独立拉取/提交/推送`
+     4. `agent 运行态层 = prompt/log/result/锁/租约/记忆`
+   - 已同步更新两侧 `docs/workflow/overview/需求概述.md` 的 2026-04-02 增量口径。
+1378. Maintenance notes（偏好归属结论）：
+   - 本轮未新增长期偏好。
+   - 推断/假设（中）：用户当前在架构收敛上更偏好“先把仓与职责边界钉死，再谈是否新增角色”，也接受 PM 在当前阶段继续兼任开发，只要求不要继续把 `../workflow` 和正式代码根仓混用；该判断由本轮连续澄清直接支撑，但仍先记流水，不升格为长期偏好主档。
+1379. Maintenance notes（已生成 ../workflow 开工提示词）：
+   - 已新增提示词：
+     `docs/workflow/prompts/执行提示词-代码与agent分离双仓边界固定开工-20260403.md`
+   - 已同步到：
+     `../workflow/docs/workflow/prompts/执行提示词-代码与agent分离双仓边界固定开工-20260403.md`
+   - 当前提示词范围已收口为第一批：
+     1. 固定 `../workflow` 与 `../workflow_code` 的双仓边界；
+     2. 补开发工作区从代码根仓拉取/提交/推送的最小基础设施；
+     3. 不要求本轮完成整套运行态外置与集成门禁；
+     4. 不改坏 `8090` 现有创建角色链路。
+1380. Maintenance notes（提示词窗口治理）：
+   - 已按“仅保留最近 7 轮执行提示词”的规则，从两侧 `docs/workflow/prompts/` 删除最旧活跃提示词：
+     `执行提示词-角色中心训练优化能力列表与门禁绑定开工-20260329.md`
+1381. Maintenance notes（偏好归属结论）：
+   - 本轮未新增长期偏好。
+   - 推断/假设（中）：用户当前要的不是“再解释方案”，而是能立即转发给 `../workflow` 开工的第一批执行提示词，并且继续遵守提示词目录最近 7 轮窗口治理；该判断由本轮直接请求与本轮交付方式共同支撑，但仍先记流水，不升格为长期偏好主档。
